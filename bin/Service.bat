@@ -1,4 +1,4 @@
-@ECHO OFF
+@REM @ECHO OFF
 
 @REM ---------------------------------------------------------------------------
 @REM Copyright by Wolfgang Mueller-Haas
@@ -24,26 +24,26 @@ if exist "%OASE_HOME%\bin\Console.bat" goto :SETUP_JVM
 if not "%OASE_HOME%" == "" goto BAD_HOME
 if exist "%CURRENT_DIR%\bin\Console.bat" (
 	set OASE_HOME=%CURRENT_DIR%"
-	goto :SETUP_JVM
+	goto :SETUP_JAVA_HOME
 )
 if exist "%PARENT_DIR%\bin\Console.bat" (
 	set "OASE_HOME=%PARENT_DIR%"
-	goto :SETUP_JVM
+	goto :SETUP_JAVA_HOME
 )
 
 @REM ---------------------------------------------------------------------------
 :BAD_HOME
 @REM ---------------------------------------------------------------------------
 
-echo OASE_HOME is set to %OASE_HOME%
+echo OASE_HOME is set to %OSGI_HOME%
 echo OASE_HOME environment variable is not set or points to the wrong directory.
-echo Please set OASE_HOME correctly and launch CAR OSGi again.
+echo Please set OASE_HOME correctly and launch OASE again.
 set ERRORLEVEL=1
 
 goto EXIT
 
 @REM ---------------------------------------------------------------------------
-:SETUP_JVM
+:SETUP_JAVA_HOME
 @REM ---------------------------------------------------------------------------
 
 set JAVA=java
@@ -53,11 +53,6 @@ if exist "%JAVA_HOME%\bin\java.exe" (
 		set "JAVA_OPTS=-server"
 	)
 )
-set JAVA_OPTS=%JAVA_OPTS% -Xms32M -Xmx128M
-
-if "%1" == "debug" (
-   set JAVA_OPTS=%JAVA_OPTS% -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005
-   shift)
 
 @REM ---------------------------------------------------------------------------
 @REM Setup Classpath
@@ -66,36 +61,16 @@ if "%1" == "debug" (
 set "CLASSPATH=lib\*"
 set "CLASSPATH=%CLASSPATH%;configuration"
 
-@REM ---------------------------------------------------------------------------
-@REM Set user vars
-@REM ---------------------------------------------------------------------------
-
-@REM set USER_ARGS=%*
-
-@REM ---------------------------------------------------------------------------
-@REM LAUNCH CAR OSGi
-@REM ---------------------------------------------------------------------------
-
-echo OASE_HOME      is set to %OASE_HOME%
-echo JAVA_HOME      is set to %JAVA_HOME%
-echo JAVA           is set to %JAVA%
-echo JAVA_OPTS      is set to %JAVA_OPTS%
-echo CLASSPATH      is set to %CLASSPATH%
-echo USER_ARGS      is set to %USER_ARGS%
-echo:
-
+:homeOK
 cd %OASE_HOME%
+set DEFAULT_SERVICE_NAME=OASE
 
-@REM ---------------------------------------------------------------------------
-:LAUNCH
-@REM ---------------------------------------------------------------------------
+echo OASE_HOME              set to %OASE_HOME%
+echo DEFAULT_SERVICE_NAME   set to %DEFAULT_SERVICE_NAME%
+echo CLASSPATH              set to %CLASSPATH%
 
-%JAVA% %JAVA_OPTS% -cp %CLASSPATH% biz.car.osgi.launch.Main %USER_ARGS%
+call bin\winsvc.bat %USER_ARGS%
 
-@REM ---------------------------------------------------------------------------
-:EXIT
-@REM ---------------------------------------------------------------------------
 cd %CURRENT_DIR%
-endlocal
-
-exit /b %ERRORLEVEL%
+pause
+exit /b 0
