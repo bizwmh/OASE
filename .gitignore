@@ -2,3 +2,5 @@
 **/target/
 **/.project
 **/.classpath
+bundle-cache/
+log/
