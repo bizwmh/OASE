@@ -16,7 +16,6 @@ import biz.car.config.BCS;
 public class VAR {
 
 	public static String CONFIG_AREA;
-	public static String PERIOD;
 	public static String WORKSPACE;
 	
 	// -------------------------------------------------------------------------

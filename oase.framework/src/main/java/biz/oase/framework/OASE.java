@@ -27,11 +27,6 @@ public interface OASE extends CAR {
 	XConfigAdmin CAS = CA.instance;
 
 	/**
-	 * The key for the PERIOD runtime option.<br>
-	 */
-	String PERIOD = VAR.PERIOD;
-
-	/**
 	 * The version number of the OASE framework.
 	 */
 	String VERSION = getVersion();

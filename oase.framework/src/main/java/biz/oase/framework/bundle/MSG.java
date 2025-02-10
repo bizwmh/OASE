@@ -21,9 +21,6 @@ public class MSG {
 	public static String COMPONENT_ACTIVATION_FAILED;
 	public static String COMPONENT_DEACTIVATED;
 	public static String COMPONENT_DEACTIVATING;
-	public static String TIMER_CANCELLED;
-	public static String TIMER_STARTED;
-	public static String TIMER_STOPPED;
 
 	// -------------------------------------------------------------------------
 	// Initialize the static fields
