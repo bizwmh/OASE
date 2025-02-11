@@ -16,6 +16,6 @@
 	</properties>
 
 	<modules>
-		<module>oase.framework</module>
+		<module>oase.js</module>
 	</modules>
 </project>
