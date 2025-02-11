@@ -17,5 +17,6 @@
 
 	<modules>
 		<module>oase.js</module>
+		<module>oase.framework</module>
 	</modules>
 </project>
