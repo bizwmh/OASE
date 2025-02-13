@@ -7,7 +7,7 @@
     	<version>1.0.0</version>
   	</parent>
 
-  	<artifactId>biz.oase.framework</artifactId>
+  	<artifactId>oase.framework</artifactId>
 	<packaging>bundle</packaging>
 
   	<name>OASE Framework</name>

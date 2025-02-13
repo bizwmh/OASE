@@ -5,3 +5,5 @@
 bundle-cache/
 log/
 workspace/
+exec/inbox/
+exec/outbox/
