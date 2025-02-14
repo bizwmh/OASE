@@ -31,9 +31,7 @@ public class JSExec {
 
 	@Descriptor("Submits a job for execution")
 	public String exec(String aName) {
-		List<String> l_libs = BND.EXECLIB;
-		ExecLib l_lib = () -> l_libs;
-		Optional<File> l_file = l_lib.apply(aName);
+		Optional<File> l_file = ExecLib.get(aName);
 		String l_ret = null;
 
 		if (l_file.isPresent()) {
@@ -43,6 +41,7 @@ public class JSExec {
 
 			l_ret =  XLogger.format(MSG.JOB_SUBMITTED, l_jobFile.getPath());
 		} else {
+			List<String> l_libs = BND.EXECLIB;
 			l_ret = XLogger.format(MSG.FILE_NOT_FOUND, aName, l_libs);
 		}
 		return l_ret;

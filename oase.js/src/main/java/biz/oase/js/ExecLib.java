@@ -11,24 +11,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.Function;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import biz.car.XLogger;
 import biz.car.io.FSObject;
 import biz.car.io.XDirectory;
+import biz.oase.js.bundle.BND;
 import biz.oase.js.bundle.MSG;
 
 /**
- * Converts the name of a job configuration to the corresponding configuration
- * object.
+ * Provides access to the files in the EXECLIB folders.
  *
- * @version 1.0.0 11.02.2025 12:20:10
+ * @version 1.0.0 14.02.2025 12:12:58
  */
-@FunctionalInterface
-public interface ExecLib extends
-		Supplier<List<String>>, Function<String, Optional<File>> {
+public interface ExecLib {
 
 	/**
 	 * Builds a map of all files located in the given list of folders
@@ -38,7 +34,7 @@ public interface ExecLib extends
 	 * @throws IllegalArgumentException if a duplicate member is found
 	 */
 	static Map<String, File> fileMap(List<String> aList) {
-		List<FSObject> l_list = listFiles(aList); 
+		List<FSObject> l_list = listFiles(aList);
 		Map<String, File> l_ret = new HashMap<String, File>();
 
 		l_list.forEach(fso -> {
@@ -58,6 +54,26 @@ public interface ExecLib extends
 	}
 
 	/**
+	 * Looks up a file in the EXECLIB.
+	 * 
+	 * @param aName the base name of the file
+	 * @return the optional file
+	 */
+	static Optional<File> get(String aName) {
+		List<FSObject> l_list = listFiles(BND.EXECLIB);
+		File l_ret = null;
+
+		for (FSObject l_fso : l_list) {
+			if (l_fso.getBaseName().equals(aName)) {
+				l_ret = l_fso.get();
+
+				break;
+			}
+		}
+		return Optional.ofNullable(l_ret);
+	}
+
+	/**
 	 * Builds a list of all files located in the given list of folders
 	 * 
 	 * @param aList the list of folders
@@ -74,20 +90,5 @@ public interface ExecLib extends
 				})
 				.collect(Collectors.toList());
 		return l_ret;
-	}
-
-	@Override
-	default Optional<File> apply(String aName) {
-		List<FSObject> l_list = listFiles(get()); 
-		File l_ret = null;
-
-		for (FSObject l_fso : l_list) {
-			if (l_fso.getBaseName().equals(aName)) {
-				l_ret = l_fso.get();
-
-				break;
-			}
-		}
-		return Optional.ofNullable(l_ret);
 	}
 }
