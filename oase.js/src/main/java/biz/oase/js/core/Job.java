@@ -39,19 +39,19 @@ public class Job extends ConfigObject {
 		super();
 
 		stepList = new ArrayList<String>();
+		execLibs = new ArrayList<String>();
 	}
 
 	@Override
 	public void accept(Config aConfig) {
 		super.accept(aConfig);
 
-		execLibs = asStringList(VAR.EXECLIB);
-
-		if (execLibs.size() == 0) {
-			execLibs.addAll(BND.EXECLIB);
-		}
-		ExecLib l_lib = () -> execLibs;
-		members = l_lib.fileMap();
+		List<String> l_list = asStringList(VAR.EXECLIB);
+		members = ExecLib.fileMap(BND.EXECLIB);
+		
+		execLibs.addAll(l_list);
+		execLibs.addAll(BND.EXECLIB);
+		members.putAll(ExecLib.fileMap(l_list));
 	}
 
 	/**

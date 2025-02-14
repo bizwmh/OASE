@@ -15,7 +15,6 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import biz.car.VAL;
 import biz.car.XLogger;
 import biz.car.io.FSObject;
 import biz.car.io.XDirectory;
@@ -31,44 +30,22 @@ import biz.oase.js.bundle.MSG;
 public interface ExecLib extends
 		Supplier<List<String>>, Function<String, Optional<File>> {
 
-	@Override
-	default Optional<File> apply(String aName) {
-		List<String> l_libs = get();
-		File l_ret = null;
-
-		for (String l_lib : l_libs) {
-			File l_file = new File(l_lib, aName + VAL._properties);
-
-			if (l_file.isFile()) {
-				l_ret = l_file;
-
-				break;
-			}
-		}
-		return Optional.ofNullable(l_ret);
-	}
-
 	/**
-	 * @return the map of all property files located in the folders of EXECLIB.
+	 * Builds a map of all files located in the given list of folders
+	 * 
+	 * @param aList the list of folders
+	 * @return the map of files
+	 * @throws IllegalArgumentException if a duplicate member is found
 	 */
-	default Map<String, File> fileMap() {
-		List<String> l_libs = get();
-		List<FSObject> l_list = l_libs.stream()
-				.map(name -> new XDirectory(name))
-				.map(dir -> dir.allFiles(f -> f.getName().endsWith(VAL._properties)))
-				.flatMap(list -> list.stream())
-				.map(file -> {
-					FSObject l_fso = () -> file;
-					return l_fso;
-				})
-				.collect(Collectors.toList());
+	static Map<String, File> fileMap(List<String> aList) {
+		List<FSObject> l_list = listFiles(aList); 
 		Map<String, File> l_ret = new HashMap<String, File>();
 
 		l_list.forEach(fso -> {
 			String l_key = fso.getBaseName();
 
 			if (l_ret.containsKey(l_key)) {
-				String l_msg = XLogger.format(MSG.DUPLICATE_EXEC_MEMBER, l_key, l_libs.toString());
+				String l_msg = XLogger.format(MSG.DUPLICATE_EXEC_MEMBER, l_key, aList.toString());
 
 				throw new IllegalArgumentException(l_msg);
 			} else {
@@ -78,5 +55,39 @@ public interface ExecLib extends
 			}
 		});
 		return l_ret;
+	}
+
+	/**
+	 * Builds a list of all files located in the given list of folders
+	 * 
+	 * @param aList the list of folders
+	 * @return the list of all files located in the folders of EXECLIB.
+	 */
+	static List<FSObject> listFiles(List<String> aList) {
+		List<FSObject> l_ret = aList.stream()
+				.map(name -> new XDirectory(name))
+				.map(dir -> dir.allFiles())
+				.flatMap(list -> list.stream())
+				.map(file -> {
+					FSObject l_fso = () -> file;
+					return l_fso;
+				})
+				.collect(Collectors.toList());
+		return l_ret;
+	}
+
+	@Override
+	default Optional<File> apply(String aName) {
+		List<FSObject> l_list = listFiles(get()); 
+		File l_ret = null;
+
+		for (FSObject l_fso : l_list) {
+			if (l_fso.getBaseName().equals(aName)) {
+				l_ret = l_fso.get();
+
+				break;
+			}
+		}
+		return Optional.ofNullable(l_ret);
 	}
 }
