@@ -35,11 +35,13 @@ public class Job extends ConfigObject {
 	/**
 	 * Creates a default <code>Job</code> instance.
 	 */
-	public Job() {
+	public Job(String aConfigId) {
 		super();
 
 		stepList = new ArrayList<String>();
 		execLibs = new ArrayList<String>();
+		
+		stepList.add(aConfigId);
 	}
 
 	@Override

@@ -47,7 +47,7 @@ public abstract class JobStep
 		super();
 
 		configId = anId;
-		theJob = new Job();
+		theJob = new Job(anId);
 	}
 
 	@Override
