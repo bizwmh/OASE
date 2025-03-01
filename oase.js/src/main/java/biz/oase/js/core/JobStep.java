@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 
 import biz.car.XRunnable;
 import biz.car.config.ConfigObject;
-import biz.oase.framework.OASE;
+import biz.oase.car.OASE;
 
 /**
  * Base class for any executable job configuration.

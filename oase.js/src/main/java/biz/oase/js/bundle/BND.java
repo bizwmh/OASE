@@ -11,8 +11,7 @@ import java.util.List;
 import org.osgi.service.cm.ManagedService;
 import org.osgi.service.component.annotations.Component;
 
-import biz.car.util.ClassUtil;
-import biz.oase.framework.XManagedService;
+import biz.oase.car.XManagedService;
 import biz.oase.js.core.Inbox;
 
 /**
@@ -47,11 +46,7 @@ public class BND extends XManagedService {
 	@Override
 	protected void updatedService() {
 		EXECLIB = asStringList(VAR.EXECLIB);
-		Class<?> l_class = biz.car.util.Dummy.class;
-		
-		ClassUtil.Registry.register("extract", l_class);
-		ClassUtil.Registry.register("sort", l_class);
-		ClassUtil.Registry.register("merge", l_class);
+
 		in.accept(config());
 		in.start();
 	}

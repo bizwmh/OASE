@@ -4,7 +4,7 @@
  * Use of this software is subject to license terms. All Rights Reserved.
  * -------------------------------------------------------------------------- */
 
-package biz.oase.framework;
+package biz.oase.car;
 
 import java.io.File;
 import java.net.URL;
@@ -18,7 +18,7 @@ import org.osgi.framework.Version;
 import org.osgi.framework.startlevel.BundleStartLevel;
 
 import biz.car.SYS;
-import biz.oase.framework.bundle.MSG;
+import biz.oase.car.bundle.MSG;
 
 /**
  * A framework bundle located in the bundle cache.<br>

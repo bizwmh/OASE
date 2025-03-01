@@ -14,13 +14,19 @@
 	<dependencies>
 		<dependency>
 			<groupId>biz.oase</groupId>
-			<artifactId>oase.framework</artifactId>
+			<artifactId>oase.car</artifactId>
 			<version>1.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.felix</groupId>
 			<artifactId>org.apache.felix.gogo.runtime</artifactId>
 			<version>1.1.6</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.service.component.annotations</artifactId>
+			<version>1.5.1</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>

@@ -4,13 +4,13 @@
  * Use of this software is subject to license terms. All Rights Reserved.
  * -------------------------------------------------------------------------- */
 
-package biz.oase.framework.bundle.gogo;
+package biz.oase.car.bundle.gogo;
 
 import org.apache.felix.service.command.Descriptor;
 import org.apache.felix.service.command.annotations.GogoCommand;
 import org.osgi.service.component.annotations.Component;
 
-import biz.oase.framework.OASE;
+import biz.oase.car.OASE;
 
 /**
  * Console Command: version
