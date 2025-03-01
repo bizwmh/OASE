@@ -18,5 +18,8 @@
 	<modules>
 		<module>oase.js</module>
 		<module>oase.framework</module>
+		<module>oase.tr</module>
+		<module>oase.sm</module>
+		<module>oase.car</module>
 	</modules>
 </project>
