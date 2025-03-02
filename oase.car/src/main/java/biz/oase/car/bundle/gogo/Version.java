@@ -1,5 +1,6 @@
 /* --------------------------------------------------------------------------
- * Project: OASE - Open Application Service Engine Framework
+ * Project: Open Application Service Engine
+ *          OASE Framework
  * --------------------------------------------------------------------------
  * Use of this software is subject to license terms. All Rights Reserved.
  * -------------------------------------------------------------------------- */

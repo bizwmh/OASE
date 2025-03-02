@@ -1,5 +1,6 @@
 /* --------------------------------------------------------------------------
- * Project: OASE Job Service
+ * Project: Open Application Service Engine
+ *          OASE Job Service
  * --------------------------------------------------------------------------
  * Use of this software is subject to license terms. All Rights Reserved. 
  * -------------------------------------------------------------------------- */

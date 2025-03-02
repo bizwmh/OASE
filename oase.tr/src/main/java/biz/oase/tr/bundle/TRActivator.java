@@ -1,5 +1,6 @@
 /* --------------------------------------------------------------------------
- * Project: OASE Test Runner
+ * Project: Open Application Service Engine
+ *          OASE Test Runner
  * --------------------------------------------------------------------------
  * Use of this software is subject to license terms. All Rights Reserved. 
  * -------------------------------------------------------------------------- */

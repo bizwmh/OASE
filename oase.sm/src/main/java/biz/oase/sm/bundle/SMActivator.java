@@ -1,5 +1,6 @@
 /* --------------------------------------------------------------------------
- * Project: OASE SORT/MERGE Service
+ * Project: Open Application Service Engine
+ *          OASE SORT/MERGE Service
  * --------------------------------------------------------------------------
  * Use of this software is subject to license terms. All Rights Reserved. 
  * -------------------------------------------------------------------------- */
