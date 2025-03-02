@@ -24,5 +24,6 @@
 		<module>oase.ag</module>
 		<module>oase.ds</module>
 		<module>oase.ds.csv</module>
+		<module>oase.ds.sql</module>
 	</modules>
 </project>
