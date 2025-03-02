@@ -23,5 +23,6 @@
 		<module>oase.car</module>
 		<module>oase.ag</module>
 		<module>oase.ds</module>
+		<module>oase.ds.csv</module>
 	</modules>
 </project>
