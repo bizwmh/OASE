@@ -21,5 +21,6 @@
 		<module>oase.tr</module>
 		<module>oase.sm</module>
 		<module>oase.car</module>
+		<module>oase.ag</module>
 	</modules>
 </project>
