@@ -8,10 +8,10 @@
 package biz.oase.ds;
 
 /**
- * An iterator over the result set of a data space query.
+ * A data object in a data space resource.  
  *
- * @version 1.0.0 02.03.2025 17:09:35
+ * @version 1.0.0 04.03.2025 16:43:09
  */
-public interface DSCursor {
+public interface DSObject {
 
 }

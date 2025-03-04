@@ -20,10 +20,10 @@ public interface DataSpace {
 	String getName();
 
 	/**
-	 * Supplies access to a data space object.
+	 * Supplies access to a data space resource.
 	 * 
-	 * @param aName   the unique name of the data container
-	 * @return a newly created data container instance
+	 * @param aName   the unique name of the resource
+	 * @return a newly created data resource
 	 */
-	DSContainer createContainer(String aName);
+	DSResource createResource(String aName);
 }
