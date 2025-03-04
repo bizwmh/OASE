@@ -30,10 +30,8 @@ public class AGActivator implements BundleActivator {
 
 	@Override
 	public void start(BundleContext aContext) throws Exception {
-		Class<?> l_class = biz.car.util.Dummy.class;
-		
-		ClassUtil.Registry.register("extract", l_class);
-		ClassUtil.Registry.register("load", l_class);
+		ClassUtil.Registry.register(VAR.EXTRACT, biz.oase.ag.AGExtract.class);
+		ClassUtil.Registry.register(VAR.LOAD, biz.oase.ag.AGExtract.class);
 	}
 
 	@Override
