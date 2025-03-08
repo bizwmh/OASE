@@ -14,7 +14,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>biz.oase</groupId>
-			<artifactId>oase.framework</artifactId>
+			<artifactId>oase.car</artifactId>
 			<version>1.0.0</version>
 		</dependency>
 	</dependencies>

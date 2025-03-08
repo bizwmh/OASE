@@ -1,5 +1,6 @@
 /* --------------------------------------------------------------------------
- * Project: XXX
+ * Project: Open Application Service Engine
+ *          OASE Dataspace Gateway
  * --------------------------------------------------------------------------
  * Use of this software is subject to license terms. All Rights Reserved. 
  * -------------------------------------------------------------------------- */

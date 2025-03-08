@@ -1,6 +1,6 @@
 /* --------------------------------------------------------------------------
  * Project: Open Application Service Engine
- *          OASE Data Space
+ *          OASE Dataspace Gateway
  * --------------------------------------------------------------------------
  * Use of this software is subject to license terms. All Rights Reserved. 
  * -------------------------------------------------------------------------- */

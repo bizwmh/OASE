@@ -5,7 +5,7 @@
  * Use of this software is subject to license terms. All Rights Reserved. 
  * -------------------------------------------------------------------------- */
 
-package biz.oase.ag.bundle;
+package biz.oase.ag;
 
 import biz.car.XRunnable;
 import biz.car.config.ConfigObject;

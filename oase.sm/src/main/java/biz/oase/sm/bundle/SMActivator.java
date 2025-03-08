@@ -11,11 +11,15 @@ import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
 import biz.car.util.ClassUtil;
+import biz.oase.sm.SM;
+import biz.oase.sm.merge.Merger;
+import biz.oase.sm.merge.sort.Sorter;
 
 /**
- * Activates this bundle.
+ * Registers the sort and merge procedures in the <code>ClassUtil</code>
+ * registry.
  *
- * @version 1.0.0 14.02.2025 13:26:51
+ * @version 1.0.0 08.03.2025 14:32:08
  */
 public class SMActivator implements BundleActivator {
 
@@ -27,12 +31,9 @@ public class SMActivator implements BundleActivator {
 	}
 
 	@Override
-	public void start(BundleContext aContext) throws Exception {
-		Class<?> l_class = biz.car.util.Dummy.class;
-		
-		ClassUtil.Registry.register("extract", l_class);
-		ClassUtil.Registry.register("sort", l_class);
-		ClassUtil.Registry.register("merge", l_class);
+	public void start(BundleContext context) throws Exception {
+		ClassUtil.Registry.register(SM.MERGE, Merger.class);
+		ClassUtil.Registry.register(SM.SORT, Sorter.class);
 	}
 
 	@Override

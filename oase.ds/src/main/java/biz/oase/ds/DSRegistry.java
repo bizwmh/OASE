@@ -1,6 +1,6 @@
 /* --------------------------------------------------------------------------
  * Project: Open Application Service Engine
- *          OASE Data Space
+ *          OASE Dataspace Gateway
  * --------------------------------------------------------------------------
  * Use of this software is subject to license terms. All Rights Reserved. 
  * -------------------------------------------------------------------------- */
@@ -19,6 +19,10 @@ import biz.oase.ds.bundle.MSG;
 public class DSRegistry {
 
 	private static ObjectRegistry<DataSpace> dsMap;
+
+	static {
+		dsMap = new ObjectRegistry<DataSpace>();
+	}
 
 	/**
 	 * Supplies a registered data space.<br>
@@ -48,8 +52,15 @@ public class DSRegistry {
 		return true;
 	}
 
-	static {
-		dsMap = new ObjectRegistry<DataSpace>();
+	/**
+	 * Unregisters a data space.
+	 * 
+	 * @param aDS the data space to unregister
+	 */
+	public static void unregister(DataSpace aDS) {
+		String l_name = aDS.getName();
+
+		dsMap.unregister(l_name);
 	}
 
 	/**
