@@ -1,6 +1,6 @@
 /* --------------------------------------------------------------------------
  * Project: Open Application Service Engine
- *          OASE Dataspace Gateway
+ *          OASE Dataspace Interface
  * --------------------------------------------------------------------------
  * Use of this software is subject to license terms. All Rights Reserved.
  * -------------------------------------------------------------------------- */
@@ -10,9 +10,9 @@ package biz.oase.ds;
 /**
  * Represents a collection of application data objects.
  *
- * @version 1.0.0 02.03.2025 15:56:23
+ * @version 1.0.0 20.03.2025 10:12:52
  */
-public interface DataSpace {
+public interface Dataspace {
 
 	/**
 	 * @return the name of this data space
@@ -20,10 +20,10 @@ public interface DataSpace {
 	String getName();
 
 	/**
-	 * Supplies access to a data space resource.
+	 * Supplies access to a data space table.
 	 * 
-	 * @param aName   the unique name of the resource
-	 * @return a newly created data resource
+	 * @param aName   the unique name of the table
+	 * @return a newly created table resource
 	 */
-	DSResource getResource(String aName);
+	DSTable getTable(String aName);
 }

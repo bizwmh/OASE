@@ -17,6 +17,11 @@
 			<artifactId>oase.car</artifactId>
 			<version>1.0.0</version>
 		</dependency>
+		<dependency>
+			<groupId>biz.oase</groupId>
+			<artifactId>oase.ds</artifactId>
+			<version>1.0.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>

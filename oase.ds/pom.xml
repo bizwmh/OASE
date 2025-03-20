@@ -9,7 +9,7 @@
   	<artifactId>oase.ds</artifactId>
 	<packaging>bundle</packaging>
   	
-  	<name>OASE Dataspace Gateway</name>
+  	<name>OASE Dataspace Interface</name>
 
 	<dependencies>
 		<dependency>

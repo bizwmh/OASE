@@ -1,21 +1,23 @@
 /* --------------------------------------------------------------------------
  * Project: Open Application Service Engine
- *          OASE Dataspace Gateway
+ *          OASE Dataspace Interface
  * --------------------------------------------------------------------------
  * Use of this software is subject to license terms. All Rights Reserved. 
  * -------------------------------------------------------------------------- */
 
 package biz.oase.ds;
 
-import java.util.Iterator;
-
-import biz.car.csv.CSVRecord;
-
 /**
- * An iterator over the result set of a data space query.
+ * Represents the outcome of a data space operation.
  *
- * @version 1.0.0 02.03.2025 17:09:35
+ * @version 1.0.0 20.03.2025 10:26:54
  */
-public interface DSQuery extends Iterator<CSVRecord> {
+public class DSResult {
 
+	/**
+	 * Creates a default <code>DSResult</code> instance.
+	 */
+	public DSResult() {
+		super();
+	}
 }
