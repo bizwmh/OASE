@@ -10,6 +10,10 @@ package biz.oase.ds.csv.bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
+import biz.oase.ds.DSRegistry;
+import biz.oase.ds.Dataspace;
+import biz.oase.ds.csv.CSVDS;
+
 /**
  * Activates the CSV dataspace bundle.<br>
  * The CSV dataspace is registered.
@@ -27,14 +31,15 @@ public class CSVActivator implements BundleActivator {
 
 	@Override
 	public void start(BundleContext aContext) throws Exception {
-		// TODO Auto-generated method stub
-
+		Dataspace l_ds = new CSVDS();
+		
+		DSRegistry.register(l_ds);
 	}
 
 	@Override
 	public void stop(BundleContext context) throws Exception {
-		// TODO Auto-generated method stub
-
+		Dataspace l_ds = new CSVDS();
+		
+		DSRegistry.unregister(l_ds);
 	}
-
 }

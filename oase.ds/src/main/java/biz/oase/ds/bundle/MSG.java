@@ -7,20 +7,27 @@
 
 package biz.oase.ds.bundle;
 
+import biz.car.config.BCS;
+
 /**
- * TODO MSG comment
+ * Defines the messages of the Application Data Space.
  *
  * @version 1.0.0 02.03.2025 17:24:47
  */
 public class MSG {
 
 	public static String DS_NOT_REGISTERED;
+	public static String DUPLICATE_KEY;
+	public static String NOT_FOUND;
 
-	/**
-	 * Creates a default <code>MSG</code> instance.
-	 */
-	public MSG() {
-		// TODO Auto-generated constructor stub
+	// -------------------------------------------------------------------------
+	// Initialize the static fields
+	// -------------------------------------------------------------------------
+	static {
+		BCS.initialize(MSG.class, "MSG.properties"); //$NON-NLS-1$
 	}
 
+	private MSG() {
+		super();
+	}
 }

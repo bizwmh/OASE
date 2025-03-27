@@ -16,7 +16,7 @@ import biz.car.config.BCS;
  */
 public class BND {
 
-	public static String CSVDS_NAME;
+	public static String DS_NAME;
 
 	// -------------------------------------------------------------------------
 	// Initialize the static fields

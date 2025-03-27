@@ -7,7 +7,7 @@
 
 package biz.oase.ds.csv;
 
-import biz.oase.ds.DSEntity;
+import biz.oase.ds.DSTable;
 import biz.oase.ds.Dataspace;
 import biz.oase.ds.csv.bundle.BND;
 
@@ -16,22 +16,22 @@ import biz.oase.ds.csv.bundle.BND;
  *
  * @version 1.0.0 14.03.2025 11:49:22
  */
-public class CSVDataspace implements Dataspace {
+public class CSVDS implements Dataspace {
 
 	/**
-	 * Creates a default <code>CSVDataspace</code> instance.
+	 * Creates a default <code>CSVDS</code> instance.
 	 */
-	public CSVDataspace() {
+	public CSVDS() {
 		super();
 	}
 
 	@Override
 	public String getName() {
-		return BND.CSVDS_NAME;
+		return BND.DS_NAME;
 	}
 
 	@Override
-	public DSEntity getEntity(String aName) {
-		return new CSVEntity(aName);
+	public DSTable getTable(String aName) {
+		return new CSVTable(aName);
 	}
 }

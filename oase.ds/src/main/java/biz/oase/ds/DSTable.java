@@ -7,41 +7,29 @@
 
 package biz.oase.ds;
 
+import biz.car.config.Configurable;
+
 /**
  * Represents a data space table
  *
  * @version 1.0.0 20.03.2025 10:13:20
  */
-public interface DSTable {
+public interface DSTable extends Configurable {
 
 	/**
-	 * TODO create
-	 * @return
+	 * @return a reference to the API implementation
 	 */
-	DSResult create(DSRecord aRecord);
-	
+	DSAPI getAPI();
+
 	/**
-	 * TODO create
-	 * @return
+	 * @return the name of this table
 	 */
-	DSResult delete(DSRecord aRecord);
+	String getName();
 	
 	/**
 	 * Performs a query on the data space table.
 	 * 
 	 * @return the result set of the query
 	 */
-	DSResultSet query();
-	
-	/**
-	 * TODO create
-	 * @return
-	 */
-	DSResult read(DSRecord aRecord);
-	
-	/**
-	 * TODO create
-	 * @return
-	 */
-	DSResult update(DSRecord aRecord);
+	DSCursor query();
 }

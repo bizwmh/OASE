@@ -7,18 +7,19 @@
 
 package biz.oase.ds;
 
+import java.util.function.Supplier;
+
+import biz.car.io.DataRecord;
+
 /**
- * Container for a set of application data fields for the transfer between the
- * application gateway and the application data space.
+ * An iterator over the result set of a data space query.
  *
- * @version 1.0.0 20.03.2025 10:46:11
+ * @version 1.0.0 23.03.2025 12:22:27
  */
-public class DSRecord {
+public interface DSCursor extends Supplier<DataRecord> {
 
 	/**
-	 * Creates a default <code>DSRecord</code> instance.
+	 * @return <code>true</code> if the cursor can provide a <code>DSRecord</code>.
 	 */
-	public DSRecord() {
-		super();
-	}
+	boolean next();
 }
