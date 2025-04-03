@@ -1,11 +1,11 @@
 /* --------------------------------------------------------------------------
  * Project: Open Application Service Engine
- *          OASE Application Gateway
+ *          OASE Dataspace Interface
  * --------------------------------------------------------------------------
  * Use of this software is subject to license terms. All Rights Reserved.
  * -------------------------------------------------------------------------- */
 
-package biz.oase.ag.bundle;
+package biz.oase.ds.bundle;
 
 import biz.car.config.BCS;
 
@@ -16,8 +16,7 @@ import biz.car.config.BCS;
  */
 public class VAR {
 
-	public static String EXTRACT;
-	public static String LOAD;
+	public static String DSID;
 	
 	// -------------------------------------------------------------------------
 	// Initialize the static fields

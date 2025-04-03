@@ -1,6 +1,6 @@
 /* --------------------------------------------------------------------------
  * Project: Open Application Service Engine
- *          OASE Test Runner
+ *          OASE Application Gateway
  * --------------------------------------------------------------------------
  * Use of this software is subject to license terms. All Rights Reserved. 
  * -------------------------------------------------------------------------- */
@@ -18,14 +18,14 @@ import biz.car.csv.CSVRecord;
  *
  * @version 1.0.0 04.03.2025 17:08:01
  */
-public class AGLoad
+public class DSLoad
 		extends ConfigObject
 		implements CSVHandler, XRunnable {
 
 	/**
-	 * Creates a default <code>AGLoad</code> instance.
+	 * Creates a default <code>DSLoad</code> instance.
 	 */
-	public AGLoad() {
+	public DSLoad() {
 		super();
 	}
 

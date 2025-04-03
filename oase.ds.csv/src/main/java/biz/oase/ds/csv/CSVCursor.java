@@ -39,7 +39,8 @@ public class CSVCursor extends ConfigObject implements DSCursor {
 
 	@Override
 	public void accept(Config aConfig) {
-		super.accept(aConfig);
+		Config l_conf = aConfig.getConfig(getName());
+		super.accept(l_conf);
 
 		open();
 	}

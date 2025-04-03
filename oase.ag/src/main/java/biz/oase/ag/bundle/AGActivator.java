@@ -1,6 +1,6 @@
 /* --------------------------------------------------------------------------
  * Project: Open Application Service Engine
- *          OASE Test Runner
+ *          OASE Application Gateway
  * --------------------------------------------------------------------------
  * Use of this software is subject to license terms. All Rights Reserved. 
  * -------------------------------------------------------------------------- */
@@ -30,8 +30,8 @@ public class AGActivator implements BundleActivator {
 
 	@Override
 	public void start(BundleContext aContext) throws Exception {
-		ClassUtil.Registry.register(VAR.EXTRACT, biz.oase.ag.AGExtract.class);
-		ClassUtil.Registry.register(VAR.LOAD, biz.oase.ag.AGExtract.class);
+		ClassUtil.Registry.register(VAR.EXTRACT, biz.oase.ag.DSExtract.class);
+		ClassUtil.Registry.register(VAR.LOAD, biz.oase.ag.DSExtract.class);
 	}
 
 	@Override

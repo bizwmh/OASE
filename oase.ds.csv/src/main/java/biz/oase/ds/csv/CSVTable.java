@@ -24,7 +24,7 @@ public class CSVTable extends ConfigObject implements DSTable {
 	 * @param aName the name of the table
 	 */
 	public CSVTable(String aName) {
-		super();
+		super(aName);
 	}
 
 	@Override
@@ -35,7 +35,11 @@ public class CSVTable extends ConfigObject implements DSTable {
 
 	@Override
 	public DSCursor query() {
-		// TODO Auto-generated method stub
-		return null;
+		String l_in = getString(INPUT);
+		CSVCursor l_ret = new CSVCursor(l_in);
+		
+		l_ret.accept(config());
+		
+		return l_ret;
 	}
 }

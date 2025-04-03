@@ -7,17 +7,24 @@
 
 package biz.oase.ds;
 
+import biz.car.CAR;
+import biz.oase.ds.bundle.VAR;
+
 /**
  * Symbolic constants for an application data space.
  *
  * @version 1.0.0 20.03.2025 10:26:54
  */
-public interface DS {
+public interface DS extends CAR {
 
 	/**
 	 * The property key for a CSV delimiter.
 	 */
 	String DELIM = "delim"; //$NON-NLS-1$
+	/**
+	 * The property key for a CSV delimiter.
+	 */
+	String DSID = VAR.DSID;
 	/**
 	 * Indicates that the insert operation for an entry failed due to an already
 	 * existing entry with the same key.

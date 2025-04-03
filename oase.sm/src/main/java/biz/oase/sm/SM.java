@@ -21,12 +21,10 @@ public interface SM extends OASE {
 	String FORMAT = VAR.FORMAT;
 	String GROUP = VAR.GROUP;;
 	String HEADER = VAR.HEADER;
-	String INPUT = VAR.INPUT;
 	String MERGE = VAR.MERGE;
 	String ON_EXIT = VAR.ON_EXIT;
 	String ON_INIT = VAR.ON_INIT;
 	String ON_SELECTED = VAR.ON_SELECTED;
-	String OUTPUT = VAR.OUTPUT;
 	String SORT = VAR.SORT;
 	String TYPE = VAR.TYPE;
 	String UNIQUE_KEY = VAR.UNIQUE_KEY;
