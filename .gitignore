@@ -5,5 +5,8 @@
 bundle-cache/
 log/
 workspace/
-exec/inbox/
-exec/outbox/
+exec/data
+exec/inbox
+exec/lib/job
+exec/lib/step
+exec/outbox
