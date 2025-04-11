@@ -1,11 +1,11 @@
 /* --------------------------------------------------------------------------
  * Project: Open Application Service Engine
- *          OASE Application Gateway
+ *          OASE Dataspace Gateway
  * --------------------------------------------------------------------------
  * Use of this software is subject to license terms. All Rights Reserved. 
  * -------------------------------------------------------------------------- */
 
-package biz.oase.ag.bundle;
+package biz.oase.ds.bundle;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
@@ -19,19 +19,19 @@ import biz.car.util.ClassUtil;
  *
  * @version 1.0.0 18.02.2025 11:41:27
  */
-public class AGActivator implements BundleActivator {
+public class DSActivator implements BundleActivator {
 
 	/**
 	 * Creates a default <code>TRActivator</code> instance.
 	 */
-	public AGActivator() {
+	public DSActivator() {
 		super();
 	}
 
 	@Override
 	public void start(BundleContext aContext) throws Exception {
-		ClassUtil.Registry.register(VAR.EXTRACT, biz.oase.ag.DSExtract.class);
-		ClassUtil.Registry.register(VAR.LOAD, biz.oase.ag.DSExtract.class);
+		ClassUtil.Registry.register(VAR.EXTRACT, biz.oase.ds.DSExtract.class);
+		ClassUtil.Registry.register(VAR.LOAD, biz.oase.ds.DSExtract.class);
 	}
 
 	@Override

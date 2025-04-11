@@ -1,6 +1,6 @@
 /* --------------------------------------------------------------------------
  * Project: Open Application Service Engine
- *          OASE Dataspace Interface
+ *          OASE Dataspace Gateway
  * --------------------------------------------------------------------------
  * Use of this software is subject to license terms. All Rights Reserved. 
  * -------------------------------------------------------------------------- */
@@ -18,6 +18,11 @@ import biz.car.io.DataRecord;
  */
 public interface DSCursor extends Supplier<DataRecord> {
 
+	/**
+	 * Releases all allocated resources.
+	 */
+	void dispose();
+	
 	/**
 	 * @return <code>true</code> if the cursor can provide a <code>DSRecord</code>.
 	 */

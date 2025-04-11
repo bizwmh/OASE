@@ -1,6 +1,6 @@
 /* --------------------------------------------------------------------------
  * Project: Open Application Service Engine
- *          OASE Dataspace Interface
+ *          OASE Dataspace Gateway
  * --------------------------------------------------------------------------
  * Use of this software is subject to license terms. All Rights Reserved.
  * -------------------------------------------------------------------------- */
@@ -17,6 +17,8 @@ import biz.car.config.BCS;
 public class VAR {
 
 	public static String DSID;
+	public static String EXTRACT;
+	public static String LOAD;
 	
 	// -------------------------------------------------------------------------
 	// Initialize the static fields

@@ -1,11 +1,11 @@
 /* --------------------------------------------------------------------------
  * Project: Open Application Service Engine
- *          OASE Application Gateway
+ *          OASE Dataspace Gateway
  * --------------------------------------------------------------------------
  * Use of this software is subject to license terms. All Rights Reserved. 
  * -------------------------------------------------------------------------- */
 
-package biz.oase.ag;
+package biz.oase.ds;
 
 import biz.car.XRunnable;
 import biz.car.config.ConfigObject;

@@ -1,11 +1,11 @@
 /* --------------------------------------------------------------------------
  * Project: Open Application Service Engine
- *          OASE Application Gateway
+ *          OASE Dataspace Gateway
  * --------------------------------------------------------------------------
  * Use of this software is subject to license terms. All Rights Reserved. 
  * -------------------------------------------------------------------------- */
 
-package biz.oase.ag;
+package biz.oase.ds;
 
 import java.io.IOException;
 import java.util.List;
@@ -18,10 +18,6 @@ import biz.car.csv.CSVHeader;
 import biz.car.csv.CSVRecord;
 import biz.car.csv.CSVWriter;
 import biz.car.io.DataRecord;
-import biz.oase.ds.DS;
-import biz.oase.ds.DSCursor;
-import biz.oase.ds.DSTable;
-import biz.oase.ds.Dataspace;
 
 /**
  * Runs a query against a data space.
@@ -56,6 +52,12 @@ public class DSExtract
 
 				throw exception(anEx);
 			}
+		}
+		// Dispose Cursor
+		if (dsc != null) {
+			dsc.dispose();
+			
+			dsc = null;
 		}
 	}
 
@@ -101,10 +103,9 @@ public class DSExtract
 			List<String> l_fieldNames = l_rec.fieldNames();
 			CSVHeader l_hdr = CSVRecord.Header(l_fieldNames);
 			CSVRecord l_csv = l_hdr.Record();
-			
-			for (String l_field : l_fieldNames) {
-				l_csv = l_csv.setValue(l_field, l_rec.getValue(l_field));
-			}
+
+			l_fieldNames.forEach(f -> l_csv.setValue(f, l_rec.getValue(f)));
+
 			// write CSV to file system
 			wrt.write(l_csv);
 		} catch (IOException anEx) {
