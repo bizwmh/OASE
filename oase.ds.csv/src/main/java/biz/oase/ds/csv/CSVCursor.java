@@ -46,6 +46,11 @@ public class CSVCursor extends ConfigObject implements DSCursor {
 	}
 
 	@Override
+	public void dispose() {
+		close();
+	}
+
+	@Override
 	public DataRecord get() {
 		return rec;
 	}
