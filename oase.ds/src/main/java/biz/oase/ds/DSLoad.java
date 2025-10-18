@@ -8,7 +8,7 @@
 package biz.oase.ds;
 
 import biz.car.XRunnable;
-import biz.car.config.ConfigObject;
+import biz.car.config.ConfigAdapter;
 import biz.car.csv.CSVFeeder;
 import biz.car.csv.CSVHandler;
 import biz.car.csv.CSVRecord;
@@ -19,7 +19,7 @@ import biz.car.csv.CSVRecord;
  * @version 1.0.0 04.03.2025 17:08:01
  */
 public class DSLoad
-		extends ConfigObject
+		extends ConfigAdapter
 		implements CSVHandler, XRunnable {
 
 	/**

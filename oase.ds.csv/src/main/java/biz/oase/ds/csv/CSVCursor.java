@@ -11,7 +11,7 @@ import java.io.IOException;
 
 import com.typesafe.config.Config;
 
-import biz.car.config.ConfigObject;
+import biz.car.config.ConfigAdapter;
 import biz.car.csv.CSVReader;
 import biz.car.csv.CSVRecord;
 import biz.car.io.DataRecord;
@@ -23,7 +23,7 @@ import biz.oase.ds.DSCursor;
  *
  * @version 1.0.0 24.03.2025 12:54:04
  */
-public class CSVCursor extends ConfigObject implements DSCursor {
+public class CSVCursor extends ConfigAdapter implements DSCursor {
 
 	private CSVReader rdr;
 	private CSVRecord rec;

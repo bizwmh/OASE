@@ -216,8 +216,8 @@ if exist "%OASE_HOME%\bin\%DEFAULT_SERVICE_NAME%.exe" (
     --StopMode jvm ^
     --StartPath "%OASE_HOME%" ^
     --StopPath "%OASE_HOME%" ^
-    --StartClass biz.car.osgi.launch.Main ^
-    --StopClass biz.car.osgi.launch.Main ^
+    --StartClass biz.car.osgi.Main ^
+    --StopClass biz.car.osgi.Main ^
     --StartMethod main ^
     --StopMethod stop ^
     --JvmOptions "%JvmArgs%" ^

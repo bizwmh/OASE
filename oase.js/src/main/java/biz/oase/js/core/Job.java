@@ -15,7 +15,7 @@ import java.util.Map;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 
-import biz.car.config.ConfigObject;
+import biz.car.config.ConfigAdapter;
 import biz.oase.js.ExecLib;
 import biz.oase.js.bundle.BND;
 import biz.oase.js.bundle.MSG;
@@ -27,7 +27,7 @@ import biz.oase.js.bundle.VAR;
  *
  * @version 1.0.0 12.02.2025 15:16:00
  */
-public class Job extends ConfigObject {
+public class Job extends ConfigAdapter {
 
 	private List<String> stepList;
 	private List<String> execLibs;

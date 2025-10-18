@@ -13,7 +13,7 @@ import java.util.List;
 import com.typesafe.config.Config;
 
 import biz.car.XRunnable;
-import biz.car.config.ConfigObject;
+import biz.car.config.ConfigAdapter;
 import biz.car.csv.CSVHeader;
 import biz.car.csv.CSVRecord;
 import biz.car.csv.CSVWriter;
@@ -25,7 +25,7 @@ import biz.car.io.DataRecord;
  * @version 1.0.0 04.03.2025 17:01:42
  */
 public class DSExtract
-		extends ConfigObject
+		extends ConfigAdapter
 		implements DS, XRunnable {
 
 	private DSCursor dsc;

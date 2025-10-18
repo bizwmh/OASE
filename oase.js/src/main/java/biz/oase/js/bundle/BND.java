@@ -12,7 +12,7 @@ import java.util.List;
 import org.osgi.service.cm.ManagedService;
 import org.osgi.service.component.annotations.Component;
 
-import biz.oase.car.XManagedService;
+import biz.oase.framework.XManagedService;
 import biz.oase.js.core.Inbox;
 
 /**

@@ -9,7 +9,7 @@ package biz.oase.ds.csv;
 
 import java.io.IOException;
 
-import biz.car.config.ConfigObject;
+import biz.car.config.ConfigAdapter;
 import biz.car.csv.CSVRecord;
 import biz.car.csv.CSVWriter;
 import biz.car.io.DataRecord;
@@ -21,7 +21,7 @@ import biz.oase.ds.DSResult;
  *
  * @version 1.0.0 25.03.2025 12:42:53
  */
-public class CSVAPI extends ConfigObject implements DSAPI {
+public class CSVAPI extends ConfigAdapter implements DSAPI {
 
 	private CSVWriter wrt;
 	

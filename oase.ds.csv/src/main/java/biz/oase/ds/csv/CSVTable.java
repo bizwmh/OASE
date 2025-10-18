@@ -7,7 +7,7 @@
 
 package biz.oase.ds.csv;
 
-import biz.car.config.ConfigObject;
+import biz.car.config.ConfigAdapter;
 import biz.oase.ds.DSAPI;
 import biz.oase.ds.DSCursor;
 import biz.oase.ds.DSTable;
@@ -17,7 +17,7 @@ import biz.oase.ds.DSTable;
  *
  * @version 1.0.0 23.03.2025 12:47:15
  */
-public class CSVTable extends ConfigObject implements DSTable {
+public class CSVTable extends ConfigAdapter implements DSTable {
 
 	/**
 	 * Creates a default <code>CSVTable</code> instance.

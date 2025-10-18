@@ -16,13 +16,6 @@
 	</properties>
 
 	<modules>
-		<module>oase.js</module>
-		<module>oase.tr</module>
-		<module>oase.sm</module>
-		<module>oase.car</module>
-		<module>oase.ag</module>
-		<module>oase.ds</module>
-		<module>oase.ds.csv</module>
-		<module>oase.ds.sql</module>
+		<module>oase.framework</module>
 	</modules>
 </project>

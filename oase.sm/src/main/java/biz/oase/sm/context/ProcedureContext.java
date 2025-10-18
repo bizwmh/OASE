@@ -11,7 +11,7 @@ import java.util.List;
 
 import com.typesafe.config.Config;
 
-import biz.car.config.ConfigObject;
+import biz.car.config.ConfigAdapter;
 import biz.car.util.ClassUtil;
 import biz.car.util.ObjectRegistry;
 import biz.oase.sm.SM;
@@ -25,7 +25,7 @@ import biz.oase.sm.core.Output;
  *
  * @version 1.0.0 08.03.2025 14:45:53
  */
-public class ProcedureContext extends ConfigObject implements SM {
+public class ProcedureContext extends ConfigAdapter implements SM {
 
 	private ObjectRegistry<SMClient> CR = new ObjectRegistry<SMClient>();
 	private GroupContext groupCtx;

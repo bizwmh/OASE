@@ -90,7 +90,7 @@ cd %OASE_HOME%
 :LAUNCH
 @REM ---------------------------------------------------------------------------
 
-%JAVA% %JAVA_OPTS% -cp %CLASSPATH% biz.car.osgi.launch.Main %USER_ARGS%
+%JAVA% %JAVA_OPTS% -cp %CLASSPATH% biz.car.osgi.Main %USER_ARGS%
 
 @REM ---------------------------------------------------------------------------
 :EXIT

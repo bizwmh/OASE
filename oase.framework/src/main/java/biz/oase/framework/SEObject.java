@@ -1,0 +1,33 @@
+/* --------------------------------------------------------------------------
+ * Project: Open Application Service Engine
+ *          OASE Framework
+ * --------------------------------------------------------------------------
+ * Use of this software is subject to license terms. All Rights Reserved. 
+ * -------------------------------------------------------------------------- */
+
+package biz.oase.framework;
+
+import java.util.Properties;
+
+import biz.car.CAR;
+import biz.car.config.Configurable;
+
+/**
+ * General purpose interface for service engine objects.<br>
+ * The basic features defined by this interface are:
+ * <ul>
+ * <li>name
+ * <li>configuration parameters 
+ * <li>runtime properties
+ * </ul>
+ * <p>
+ *
+ * @version 2.0.0 18.10.2025 15:48:05
+ */
+public interface SEObject extends CAR, Configurable{
+
+	/**
+	 * @return the property map of this SE object.
+	 */
+	Properties props();
+}

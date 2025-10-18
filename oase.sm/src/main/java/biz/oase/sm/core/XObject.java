@@ -13,7 +13,7 @@ import com.typesafe.config.Config;
 import com.typesafe.config.ConfigValue;
 import com.typesafe.config.ConfigValueType;
 
-import biz.car.config.ConfigObject;
+import biz.car.config.ConfigAdapter;
 import biz.oase.sm.SMObject;
 import biz.oase.sm.context.ProcedureContext;
 
@@ -35,7 +35,7 @@ import biz.oase.sm.context.ProcedureContext;
  * @version 1.0.0 08.03.2025 14:35:57
  */
 public class XObject
-		extends ConfigObject
+		extends ConfigAdapter
 		implements SMObject {
 
 	private ProcedureContext myContext;

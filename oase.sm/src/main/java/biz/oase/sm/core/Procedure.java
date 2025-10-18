@@ -10,7 +10,7 @@ package biz.oase.sm.core;
 import com.typesafe.config.Config;
 
 import biz.car.XRunnable;
-import biz.car.config.ConfigObject;
+import biz.car.config.ConfigAdapter;
 import biz.oase.sm.bundle.MSG;
 import biz.oase.sm.context.ProcedureContext;
 
@@ -32,7 +32,7 @@ import biz.oase.sm.context.ProcedureContext;
  *
  * @version 1.0.0 08.03.2025 14:37:53
  */
-public abstract class Procedure extends ConfigObject implements XRunnable {
+public abstract class Procedure extends ConfigAdapter implements XRunnable {
 
 	private ProcedureContext ctx;
 
