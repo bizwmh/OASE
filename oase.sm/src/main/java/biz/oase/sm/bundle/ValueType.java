@@ -15,20 +15,19 @@ import java.util.Map;
 import java.util.function.Function;
 
 import biz.car.CAR;
-import biz.oase.sm.SM;
 import biz.oase.sm.core.Group;
 
 /**
  * Functions to convert a string value to a defined data type.
  *
- * @version 1.0.0 08.03.2025 14:28:38
+ * @version 2.0.0 19.10.2025 14:06:38
  */
 public class ValueType {
 
 	private static Map<String, DateFormat> dfMap;
 	private static Function<Group, Comparable<?>> ToDate = g -> {
 		try {
-			String l_format = g.getString(SM.FORMAT, CAR.DF_DATE);
+			String l_format = g.getString(VAR.FORMAT, CAR.DF_DATE);
 			DateFormat l_df = dfMap.get(l_format);
 
 			if (l_df == null) {
@@ -70,8 +69,8 @@ public class ValueType {
 	public static Comparable<?> toComparable(Group aGroup) {
 		Comparable<?> l_ret = aGroup.getValue();
 
-		if (aGroup.hasPath(SM.TYPE)) {
-			String l_type = aGroup.getString(SM.TYPE);
+		if (aGroup.hasPath(VAR.TYPE)) {
+			String l_type = aGroup.getString(VAR.TYPE);
 			Function<Group, Comparable<?>> l_func = typeMap.get(l_type);
 
 			if (l_func == null) {

@@ -7,6 +7,8 @@
 
 package biz.oase.sm.merge;
 
+import java.util.List;
+
 import com.typesafe.config.Config;
 
 import biz.oase.sm.core.Group;
@@ -15,7 +17,7 @@ import biz.oase.sm.core.Procedure;
 /**
  * Implementation of the standard merge procedure.
  *
- * @version 1.0.0 08.03.2025 15:05:01
+ * @version 1.0.0 22.10.2025 09:24:59
  */
 public class Merger extends Procedure {
 
@@ -36,27 +38,33 @@ public class Merger extends Procedure {
 		super.accept(aConfig);
 
 		inputCtl = new InputController();
-		procedureGroup = context().procedureGroup();
+		procedureGroup = context().newGroup();
 		eof = procedureGroup.endOfInput();
 
-		openInput();
-		openOutput();
 		inputCtl.visit(context());
-		groupCtl = GroupController.build(procedureGroup, inputCtl);
 	}
 
 	@Override
 	public void dispose() {
+		if (procedureGroup != null) {
+			procedureGroup.dispose();
+
+			procedureGroup = null;
+		}
 		if (inputCtl != null) {
 			inputCtl.dispose();
 
 			inputCtl = null;
 		}
+		if (groupCtl != null) {
+			groupCtl.dispose();
+
+			groupCtl = null;
+		}
 		closeInput();
 		closeOutput();
-		super.dispose();
 
-		groupCtl = null;
+		super.dispose();
 	}
 
 	@Override
@@ -73,15 +81,56 @@ public class Merger extends Procedure {
 	protected boolean hasInput() {
 		return procedureGroup.getValue() != eof;
 	}
-//
-//	public final ClientRegistry CR = new ClientRegistry();
 
 	@Override
 	protected void init() {
+		// open io channels
+		openInput();
+		openOutput();
 		// load first record from each input channel
-		inputCtl.list().forEach(p -> p.readNextRecord());
-		// select first input
-		inputCtl.select();
-		procedureGroup.copyOf(inputCtl.selectedInputGroup());
+		// initialize input groups
+		// select first input group for processing
+		Group l_inputGroup = inputCtl.firstInputGroup();
+		// build the list of group controllers
+		// use top level group controller for controlling the merge procedure
+		groupCtl = buildGroupController(l_inputGroup);
+		// initialize procedure group
+		procedureGroup.copyOf(l_inputGroup);
+	}
+
+	/**
+	 * Creates a <code>GroupController</code> hierarchy based on the procedure group
+	 * of the group context.<br>
+	 * If a procedure group has a child then the <code>GroupController</code> is
+	 * linked to the <code>GroupController</code> of the child group.<br>
+	 * The procedure of the bottom level is linked to the InputController of the
+	 * merge procedure.
+	 * 
+	 * @param aGroup the reference to the input group
+	 * @return the top level group controller
+	 */
+	private GroupController buildGroupController(Group aGroup) {
+		GroupController l_ret = null;
+		Runnable l_next = inputCtl;
+		List<String> l_list = context().groupNames();
+
+		for (int i = l_list.size() - 1; i >= 0; i--) {
+			String l_name = l_list.get(i);
+			l_ret = new GroupController(l_name);
+
+			l_ret.setProcedureGroup(procedureGroup);
+			l_ret.setInputgGroup(aGroup);
+			l_ret.setNextController(l_next);
+
+			l_next = l_ret;
+//
+//			if (l_ret.pg.hasPath(ON_EXIT)) {
+//				l_ret.exitClient = l_ctx.client(l_ret.pg.getString(ON_EXIT));
+//			}
+//			if (l_ret.pg.hasPath(ON_INIT)) {
+//				l_ret.exitClient = l_ctx.client(l_ret.pg.getString(ON_INIT));
+//			}
+		}
+		return l_ret;
 	}
 }

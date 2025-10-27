@@ -19,9 +19,8 @@ import com.typesafe.config.ConfigException;
 import biz.car.io.FieldSource;
 import biz.oase.sm.bundle.MSG;
 import biz.oase.sm.bundle.VAL;
-import biz.oase.sm.bundle.VAR;
 import biz.oase.sm.bundle.ValueType;
-import biz.oase.sm.context.ProcedureContext;
+import biz.oase.sm.core.context.ProcedureContext;
 
 /**
  * A Sort/Merge data group.<br>
@@ -34,7 +33,7 @@ import biz.oase.sm.context.ProcedureContext;
  *
  * @version 1.0.0 08.03.2025 14:56:35
  */
-public class Group extends XObject implements
+public class Group extends SMObject implements
 		Comparable<Group>,
 		FieldSource {
 
@@ -42,9 +41,6 @@ public class Group extends XObject implements
 	 * The name of the dummy group.
 	 */
 	public static final String DUMMY = VAL.DUMMY;
-
-	private static final String HIGH_VALUE = VAR.HIGH_VALUE;
-	private static final String LOW_VALUE = VAR.LOW_VALUE;
 
 	private Map<String, Group> groupMap;
 	private List<String> names;
@@ -248,7 +244,7 @@ public class Group extends XObject implements
 				if (getName() == DUMMY) {
 					value = ""; //$NON-NLS-1$
 				} else {
-					throw new ConfigException.Missing(DUMMY);
+					throw new ConfigException.Missing(getName());
 				}
 			}
 		}

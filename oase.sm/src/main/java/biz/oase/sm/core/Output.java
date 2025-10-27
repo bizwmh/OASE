@@ -17,12 +17,11 @@ import biz.car.csv.CSVHeader;
 import biz.car.csv.CSVRecord;
 import biz.car.csv.CSVWriter;
 import biz.oase.sm.bundle.MSG;
-import biz.oase.sm.bundle.VAR;
 
 /**
  * Provides write access for application data objects.
  *
- * @version 1.0.0 04.11.2024 19:22:17
+ * @version 2.0.0 19.10.2025 13:44:04
  */
 public class Output extends Channel {
 
@@ -87,7 +86,7 @@ public class Output extends Channel {
 		} catch (Exception anEx) {
 			int l_count = getRecordCount() + 1;
 
-			error(MSG.WRITE_ERROR, getLabel(), getName(), l_count);
+			error(MSG.WRITE_ERROR, getName(), l_count);
 			throw exception(anEx);
 		}
 	}
@@ -120,8 +119,8 @@ public class Output extends Channel {
 			List<String> l_hdr = new ArrayList<String>();
 
 			asStringList(HEADER).forEach(field -> {
-				if (field.startsWith(VAR.HEADER_REF)) {
-					String l_name = field.substring(VAR.HEADER_REF.length());
+				if (field.startsWith(HEADER_REF)) {
+					String l_name = field.substring(HEADER_REF.length());
 					Input l_in = context().getInput(l_name);
 					CSVHeader l_csvHdr = l_in.getHeader();
 
@@ -135,7 +134,7 @@ public class Output extends Channel {
 			} catch (IOException anEx) {
 				int l_count = getRecordCount() + 1;
 
-				error(MSG.WRITE_ERROR, getLabel(), getName(), l_count);
+				error(MSG.WRITE_ERROR, getName(), l_count);
 				throw exception(anEx);
 			}
 		}

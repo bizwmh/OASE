@@ -10,16 +10,17 @@ package biz.oase.sm.bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
+import biz.car.SYS;
 import biz.car.util.ClassUtil;
-import biz.oase.sm.SM;
+import biz.oase.sm.core.SM;
 import biz.oase.sm.merge.Merger;
-import biz.oase.sm.merge.sort.Sorter;
+import biz.oase.sm.sort.Sorter;
 
 /**
  * Registers the sort and merge procedures in the <code>ClassUtil</code>
  * registry.
  *
- * @version 1.0.0 08.03.2025 14:32:08
+ * @version 2.0.0 24.10.2025 11:58:29
  */
 public class SMActivator implements BundleActivator {
 
@@ -32,12 +33,21 @@ public class SMActivator implements BundleActivator {
 
 	@Override
 	public void start(BundleContext context) throws Exception {
-		ClassUtil.Registry.register(SM.MERGE, Merger.class);
-		ClassUtil.Registry.register(SM.SORT, Sorter.class);
+		
+		register(SM.MERGE, Merger.class);
+		register(SM.SORT, Sorter.class);
 	}
 
 	@Override
 	public void stop(BundleContext context) throws Exception {
 		// nothing to do
+	}
+
+	private void register(String anId, Class<?> aClass) {
+		if (ClassUtil.Registry.contains(anId)) {
+			ClassUtil.Registry.unregister(anId);
+			SYS.LOG.warn(MSG.CLASS_UNREGISTERED, aClass, anId);
+		}
+		ClassUtil.Registry.register(anId, aClass);
 	}
 }

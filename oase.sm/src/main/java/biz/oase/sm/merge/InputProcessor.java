@@ -11,20 +11,18 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.IntPredicate;
 
-import biz.car.XRuntimeException;
 import biz.car.csv.CSVRecord;
-import biz.oase.sm.SM;
-import biz.oase.sm.SMClient;
 import biz.oase.sm.bundle.MSG;
-import biz.oase.sm.context.ProcedureContext;
 import biz.oase.sm.core.Group;
 import biz.oase.sm.core.Input;
+import biz.oase.sm.core.SM;
 import biz.oase.sm.core.WriteToOut;
+import biz.oase.sm.core.context.ProcedureContext;
 
 /**
  * Manages the processing of data from an input channel of the merge procedure.
  *
- * @version 1.0.0 08.03.2025 15:05:21
+ * @version 2.0.0 21.10.2025 09:16:02
  */
 public class InputProcessor implements SM, Runnable {
 
@@ -39,12 +37,11 @@ public class InputProcessor implements SM, Runnable {
 		pMap.put(false, RegularSortOrder);
 	}
 
-	private SMClient myClient;
+	// private SMClient myClient;
 	private Group myGroup;
 	private Input myInput;
 	private String name;
 	private Group oldGroup;
-	private Group procedureGroup;
 
 	/**
 	 * Creates an <code>InputProcessor</code> instance.
@@ -75,22 +72,19 @@ public class InputProcessor implements SM, Runnable {
 
 	@Override
 	public void run() {
-		do {
-			processInput();
-			readNextRecord();
-			checkSortOrder();
-		} while (procedureGroup.compareTo(myGroup) == 0);
+		processInput();
+		readNextRecord();
+		checkSortOrder();
 	}
 
 	public void visit(ProcedureContext aContext) {
-		myGroup = aContext.inputGroup(name);
 		myInput = aContext.getInput(name);
-		procedureGroup = aContext.procedureGroup();
+		myGroup = aContext.newGroup();
 		oldGroup = aContext.newGroup();
-
-		if (myInput.hasPath(ON_SELECTED)) {
-			myClient = aContext.client(myInput.getString(ON_SELECTED));
-		}
+//
+//		if (myInput.hasPath(ON_SELECTED)) {
+//			myClient = aContext.client(myInput.getString(ON_SELECTED));
+//		}
 	}
 
 	/**
@@ -117,10 +111,10 @@ public class InputProcessor implements SM, Runnable {
 	 * <code>SM.ON_SELECTED</code> key.
 	 */
 	private void processInput() {
-		if (myClient == null) {
-			WriteToOut.accept(myInput);
-		} else {
-			myClient.onSelectedInput(myInput);
-		}
+//		if (myClient == null) {
+		WriteToOut.accept(myInput);
+//		} else {
+//			myClient.onSelectedInput(myInput);
+//		}
 	}
 }

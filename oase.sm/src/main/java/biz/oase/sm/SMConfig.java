@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import biz.oase.sm.core.SM;
+
 /**
  * The <code>SMConfig</code> holds the runtime parameters of an
  * <code>SMClient</code>.<br>
@@ -38,14 +40,13 @@ import java.util.Map;
  * The channel name is the key of the output channel map.
  * <p>
  * When the <code>SMClient</code> is initialized for each group or channel name
- * a type corresponding <code>XObject</code> is created and the associated map
+ * a type corresponding <code>SMObject</code> is created and the associated map
  * from this <code>SMConfig</code> is copied into the created
- * <code>XObject</code>.
+ * <code>SMObject</code>.
  *
- * @version 1.0.0 13.11.2024 13:06:24
+ * @version 2.0.0 19.10.2025 12:56:38
  */
-public class SMConfig
-		extends HashMap<String, Object>
+public class SMConfig extends HashMap<String, Object>
 		implements SM {
 
 	private static final long serialVersionUID = 1L;

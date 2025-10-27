@@ -7,21 +7,21 @@
 
 package biz.oase.sm.core;
 
+import biz.car.CAR;
 import biz.car.csv.CSVRecord;
-import biz.oase.sm.SM;
 
 /**
  * This consumer writes the current CSV record from the input channel to the
  * associated output channel.
  *
- * @version 1.0.0 08.03.2025 14:37:25
+ * @version 2.0.0 19.10.2025 14:12:33
  *
  */
-public interface WriteToOut {
+public interface WriteToOut extends CAR {
 
 	static public void accept(Input anInput) {
-		if (anInput.hasPath(SM.OUTPUT)) {
-			String l_name = anInput.getString(SM.OUTPUT);
+		if (anInput.hasPath(OUTPUT)) {
+			String l_name = anInput.getString(OUTPUT);
 			Output l_out = anInput.context().getOutput(l_name);
 			CSVRecord l_rec = anInput.getCurrent();
 

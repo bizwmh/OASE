@@ -3,38 +3,27 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   	<modelVersion>4.0.0</modelVersion>
 
-	<parent>
+  	<parent>
     	<groupId>biz.oase</groupId>
     	<artifactId>OASE</artifactId>
     	<version>2.0.0</version>
   	</parent>
-  
-  	<artifactId>oase.framework</artifactId>
-	<packaging>bundle</packaging>
 
-  	<name>OASE Framework</name>
-	
-  	<dependencies>
+  	<artifactId>oase.test</artifactId>
+	<packaging>bundle</packaging>
+  	
+  	<name>OASE Test Runner</name>
+
+	<dependencies>
 		<dependency>
-			<groupId>biz.car</groupId>
-			<artifactId>biz.car</artifactId>
+			<groupId>biz.oase</groupId>
+			<artifactId>oase.framework</artifactId>
 			<version>2.0.0</version>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.felix</groupId>
-			<artifactId>org.apache.felix.gogo.runtime</artifactId>
-			<version>1.1.6</version>
-			<scope>provided</scope>
-		</dependency>
- 		<dependency>
-			<groupId>org.osgi</groupId>
-			<artifactId>org.osgi.core</artifactId>
-			<version>6.0.0</version>
-		</dependency>
-			<dependency>
-			<groupId>org.osgi</groupId>
-			<artifactId>org.osgi.service.cm</artifactId>
-			<version>1.6.1</version>
+			<groupId>biz.oase</groupId>
+			<artifactId>oase.sm</artifactId>
+			<version>2.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.osgi</groupId>
@@ -48,11 +37,11 @@
 			<version>1.5.1</version>
 			<scope>provided</scope>
 		</dependency>
- 	</dependencies>
-  	
+	</dependencies>
+
 	<build>
 		<plugins>
-			<plugin> 
+			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
 				<version>5.1.9</version>

@@ -21,9 +21,9 @@ import biz.oase.sm.bundle.MSG;
  * <p>
  * IO channel operations are based on CSV records.
  *
- * @version 1.0.0 04.11.2024 14:14:23
+ * @version 2.0.0 19.10.2025 13:34:40
  */
-public abstract class Channel extends XObject {
+public abstract class Channel extends SMObject {
 
 	/**
 	 * Creates a <code>Channel</code> instance with the given name.
@@ -48,7 +48,7 @@ public abstract class Channel extends XObject {
 		} catch (XRuntimeException anEx) {
 			throw anEx;
 		} catch (Throwable anEx) {
-			throw exception(MSG.ClOSE_ERROR, getLabel(), getName(), getRecordCount());
+			throw exception(MSG.ClOSE_ERROR, getName(), getRecordCount());
 		}
 	}
 
@@ -77,7 +77,7 @@ public abstract class Channel extends XObject {
 		} catch (XRuntimeException anEx) {
 			throw anEx;
 		} catch (Throwable anEx) {
-			throw exception(MSG.OPEN_ERROR, getLabel(), getName());
+			throw exception(MSG.OPEN_ERROR, getName());
 		}
 	}
 
@@ -85,7 +85,7 @@ public abstract class Channel extends XObject {
 	 * Sends a message to the log about the opended channel.
 	 */
 	protected void closeMessage() {
-		info(MSG.CHANNEL_ClOSED, getLabel(), getName(), getRecordCount());
+		info(MSG.CHANNEL_ClOSED, getClass().getSimpleName(), getName(), getRecordCount());
 	}
 
 	/**
@@ -106,6 +106,6 @@ public abstract class Channel extends XObject {
 	 * Sends a message to the log about the opended channel.
 	 */
 	protected void openMessage() {
-		info(MSG.CHANNEL_OPENED, getLabel(), getName(), getString(PATH));
+		info(MSG.CHANNEL_OPENED, getClass().getSimpleName(), getName(), getString(PATH));
 	}
 }

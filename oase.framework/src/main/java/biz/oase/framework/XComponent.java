@@ -21,7 +21,7 @@ import biz.oase.framework.bundle.MSG;
 /**
  * Convenience class for a component managed by the Service Component Runtime.
  *
- * @version 2.0.0 tt
+ * @version 2.0.0 18.10.2025 17:32:07
  */
 public abstract class XComponent
 		extends ConfigAdapter {

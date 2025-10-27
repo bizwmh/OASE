@@ -10,9 +10,9 @@ package biz.oase.sm.merge;
 import java.util.ArrayList;
 import java.util.List;
 
-import biz.oase.sm.SM;
-import biz.oase.sm.context.ProcedureContext;
 import biz.oase.sm.core.Group;
+import biz.oase.sm.core.SM;
+import biz.oase.sm.core.context.ProcedureContext;
 
 /**
  * Manages the input processors of the merge procedure.
@@ -21,69 +21,67 @@ import biz.oase.sm.core.Group;
  */
 public class InputController implements SM, Runnable {
 
-	private List<InputProcessor> icList;
+	private Group inputGroup;
+	private List<InputProcessor> ipList;
 	private int selected;
-	private Group sig;
 
 	/**
 	 * Creates a default <code>InputController</code> instance.
 	 */
 	public InputController() {
 		super();
-		
-		icList = new ArrayList<InputProcessor>();
 	}
 
 	/**
 	 * Clears the internal list of input processors.
 	 */
 	public void dispose() {
-		if (icList != null) {
-			icList.clear();
-			
-			icList = null;
+		if (ipList != null) {
+			ipList.clear();
+			inputGroup.dispose();
+
+			ipList = null;
+			inputGroup = null;
 		}
 	}
 
 	/**
-	 * @return the list of input processors
+	 * Creates the input group with the values from the input channel to process
+	 * first.
+	 * 
+	 * @return the initialized input group
 	 */
-	public List<InputProcessor> list() {
-		return List.copyOf(icList);
+	public Group firstInputGroup() {
+		ipList.forEach(p -> p.readNextRecord());
+		// select first input
+		selected = nextGroup();
+		InputProcessor l_proc = ipList.get(selected);
+		Group l_group = l_proc.group();
+		// initialize input group
+		inputGroup.copyOf(l_group);
+
+		return inputGroup;
 	}
 
+	/**
+	 * Processes all input channels with records belonging to the current input
+	 * group.
+	 * 
+	 * @return the new value of the input group
+	 */
 	@Override
 	public void run() {
-		InputProcessor l_proc = icList.get(selected);
+		InputProcessor l_proc = ipList.get(selected);
+		Group l_group = null;
 
-		l_proc.run();
-		select();
-	}
+		do {
+			l_proc.run();
 
-	/**
-	 * Selects the next data group.
-	 */
-	public void select() {
-		selected = 0;
-		Group l_selected = icList.get(0).group();
-
-		for (int i = 1; i < icList.size(); i++) {
-			Group l_group = icList.get(i).group();
-			int l_comp = l_group.compareTo(l_selected);
-
-			if (l_comp < 0) {
-				l_selected = l_group;
-				selected = i;
-			}
-		}
-		sig.copyOf(l_selected);
-	}
-
-	/**
-	 * @return the selected input group
-	 */
-	public Group selectedInputGroup() {
-		return sig;
+			selected = nextGroup();
+			l_proc = ipList.get(selected);
+			l_group = l_proc.group();
+		} while (l_group.compareTo(inputGroup) == 0);
+		inputGroup.copyOf(l_group);
 	}
 
 	/**
@@ -92,14 +90,32 @@ public class InputController implements SM, Runnable {
 	 * @param aContext the current porcedure context
 	 */
 	public void visit(ProcedureContext aContext) {
-		sig = aContext.newGroup();
-		
+		ipList = new ArrayList<InputProcessor>();
+		inputGroup = aContext.newGroup();
+		selected = 0;
+
 		aContext.inputNames()
 				.forEach(name -> {
 					InputProcessor l_ip = new InputProcessor(name);
-					
+
 					l_ip.visit(aContext);
-					icList.add(l_ip);
+					ipList.add(l_ip);
 				});
+	}
+
+	private int nextGroup() {
+		int l_ret = 0;
+		Group l_next = ipList.get(0).group();
+
+		for (int i = 1; i < ipList.size(); i++) {
+			Group l_group = ipList.get(i).group();
+			int l_comp = l_group.compareTo(l_next);
+
+			if (l_comp < 0) {
+				l_next = l_group;
+				l_ret = i;
+			}
+		}
+		return l_ret;
 	}
 }

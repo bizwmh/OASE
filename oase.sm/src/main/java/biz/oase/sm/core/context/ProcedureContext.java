@@ -5,32 +5,29 @@
  * Use of this software is subject to license terms. All Rights Reserved. 
  * -------------------------------------------------------------------------- */
 
-package biz.oase.sm.context;
+package biz.oase.sm.core.context;
 
 import java.util.List;
 
 import com.typesafe.config.Config;
 
 import biz.car.config.ConfigAdapter;
-import biz.car.util.ClassUtil;
-import biz.car.util.ObjectRegistry;
-import biz.oase.sm.SM;
-import biz.oase.sm.SMClient;
 import biz.oase.sm.core.Group;
 import biz.oase.sm.core.Input;
 import biz.oase.sm.core.Output;
+import biz.oase.sm.core.SM;
 
 /**
  * The collection of runtime objects and parameters for an SM procedure.
  *
- * @version 1.0.0 08.03.2025 14:45:53
+ * @version 2.0.0 21.10.2025 09:01:53
  */
 public class ProcedureContext extends ConfigAdapter implements SM {
-
-	private ObjectRegistry<SMClient> CR = new ObjectRegistry<SMClient>();
+//
+//	private ObjectRegistry<SMClient> CR = new ObjectRegistry<SMClient>();
 	private GroupContext groupCtx;
-	private ChannelContext inputChannels;
-	private ChannelContext outputChannels;
+	private ChannelList<Input> inputChannels;
+	private ChannelList<Output> outputChannels;
 
 	/**
 	 * Creates a default <code>ProcedureContext</code> instance.
@@ -43,32 +40,32 @@ public class ProcedureContext extends ConfigAdapter implements SM {
 	public void accept(Config aConfig) {
 		super.accept(aConfig);
 
-		inputChannels = new ChannelContext(INPUT);
-		outputChannels = new ChannelContext(OUTPUT);
+		inputChannels = new ChannelList<Input>(INPUT);
+		outputChannels = new ChannelList<Output>(OUTPUT);
 		groupCtx = new GroupContext();
 
 		inputChannels.visit(this);
 		outputChannels.visit(this);
 		groupCtx.visit(this);
 	}
-
-	/**
-	 * TODO register
-	 * 
-	 * @param string
-	 * @return
-	 */
-	public SMClient client(String anId) {
-		SMClient l_ret = CR.get(anId);
-
-		if (l_ret == null) {
-			Class<?> l_class = ClassUtil.Registry.get(anId);
-			l_ret = ClassUtil.newInstance(l_class);
-
-			CR.register(anId, l_ret);
-		}
-		return l_ret;
-	}
+//
+//	/**
+//	 * TODO register
+//	 * 
+//	 * @param string
+//	 * @return
+//	 */
+//	public SMClient client(String anId) {
+//		SMClient l_ret = CR.get(anId);
+//
+//		if (l_ret == null) {
+//			Class<?> l_class = ClassUtil.Registry.get(anId);
+//			l_ret = ClassUtil.newInstance(l_class);
+//
+//			CR.register(anId, l_ret);
+//		}
+//		return l_ret;
+//	}
 
 	/**
 	 * Releases all allocated in memory resources.<br>
@@ -118,14 +115,14 @@ public class ProcedureContext extends ConfigAdapter implements SM {
 	public List<String> groupNames() {
 		return groupCtx.groupNames();
 	}
-
-	/**
-	 * @param aName the name of the input channel
-	 * @return a reference to the input group
-	 */
-	public Group inputGroup(String aName) {
-		return groupCtx.inputGroup(aName);
-	}
+//
+//	/**
+//	 * @param aName the name of the input channel
+//	 * @return a reference to the input group
+//	 */
+//	public Group inputGroup(String aName) {
+//		return groupCtx.inputGroup(aName);
+//	}
 
 	/**
 	 * @return the list of input channel names
@@ -138,11 +135,7 @@ public class ProcedureContext extends ConfigAdapter implements SM {
 	 * @return a new <code>Group</code> instance
 	 */
 	public Group newGroup() {
-		Group l_ret = groupCtx.newGroup();
-		
-		l_ret.visit(this);
-		
-		return l_ret;
+		return groupCtx.newGroup();
 	}
 
 	/**
@@ -151,11 +144,11 @@ public class ProcedureContext extends ConfigAdapter implements SM {
 	public List<String> outputNames() {
 		return outputChannels.channelNames();
 	}
-
-	/**
-	 * @return a reference to the procedure group
-	 */
-	public Group procedureGroup() {
-		return groupCtx.procedureGroup();
-	}
+//
+//	/**
+//	 * @return a reference to the procedure group
+//	 */
+//	public Group procedureGroup() {
+//		return groupCtx.procedureGroup();
+//	}
 }

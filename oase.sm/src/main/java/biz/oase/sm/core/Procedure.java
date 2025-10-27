@@ -12,7 +12,7 @@ import com.typesafe.config.Config;
 import biz.car.XRunnable;
 import biz.car.config.ConfigAdapter;
 import biz.oase.sm.bundle.MSG;
-import biz.oase.sm.context.ProcedureContext;
+import biz.oase.sm.core.context.ProcedureContext;
 
 /**
  * A <code>Procedure</code> can either be a sort or a merge procedure.
@@ -30,7 +30,7 @@ import biz.oase.sm.context.ProcedureContext;
  * <li>release all allocated resources
  * </ul>
  *
- * @version 1.0.0 08.03.2025 14:37:53
+ * @version 2.0.0 18.10.2025 17:31:43
  */
 public abstract class Procedure extends ConfigAdapter implements XRunnable {
 
@@ -49,7 +49,7 @@ public abstract class Procedure extends ConfigAdapter implements XRunnable {
 
 		super.accept(aConfig);
 		ctx.accept(aConfig);
-		info(MSG.EXEC_INITIALIZED, getLabel(), getName());
+		info(MSG.EXEC_INITIALIZED, getName());
 	}
 
 	/**
@@ -71,7 +71,9 @@ public abstract class Procedure extends ConfigAdapter implements XRunnable {
 	@Override
 	public void exec() {
 		init();
-		main();
+		while (hasInput()) {
+			doMain();
+		}
 		exit();
 	}
 
@@ -124,7 +126,7 @@ public abstract class Procedure extends ConfigAdapter implements XRunnable {
 	 */
 	protected void openInput() {
 		if (ctx.inputNames().size() == 0) {
-			throw exception(MSG.NO_INPUT_CHANNELS, getLabel(), getName());
+			throw exception(MSG.NO_INPUT_CHANNELS, getName());
 		}
 		ctx.inputNames().stream()
 				.map(ctx::getInput)
@@ -138,11 +140,5 @@ public abstract class Procedure extends ConfigAdapter implements XRunnable {
 		ctx.outputNames().stream()
 				.map(ctx::getOutput)
 				.forEach(Output::open);
-	}
-
-	private void main() {
-		while (hasInput()) {
-			doMain();
-		}
 	}
 }

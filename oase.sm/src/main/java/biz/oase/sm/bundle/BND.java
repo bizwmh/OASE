@@ -7,12 +7,12 @@
 
 package biz.oase.sm.bundle;
 
-import biz.car.config.BCS;
+import biz.car.config.ACS;
 
 /**
  * Bundle Constants.
  *
- * @version 1.0.0 08.03.2025 14:33:02
+ * @version 2.0.0 19.10.2025 14:16:01
  */
 public class BND {
 
@@ -22,6 +22,6 @@ public class BND {
 	// Initialize the static fields
 	// -------------------------------------------------------------------------
 	static {
-		BCS.initialize(BND.class, "BND.conf"); //$NON-NLS-1$
+		ACS.initialize(BND.class, "BND.conf"); //$NON-NLS-1$
 	}
 }

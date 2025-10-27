@@ -19,7 +19,7 @@ import biz.oase.sm.bundle.MSG;
 /**
  * Provides read access to the application data objects.
  *
- * @version 1.0.0 13.11.2024 14:54:01
+ * @version 2.0.0 19.10.2025 13:41:31
  */
 public class Input extends Channel {
 
@@ -82,7 +82,7 @@ public class Input extends Channel {
 		} catch (Throwable anEx) {
 			int l_count = getRecordCount() + 1;
 
-			error(MSG.READ_ERROR, getLabel(), getName(), l_count);
+			error(MSG.READ_ERROR, getName(), l_count);
 			throw exception(anEx);
 		}
 	}
@@ -103,7 +103,7 @@ public class Input extends Channel {
 		if (l_file.exists()) {
 			rdr.open(l_file);
 		} else {
-			throw exception(MSG.FILE_NOT_FOUND, l_path, getLabel(), getName());
+			throw exception(MSG.FILE_NOT_FOUND, l_path, getClass().getSimpleName(), getName());
 		}
 	}
 }
