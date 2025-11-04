@@ -32,7 +32,7 @@ import biz.oase.sm.core.context.ProcedureContext;
  * A record belongs to the group if the field values of the record match the
  * values of this group and all its parent groups.
  *
- * @version 1.0.0 08.03.2025 14:56:35
+ * @version 2.0.0 04.11.2025 16:38:34
  */
 public class Group extends SMObject implements
 		SMGroup,
