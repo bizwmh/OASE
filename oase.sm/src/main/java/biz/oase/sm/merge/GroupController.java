@@ -1,23 +1,48 @@
 /* --------------------------------------------------------------------------
- * Project: XXX
+ * Project: Open Application Service Engine
+ *          SORT/MERGE Service
  * --------------------------------------------------------------------------
  * Use of this software is subject to license terms. All Rights Reserved. 
  * -------------------------------------------------------------------------- */
 
 package biz.oase.sm.merge;
 
+import java.util.function.Consumer;
+
+import biz.oase.sm.SMClient;
+import biz.oase.sm.SMGroup;
 import biz.oase.sm.core.Group;
 import biz.oase.sm.core.SM;
 
 /**
- * TODO GroupController comment
+ * The <code>GroupController</code> controls the processing of all the input
+ * records of one group. In a SM merger with a hierarchy of multiple groups
+ * (i.e. several group levels) there is one <code>GroupController</code> per
+ * group level.
+ * <p>
+ * The processing of a data group consists of:
+ * <ul>
+ * <li>The data group is initialized.<br>
+ * This processing is executed once before any input record of that data group
+ * is processed.
+ * <li>All input records of the data group are processed.<br>
+ * If the data group has a child group this processing is delegated to the
+ * <code>GroupController</code> of the child group.<br>
+ * If the data group does not have a child group this processing is delegated to
+ * the <code>InputController</code> of the merge procedure.
+ * <li>The data group is finalized. This processing is executed once after all
+ * input records of that data group have been processed.
+ * </ul>
  *
- * @version 1.0.0 23.10.2025 11:53:07
+ * @version 2.0.0 21.10.2025 17:18:05
  */
 public class GroupController implements SM, Runnable {
 
-//	private SMClient exitClient; // performs the group exit processing
-//	private SMClient initClient; // performs the group init processing
+	private static Consumer<SMGroup> nop = group -> {
+	};
+
+	private Consumer<SMGroup> exitConsumer;
+	private Consumer<SMGroup> initConsumer;
 	private Group inputGroup;
 	private String name;
 	private Runnable nextController;
@@ -30,6 +55,8 @@ public class GroupController implements SM, Runnable {
 		super();
 
 		name = aName;
+		initConsumer = nop;
+		exitConsumer = nop;
 	}
 
 	/**
@@ -62,9 +89,7 @@ public class GroupController implements SM, Runnable {
 	 * This method is invoked once after the completion of the <b>main</b> function.
 	 */
 	protected void exit() {
-//		if (exitClient != null) {
-//			exitClient.onExitGroup(pg);
-//		}
+		exitConsumer.accept(procedureGroup);
 	}
 
 	/**
@@ -72,9 +97,7 @@ public class GroupController implements SM, Runnable {
 	 * This method is invoked once before the <code>main</code> function.
 	 */
 	protected void init() {
-//		if (initClient != null) {
-//			initClient.onInitGroup(pg);
-//		}
+		initConsumer.accept(procedureGroup);
 	}
 
 	/**
@@ -96,7 +119,7 @@ public class GroupController implements SM, Runnable {
 	/**
 	 * @param aGroup the input group to set
 	 */
-	void setInputgGroup(Group aGroup) {
+	void setInputGroup(Group aGroup) {
 		inputGroup = aGroup.getGroup(name);
 	}
 
@@ -108,9 +131,22 @@ public class GroupController implements SM, Runnable {
 	}
 
 	/**
-	 * @param aGroup the procedure group to set
+	 * @param aGroup   the procedure group to set
+	 * @param aManager the client manager used to set init and exit consumer of the
+	 *                 procedure group
 	 */
-	void setProcedureGroup(Group aGroup) {
+	void setProcedureGroup(Group aGroup, ClientManager aManager) {
 		procedureGroup = aGroup.getGroup(name);
+		String l_init = procedureGroup.getString(ON_INIT, null);
+		String l_exit = procedureGroup.getString(ON_EXIT, null);
+
+		if (l_init != null) {
+			SMClient l_client = aManager.getClient(l_init);
+			initConsumer = SMClient.ConsumerOnInit.apply(l_client);
+		}
+		if (l_exit != null) {
+			SMClient l_client = aManager.getClient(l_exit);
+			exitConsumer = SMClient.ConsumerOnExit.apply(l_client);
+		}
 	}
 }

@@ -12,6 +12,7 @@ import java.util.List;
 import com.typesafe.config.Config;
 
 import biz.car.config.ConfigAdapter;
+import biz.oase.sm.SMContext;
 import biz.oase.sm.core.Group;
 import biz.oase.sm.core.Input;
 import biz.oase.sm.core.Output;
@@ -22,9 +23,8 @@ import biz.oase.sm.core.SM;
  *
  * @version 2.0.0 21.10.2025 09:01:53
  */
-public class ProcedureContext extends ConfigAdapter implements SM {
-//
-//	private ObjectRegistry<SMClient> CR = new ObjectRegistry<SMClient>();
+public class ProcedureContext extends ConfigAdapter implements SM, SMContext {
+
 	private GroupContext groupCtx;
 	private ChannelList<Input> inputChannels;
 	private ChannelList<Output> outputChannels;
@@ -48,24 +48,6 @@ public class ProcedureContext extends ConfigAdapter implements SM {
 		outputChannels.visit(this);
 		groupCtx.visit(this);
 	}
-//
-//	/**
-//	 * TODO register
-//	 * 
-//	 * @param string
-//	 * @return
-//	 */
-//	public SMClient client(String anId) {
-//		SMClient l_ret = CR.get(anId);
-//
-//		if (l_ret == null) {
-//			Class<?> l_class = ClassUtil.Registry.get(anId);
-//			l_ret = ClassUtil.newInstance(l_class);
-//
-//			CR.register(anId, l_ret);
-//		}
-//		return l_ret;
-//	}
 
 	/**
 	 * Releases all allocated in memory resources.<br>

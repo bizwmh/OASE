@@ -2,6 +2,7 @@
 **/target/
 **/.project
 **/.classpath
+**/wrk/
 bundle-cache/
 log/
 workspace/

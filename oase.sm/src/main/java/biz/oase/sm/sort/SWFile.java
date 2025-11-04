@@ -137,7 +137,7 @@ public class SWFile extends SortWorker<File, File> implements SM {
 			l_il.add(l_name);
 			l_ret.path(l_name, l_path);
 			l_ret.output(l_name, VAL.SORTOUT);
-			l_ret.onSelected(l_name, ON_SELECTED);
+//			l_ret.onSelected(l_name, ON_SELECTED);
 		}
 		l_ret.input(l_il);
 

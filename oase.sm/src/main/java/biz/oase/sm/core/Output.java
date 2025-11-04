@@ -16,6 +16,7 @@ import biz.car.XRuntimeException;
 import biz.car.csv.CSVHeader;
 import biz.car.csv.CSVRecord;
 import biz.car.csv.CSVWriter;
+import biz.oase.sm.SMOutput;
 import biz.oase.sm.bundle.MSG;
 
 /**
@@ -23,7 +24,7 @@ import biz.oase.sm.bundle.MSG;
  *
  * @version 2.0.0 19.10.2025 13:44:04
  */
-public class Output extends Channel {
+public class Output extends Channel implements SMOutput {
 
 	private CSVRecord current;
 	private CSVWriter wrt;
@@ -117,8 +118,9 @@ public class Output extends Channel {
 	private void writeHeader() {
 		if (hasPath(HEADER)) {
 			List<String> l_hdr = new ArrayList<String>();
+			List<String> l_confHdr = asStringList(HEADER);
 
-			asStringList(HEADER).forEach(field -> {
+			l_confHdr.forEach(field -> {
 				if (field.startsWith(HEADER_REF)) {
 					String l_name = field.substring(HEADER_REF.length());
 					Input l_in = context().getInput(l_name);

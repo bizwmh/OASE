@@ -9,9 +9,13 @@ package biz.oase.sm.merge;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.function.IntPredicate;
 
+import biz.car.XRuntimeException;
 import biz.car.csv.CSVRecord;
+import biz.oase.sm.SMClient;
+import biz.oase.sm.SMInput;
 import biz.oase.sm.bundle.MSG;
 import biz.oase.sm.core.Group;
 import biz.oase.sm.core.Input;
@@ -26,10 +30,11 @@ import biz.oase.sm.core.context.ProcedureContext;
  */
 public class InputProcessor implements SM, Runnable {
 
+	
+	private static Consumer<SMInput> nop = in -> WriteToOut.accept(in);
 	private static Map<Boolean, IntPredicate> pMap;
 	private static IntPredicate RegularSortOrder = n -> !(n < 0);
 	private static IntPredicate StrictSortOrder = n -> n > 0;
-
 	static {
 		pMap = new HashMap<Boolean, IntPredicate>();
 
@@ -37,7 +42,7 @@ public class InputProcessor implements SM, Runnable {
 		pMap.put(false, RegularSortOrder);
 	}
 
-	// private SMClient myClient;
+	private Consumer<SMInput> inputConsumer;
 	private Group myGroup;
 	private Input myInput;
 	private String name;
@@ -50,6 +55,7 @@ public class InputProcessor implements SM, Runnable {
 		super();
 
 		name = aName;
+		inputConsumer = nop;
 	}
 
 	/**
@@ -77,14 +83,16 @@ public class InputProcessor implements SM, Runnable {
 		checkSortOrder();
 	}
 
-	public void visit(ProcedureContext aContext) {
+	public void visit(ProcedureContext aContext, ClientManager aManager) {
 		myInput = aContext.getInput(name);
 		myGroup = aContext.newGroup();
 		oldGroup = aContext.newGroup();
-//
-//		if (myInput.hasPath(ON_SELECTED)) {
-//			myClient = aContext.client(myInput.getString(ON_SELECTED));
-//		}
+		String l_selected = myInput.getString(ON_SELECTED, null);
+		
+		if (l_selected != null) {
+			SMClient l_client = aManager.getClient(l_selected);
+			inputConsumer = SMClient.ConsumerOnSelected.apply(l_client);
+		}		
 	}
 
 	/**
@@ -111,10 +119,6 @@ public class InputProcessor implements SM, Runnable {
 	 * <code>SM.ON_SELECTED</code> key.
 	 */
 	private void processInput() {
-//		if (myClient == null) {
-		WriteToOut.accept(myInput);
-//		} else {
-//			myClient.onSelectedInput(myInput);
-//		}
+		inputConsumer.accept(myInput);
 	}
 }

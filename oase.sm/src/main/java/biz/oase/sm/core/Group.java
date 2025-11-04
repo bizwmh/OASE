@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 import com.typesafe.config.ConfigException;
 
 import biz.car.io.FieldSource;
+import biz.oase.sm.SMGroup;
 import biz.oase.sm.bundle.MSG;
 import biz.oase.sm.bundle.VAL;
 import biz.oase.sm.bundle.ValueType;
@@ -34,6 +35,7 @@ import biz.oase.sm.core.context.ProcedureContext;
  * @version 1.0.0 08.03.2025 14:56:35
  */
 public class Group extends SMObject implements
+		SMGroup,
 		Comparable<Group>,
 		FieldSource {
 

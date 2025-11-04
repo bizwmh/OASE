@@ -88,8 +88,10 @@ public class InputController implements SM, Runnable {
 	 * Creates all input processors.
 	 * 
 	 * @param aContext the current porcedure context
+	 * @param aManager the client manager to set the input consumer of the input
+	 *                 group
 	 */
-	public void visit(ProcedureContext aContext) {
+	public void visit(ProcedureContext aContext, ClientManager aManager) {
 		ipList = new ArrayList<InputProcessor>();
 		inputGroup = aContext.newGroup();
 		selected = 0;
@@ -98,7 +100,7 @@ public class InputController implements SM, Runnable {
 				.forEach(name -> {
 					InputProcessor l_ip = new InputProcessor(name);
 
-					l_ip.visit(aContext);
+					l_ip.visit(aContext, aManager);
 					ipList.add(l_ip);
 				});
 	}

@@ -14,6 +14,7 @@ import biz.car.XRuntimeException;
 import biz.car.csv.CSVHeader;
 import biz.car.csv.CSVReader;
 import biz.car.csv.CSVRecord;
+import biz.oase.sm.SMInput;
 import biz.oase.sm.bundle.MSG;
 
 /**
@@ -21,7 +22,7 @@ import biz.oase.sm.bundle.MSG;
  *
  * @version 2.0.0 19.10.2025 13:41:31
  */
-public class Input extends Channel {
+public class Input extends Channel implements SMInput {
 
 	private CSVRecord current;
 	private CSVReader rdr;

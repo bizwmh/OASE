@@ -14,6 +14,9 @@ import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 
 import biz.oase.framework.XComponent;
+import biz.oase.sm.SMClient;
+import biz.oase.sm.core.SM;
+import biz.oase.sm.merge.ClientManager;
 import biz.oase.sm.merge.Merger;
 import biz.oase.sm.sort.Sorter;
 
@@ -37,14 +40,14 @@ public class Merger1 extends XComponent {
 		info("Hier ist {}", getClass().getSimpleName());// TODO Auto-generated method stub
 		
 		Sorter l_sorter = new Sorter();
-		File l_confFile = new File("workspace","Sorter1.conf");
+		File l_confFile = new File("workspace","Sorter.properties");
 		Config l_conf = ConfigFactory.parseFile(l_confFile);
 		
 		l_sorter.accept(l_conf);
 		l_sorter.run();
 		
 		Merger l_merger = new Merger();
-		l_confFile = new File("workspace","Merger1.conf");
+		l_confFile = new File("workspace","Merger.properties");
 		l_conf = ConfigFactory.parseFile(l_confFile);
 		
 		l_merger.accept(l_conf);

@@ -21,6 +21,7 @@ import biz.oase.sm.core.Procedure;
  */
 public class Merger extends Procedure {
 
+	private ClientManager clMgr;
 	private String eof;
 	private GroupController groupCtl;
 	private InputController inputCtl;
@@ -37,11 +38,13 @@ public class Merger extends Procedure {
 	public void accept(Config aConfig) {
 		super.accept(aConfig);
 
+		clMgr = new ClientManager();
 		inputCtl = new InputController();
 		procedureGroup = context().newGroup();
 		eof = procedureGroup.endOfInput();
 
-		inputCtl.visit(context());
+		procedureGroup.visit(context());
+		inputCtl.visit(context(), clMgr);
 	}
 
 	@Override
@@ -118,18 +121,9 @@ public class Merger extends Procedure {
 			String l_name = l_list.get(i);
 			l_ret = new GroupController(l_name);
 
-			l_ret.setProcedureGroup(procedureGroup);
-			l_ret.setInputgGroup(aGroup);
+			l_ret.setProcedureGroup(procedureGroup, clMgr);
+			l_ret.setInputGroup(aGroup);
 			l_ret.setNextController(l_next);
-
-			l_next = l_ret;
-//
-//			if (l_ret.pg.hasPath(ON_EXIT)) {
-//				l_ret.exitClient = l_ctx.client(l_ret.pg.getString(ON_EXIT));
-//			}
-//			if (l_ret.pg.hasPath(ON_INIT)) {
-//				l_ret.exitClient = l_ctx.client(l_ret.pg.getString(ON_INIT));
-//			}
 		}
 		return l_ret;
 	}

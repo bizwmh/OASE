@@ -9,6 +9,8 @@ package biz.oase.sm.core;
 
 import biz.car.CAR;
 import biz.car.csv.CSVRecord;
+import biz.oase.sm.SMInput;
+import biz.oase.sm.SMOutput;
 
 /**
  * This consumer writes the current CSV record from the input channel to the
@@ -19,10 +21,10 @@ import biz.car.csv.CSVRecord;
  */
 public interface WriteToOut extends CAR {
 
-	static public void accept(Input anInput) {
+	static public void accept(SMInput anInput) {
 		if (anInput.hasPath(OUTPUT)) {
 			String l_name = anInput.getString(OUTPUT);
-			Output l_out = anInput.context().getOutput(l_name);
+			SMOutput l_out = anInput.context().getOutput(l_name);
 			CSVRecord l_rec = anInput.getCurrent();
 
 			l_out.write(l_rec);

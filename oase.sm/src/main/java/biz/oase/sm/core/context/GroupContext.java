@@ -60,9 +60,9 @@ public class GroupContext implements SM {
 	}
 
 	/**
-	 * TODO visit
+	 * Assign the procedure context to this group context.
 	 * 
-	 * @param aContext
+	 * @param aContext the underlying procedure context
 	 */
 	void visit(ProcedureContext aContext) {
 		ctx = Objects.requireNonNull(aContext);
