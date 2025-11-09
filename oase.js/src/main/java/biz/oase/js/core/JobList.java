@@ -7,27 +7,28 @@
 
 package biz.oase.js.core;
 
+import java.util.List;
+
 /**
- * Executes the job based on a configuration file from the exec library.
+ * Processes the steps of a job stream.<br>
+ * Steps are executed one after the other.
  *
- * @version 2.0.0 08.11.2025 14:54:09
+ * @version 2.0.0 06.11.2025 10:32:17
  */
-public class ExecFile extends JobEntry{
+public class JobList extends JobSet {
 
 	/**
-	 * Creates a default <code>ExecFile</code> instance.
+	 * Creates a default <code>JobSet</code> instance.
 	 * 
 	 * @param aJob the current job
+	 * @param anId the key of an entry in the underlying step configuration
 	 */
-	public ExecFile(Job aJob) {
-		super(aJob, EXEC);
+	public JobList(Job aJob, String anId) {
+		super(aJob, anId);
 	}
 
 	@Override
-	public void exec() {
-		JobStep l_step = toJobStep(EXEC);
-
-		l_step.accept(config());
-		l_step.run();
+	protected void execute(List<JobStep> aList) {
+		aList.forEach(step -> step.exec());
 	}
 }

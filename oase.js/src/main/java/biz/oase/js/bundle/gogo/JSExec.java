@@ -18,13 +18,13 @@ import org.osgi.service.component.annotations.Component;
 import biz.car.XLogger;
 import biz.oase.js.ExecLib;
 import biz.oase.js.JobEntryService;
-import biz.oase.js.bundle.BND;
+import biz.oase.js.bundle.CFG;
 import biz.oase.js.bundle.MSG;
 
 /**
  * Console Command: exec
  *
- * @version 1.0.0 12.02.2025 16:10:25
+ * @version 2.0.0 04.11.2025 16:45:48
  */
 @GogoCommand(scope = "oasejs", function = "exec")
 @Component(service = JSExec.class)
@@ -42,7 +42,7 @@ public class JSExec {
 
 			l_ret =  XLogger.format(MSG.JOB_SUBMITTED, l_jobFile.getPath());
 		} else {
-			List<String> l_libs = BND.EXECLIB;
+			List<String> l_libs = CFG.EXECLIB;
 			l_ret = XLogger.format(MSG.FILE_NOT_FOUND, aName, l_libs);
 		}
 		return l_ret;

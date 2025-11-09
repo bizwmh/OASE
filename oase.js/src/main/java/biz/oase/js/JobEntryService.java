@@ -18,12 +18,14 @@ import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 
 import biz.car.io.FSObject;
-import biz.oase.js.core.ExecJob;
+import biz.oase.js.core.ExecFile;
+import biz.oase.js.core.Job;
+import biz.oase.js.core.JobStep;
 
 /**
  * Service interface for submitting a file from the EXECLIB for execution.
  *
- * @version 1.0.0 12.02.2025 15:13:32
+ * @version 2.0.0 09.11.2025 13:45:32
  */
 public interface JobEntryService {
 
@@ -36,19 +38,23 @@ public interface JobEntryService {
 		}
 		return l_ret;
 	};
-	
+
 	/**
 	 * Submits the given file for execution.
+	 * 
 	 * @param aFile the job configuration file
 	 * @return the resulting thread object
 	 */
 	static CompletableFuture<Void> submit(File aFile) {
 		Config l_conf = ConfigFactory.parseFile(aFile);
-		String l_name = ConfigName.apply(aFile);
-		ExecJob l_step = new ExecJob(l_name, l_conf);
+		Job l_job = new Job();
+
+		l_job.accept(l_conf);
+
+		JobStep l_step = new ExecFile(l_job);
 		
 		l_step.accept(l_conf);
 
-		return l_step.start(l_name.toUpperCase());
+		return l_step.start(l_step.getName());
 	}
 }

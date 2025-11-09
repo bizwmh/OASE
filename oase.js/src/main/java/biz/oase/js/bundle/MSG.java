@@ -7,28 +7,29 @@
 
 package biz.oase.js.bundle;
 
-import biz.car.config.BCS;
+import biz.car.config.ACS;
 
 /**
  * Messages of the ASGi Job Service.
  *
- * @version 1.0.0 11.02.2025 12:21:49
+ * @version 2.0.0 08.11.2025 14:30:38
  */
 public class MSG {
 
-	public static String DUPLICATE_EXEC_MEMBER;
+	public static String DUPLICATE_LIB_MEMBER;
 	public static String EXEC_MISSING;
 	public static String EXEC_NOT_FOUND;
 	public static String EXECGROUP_ABENDED;
 	public static String FILE_NOT_FOUND;
 	public static String JOB_CYCLE_FOUND;
 	public static String JOB_SUBMITTED;
+	public static String PARAMETERS_MISSING;
 
 	// -------------------------------------------------------------------------
 	// Initialize the static fields
 	// -------------------------------------------------------------------------
 	static {
-		BCS.initialize(MSG.class, "MSG.properties"); //$NON-NLS-1$
+		ACS.initialize(MSG.class, "MSG.properties"); //$NON-NLS-1$
 	}
 
 	/**

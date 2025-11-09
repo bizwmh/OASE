@@ -20,5 +20,6 @@
 		<module>oase.sm</module>
 		<module>oase.test</module>
 		<module>oase.sr</module>
+		<module>oase.js</module>
 	</modules>
 </project>

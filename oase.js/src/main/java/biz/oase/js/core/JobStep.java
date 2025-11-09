@@ -8,47 +8,49 @@
 package biz.oase.js.core;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.typesafe.config.Config;
 
 import biz.car.XRunnable;
 import biz.car.config.ConfigAdapter;
-import biz.oase.car.OASE;
 
 /**
  * Base class for any executable job configuration.
  *
- * @version 1.0.0 12.02.2025 15:35:02
+ * @version 2.0.0 06.11.2025 08:51:05
  */
 public abstract class JobStep
 		extends ConfigAdapter
-		implements OASE,
-		XRunnable {
+		implements XRunnable {
 
-	public final String configId;
+	public final String stepId;
 	public final Job theJob;
+
+	private Logger logger;
 
 	/**
 	 * Creates a default <code>JobStep</code> instance.
 	 * 
 	 * @param aJob the current job
-	 * @param anId the name of the underlying configuration id
+	 * @param anId the key of an entry in the underlying step configuration
 	 */
 	public JobStep(Job aJob, String anId) {
 		super();
 
-		configId = anId;
+		stepId = anId;
 		theJob = aJob;
 	}
 
-	/**
-	 * Creates a default <code>JobStep</code> instance.
-	 * 
-	 * @param anId the name of the underlying configuration id
-	 */
-	public JobStep(String anId) {
-		super();
+	@Override
+	public void accept(Config aConfig) {
+		super.accept(aConfig);
+		logger = theJob.logger();
 
-		configId = anId;
-		theJob = new Job(anId);
+		if (aConfig.hasPath(LOGGER)) {
+			String l_logger = aConfig.getString(LOGGER);
+			logger = LoggerFactory.getLogger(l_logger);
+		}
 	}
 
 	@Override
@@ -58,6 +60,6 @@ public abstract class JobStep
 
 	@Override
 	public Logger logger() {
-		return theJob.logger();
+		return logger;
 	}
 }

@@ -7,54 +7,36 @@
 
 package biz.oase.js.core;
 
+import static biz.oase.js.bundle.CFG.EXECLIB;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 
 import biz.car.config.ConfigAdapter;
 import biz.oase.js.ExecLib;
-import biz.oase.js.bundle.BND;
 import biz.oase.js.bundle.MSG;
-import biz.oase.js.bundle.VAR;
 
 /**
- * The singleton <code>Job</code> instance for running an executable job
- * configuration file.
+ * The singleton <code>Job</code> instance for running executable job
+ * configuration files.
  *
- * @version 1.0.0 12.02.2025 15:16:00
+ * @version 2.0.0 08.11.2025 14:33:42
  */
 public class Job extends ConfigAdapter {
 
 	private List<String> stepList;
-	private List<String> execLibs;
-	private Map<String, File> members;
 
 	/**
 	 * Creates a default <code>Job</code> instance.
 	 */
-	public Job(String aConfigId) {
+	public Job() {
 		super();
 
 		stepList = new ArrayList<String>();
-		execLibs = new ArrayList<String>();
-		
-		stepList.add(aConfigId);
-	}
-
-	@Override
-	public void accept(Config aConfig) {
-		super.accept(aConfig);
-
-		List<String> l_list = asStringList(VAR.EXECLIB);
-		members = ExecLib.fileMap(BND.EXECLIB);
-		
-		execLibs.addAll(l_list);
-		execLibs.addAll(BND.EXECLIB);
-		members.putAll(ExecLib.fileMap(l_list));
 	}
 
 	/**
@@ -65,19 +47,16 @@ public class Job extends ConfigAdapter {
 	 */
 	public Config load(String aMember) {
 		if (!stepList.contains(aMember)) {
-			File l_file = members.get(aMember);
+			File l_file = ExecLib.get(aMember)
+					.orElseThrow(() -> exception(MSG.FILE_NOT_FOUND, aMember, EXECLIB));
+			Config l_ret = ConfigFactory.parseFile(l_file);
 
-			if (l_file != null) {
-				Config l_ret = ConfigFactory.parseFile(l_file);
+			if (l_ret.hasPath(EXEC)) {
+				stepList.add(aMember);
 
-				if (l_ret.hasPath(EXEC)) {
-					stepList.add(aMember);
-
-					return l_ret;
-				}
-				throw exception(MSG.EXEC_MISSING, aMember);
+				return l_ret;
 			}
-			throw exception(MSG.FILE_NOT_FOUND, aMember, execLibs);
+			throw exception(MSG.EXEC_MISSING, aMember);
 		}
 		throw exception(MSG.JOB_CYCLE_FOUND, aMember);
 	}

@@ -13,42 +13,37 @@ import org.osgi.service.cm.ManagedService;
 import org.osgi.service.component.annotations.Component;
 
 import biz.oase.framework.XManagedService;
-import biz.oase.js.core.Inbox;
 
 /**
- * Bundle Runtime Options.
+ * Job Service Runtime Configuration.
  *
- * @version 1.0.0 11.02.2025 12:23:21
+ * @version 2.0.0 08.11.2025 14:30:17
  */
 @Component(
 		property = { "service.pid=oase.js" },
 		service = ManagedService.class, 
 		immediate = true)
-public class BND extends XManagedService {
+public class CFG extends XManagedService {
 
 	public static List<String> EXECLIB;
-	
-	private Inbox in;
+	public static String INBOX;
+	public static String OUTBOX;
 	
 	/**
 	 * Creates a default <code>BND</code> instance.
 	 */
-	public BND() {
+	public CFG() {
 		super();
-		
-		in = new Inbox();
 	}
 
 	@Override
 	protected void disabledService() {
-		in.stop();
 	}
 
 	@Override
 	protected void updatedService() {
-		EXECLIB = asStringList(VAR.EXECLIB);
-
-		in.accept(config());
-		in.start();
+		EXECLIB = List.copyOf(asStringList(VAR.EXECLIB));
+		INBOX = getString(VAR.INBOX);
+		OUTBOX = getString(VAR.OUTBOX);
 	}
 }
