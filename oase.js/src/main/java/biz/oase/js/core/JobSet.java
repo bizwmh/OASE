@@ -37,11 +37,6 @@ public abstract class JobSet extends JobEntry {
 		execute(l_steps);
 	}
 
-	@Override
-	public void run() {
-		exec();
-	}
-
 	/**
 	 * Executes the set of job steps
 	 * 

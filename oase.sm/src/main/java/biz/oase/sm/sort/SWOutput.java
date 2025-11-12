@@ -12,9 +12,9 @@ import java.io.IOException;
 import java.util.function.Consumer;
 
 import biz.car.VAL;
-import biz.car.config.ACS;
 import biz.car.csv.CSVRecord;
 import biz.car.csv.CSVWriter;
+import biz.oase.framework.OASE;
 import biz.oase.sm.core.context.ProcedureContext;
 
 /**
@@ -25,12 +25,6 @@ import biz.oase.sm.core.context.ProcedureContext;
 public class SWOutput
 	extends CSVWriter
 	implements Consumer<CSVRecord> {
-
-	public static String WORKSPACE;
-	
-	static {
-		ACS.initialize(SWOutput.class, ACS.APP);
-	}
 
 	private File myOutput;
 	private ProcedureContext ctx;
@@ -79,7 +73,7 @@ public class SWOutput
 		try {
 			String l_prefix = ctx.getName() + "_"; //$NON-NLS-1$
 			String l_suffix = VAL._csv;
-			File l_outdir = new File(WORKSPACE);
+			File l_outdir = new File(OASE.WORKSPACE);
 			File l_ret = File.createTempFile(l_prefix, l_suffix, l_outdir);
 
 			return l_ret;

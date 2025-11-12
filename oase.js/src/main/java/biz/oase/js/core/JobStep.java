@@ -27,7 +27,7 @@ public abstract class JobStep
 	public final String stepId;
 	public final Job theJob;
 
-	private Logger logger;
+	private Logger stepLogger;
 
 	/**
 	 * Creates a default <code>JobStep</code> instance.
@@ -45,11 +45,11 @@ public abstract class JobStep
 	@Override
 	public void accept(Config aConfig) {
 		super.accept(aConfig);
-		logger = theJob.logger();
+		stepLogger = theJob.logger();
 
 		if (aConfig.hasPath(LOGGER)) {
 			String l_logger = aConfig.getString(LOGGER);
-			logger = LoggerFactory.getLogger(l_logger);
+			stepLogger = LoggerFactory.getLogger(l_logger);
 		}
 	}
 
@@ -60,6 +60,11 @@ public abstract class JobStep
 
 	@Override
 	public Logger logger() {
-		return logger;
+		return stepLogger;
+	}
+
+	@Override
+	public void run() {
+		exec();
 	}
 }

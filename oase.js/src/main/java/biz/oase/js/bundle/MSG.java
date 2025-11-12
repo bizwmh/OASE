@@ -16,6 +16,7 @@ import biz.car.config.ACS;
  */
 public class MSG {
 
+	public static String CONFIG_CYCLE_FOUND;
 	public static String DUPLICATE_LIB_MEMBER;
 	public static String EXEC_MISSING;
 	public static String EXEC_NOT_FOUND;

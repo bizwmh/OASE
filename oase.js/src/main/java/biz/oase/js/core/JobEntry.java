@@ -7,14 +7,11 @@
 
 package biz.oase.js.core;
 
-import java.io.File;
 import java.util.List;
-import java.util.Optional;
 
 import com.typesafe.config.Config;
-import com.typesafe.config.ConfigFactory;
 
-import biz.oase.js.ExecLib;
+import biz.car.util.ClassUtil;
 import biz.oase.js.bundle.MSG;
 import biz.oase.js.bundle.VAR;
 
@@ -61,7 +58,7 @@ public abstract class JobEntry extends JobStep {
 			throw exception(MSG.PARAMETERS_MISSING, anId, getName());
 		}
 		Config l_conf = theJob.load(anId);
-		JobStep l_ret = new ExecFile(theJob);
+		JobStep l_ret = new ExecFile(theJob, anId);
 
 		l_ret.accept(l_conf);
 
@@ -72,24 +69,16 @@ public abstract class JobEntry extends JobStep {
 		String l_exec = getString(anId);
 
 		if (hasPath(l_exec)) {
-			return jobStepN(anId);
+			return jobStepN(l_exec);
 		}
-		Optional<File> l_file = ExecLib.get(l_exec);
+		if (ClassUtil.Registry.contains(l_exec)) {
+			JobStep l_ret = new ExecStep(theJob, l_exec);
 
-		if (l_file.isPresent()) {
-			Config l_conf = ConfigFactory.parseFile(l_file.get());
-			JobStep l_ret = new ExecFile(theJob);
-
-			l_ret.accept(l_conf);
+			l_ret.accept(config());
 
 			return l_ret;
 		}
-		Config l_conf = theJob.load(anId);
-		JobStep l_ret = new ExecStep(theJob, l_exec);
-
-		l_ret.accept(l_conf);
-
-		return l_ret;
+		return jobStep0(l_exec);
 	}
 
 	private JobStep jobStepN(String anId) {

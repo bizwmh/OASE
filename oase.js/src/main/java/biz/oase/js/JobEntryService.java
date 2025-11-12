@@ -11,6 +11,7 @@ import static biz.car.io.PrefixedFile.isPrefixed;
 import static biz.car.io.PrefixedFile.trimPrefix;
 
 import java.io.File;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
@@ -42,19 +43,51 @@ public interface JobEntryService {
 	/**
 	 * Submits the given file for execution.
 	 * 
+	 * @param aName the name of the job configuration file
+	 * @return the resulting thread object or <code>null</code> if no job file could
+	 *         be found for the given name
+	 */
+	static CompletableFuture<Void> submit(String aName) {
+		CompletableFuture<Void> l_ret = null;
+		Optional<File> l_file = ExecLib.get(aName);
+
+		if (l_file.isPresent()) {
+			File l_jobFile = l_file.get();
+			Config l_conf = ConfigFactory.parseFile(l_jobFile);
+			Job l_job = new Job();
+
+			l_job.accept(l_conf);
+
+			JobStep l_step = new ExecFile(l_job, aName);
+
+			l_step.accept(l_conf);
+
+			l_ret = submit(l_jobFile);
+		}
+		return l_ret;
+	}
+
+	/**
+	 * Submits the given file for execution.
+	 * 
 	 * @param aFile the job configuration file
-	 * @return the resulting thread object
+	 * @return the resulting thread object or <code>null</code> if no job file could
+	 *         be found for the given name
 	 */
 	static CompletableFuture<Void> submit(File aFile) {
+		CompletableFuture<Void> l_ret = null;
 		Config l_conf = ConfigFactory.parseFile(aFile);
+		String l_name = ConfigName.apply(aFile);
 		Job l_job = new Job();
 
 		l_job.accept(l_conf);
 
-		JobStep l_step = new ExecFile(l_job);
-		
+		JobStep l_step = new ExecFile(l_job, l_name);
+
 		l_step.accept(l_conf);
 
-		return l_step.start(l_step.getName());
+		l_ret = l_step.start(l_step.getName());
+		
+		return l_ret;
 	}
 }

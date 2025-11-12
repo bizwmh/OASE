@@ -13,6 +13,7 @@ import org.osgi.service.cm.ManagedService;
 import org.osgi.service.component.annotations.Component;
 
 import biz.oase.framework.XManagedService;
+import biz.oase.js.inbox.Inbox;
 
 /**
  * Job Service Runtime Configuration.
@@ -29,15 +30,20 @@ public class CFG extends XManagedService {
 	public static String INBOX;
 	public static String OUTBOX;
 	
+	private Inbox in;
+	
 	/**
 	 * Creates a default <code>BND</code> instance.
 	 */
 	public CFG() {
 		super();
+		
+		in = new Inbox();
 	}
 
 	@Override
 	protected void disabledService() {
+		in.stop();
 	}
 
 	@Override
@@ -45,5 +51,8 @@ public class CFG extends XManagedService {
 		EXECLIB = List.copyOf(asStringList(VAR.EXECLIB));
 		INBOX = getString(VAR.INBOX);
 		OUTBOX = getString(VAR.OUTBOX);
+
+		in.accept(config());
+		in.start();
 	}
 }

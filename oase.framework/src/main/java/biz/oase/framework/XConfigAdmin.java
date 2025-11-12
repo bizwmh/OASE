@@ -26,7 +26,6 @@ import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 
 import biz.car.SYS;
-import biz.car.config.ACS;
 import biz.car.config.XConfig;
 import biz.car.io.FSObject;
 
@@ -40,12 +39,7 @@ import biz.car.io.FSObject;
 @Component(immediate = true)
 public class XConfigAdmin extends XComponent implements Supplier<ConfigurationAdmin> {
 
-	public static String CONFIG_AREA;
 	public static XConfigAdmin instance;
-	
-	static {
-		ACS.initialize(XConfigAdmin.class, ACS.APP);
-	}
 
 	@Reference
 	private ConfigurationAdmin ca;
@@ -119,7 +113,7 @@ public class XConfigAdmin extends XComponent implements Supplier<ConfigurationAd
 	@Override
 	protected void doActivate() {
 		instance = this;
-		Path l_path = Paths.get(CONFIG_AREA);
+		Path l_path = Paths.get(OASE.CONFIG_AREA);
 
 		try {
 			Files.list(l_path)

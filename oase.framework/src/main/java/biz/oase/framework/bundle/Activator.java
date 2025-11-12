@@ -1,40 +1,42 @@
 /* --------------------------------------------------------------------------
  * Project: Open Application Service Engine
- *          OASE SORT/MERGE Service
+ *          OASE Framework
  * --------------------------------------------------------------------------
  * Use of this software is subject to license terms. All Rights Reserved. 
  * -------------------------------------------------------------------------- */
 
-package biz.oase.sm.bundle;
+package biz.oase.framework.bundle;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
 import biz.car.util.ClassUtil;
-import biz.oase.sm.core.SM;
-import biz.oase.sm.merge.Merger;
-import biz.oase.sm.sort.Sorter;
+import biz.car.util.Dummy;
 
 /**
- * Registers the sort and merge procedures in the <code>ClassUtil</code>
- * registry.
+ * Registers the <code>Dummy</code> class in the <code>ClassUtil</code>
+ * registry with key 'DUMMY'.
  *
- * @version 2.0.0 24.10.2025 11:58:29
+ * @version 2.0.0 10.11.2025 13:12:07
  */
-public class SMActivator implements BundleActivator {
+public class Activator implements BundleActivator {
 
+	public static String CONFIG_AREA;
+	public static String WORKSPACE;
+	
 	/**
-	 * Creates a default <code>SMActivator</code> instance.
+	 * Creates a default <code>Activator</code> instance.
 	 */
-	public SMActivator() {
+	public Activator() {
 		super();
 	}
 
 	@Override
-	public void start(BundleContext context) throws Exception {
+	public void start(BundleContext aContext) throws Exception {
 
-		register(SM.MERGE, Merger.class);
-		register(SM.SORT, Sorter.class);
+		register("DUMMY", Dummy.class); //$NON-NLS-1$
+		CONFIG_AREA = aContext.getProperty("framework.configuration.area"); //$NON-NLS-1$
+		WORKSPACE = aContext.getProperty("framework.workspace.area"); //$NON-NLS-1$
 	}
 
 	@Override
