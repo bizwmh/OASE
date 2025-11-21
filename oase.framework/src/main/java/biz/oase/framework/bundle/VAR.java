@@ -5,10 +5,9 @@
  * Use of this software is subject to license terms. All Rights Reserved. 
  * -------------------------------------------------------------------------- */
 
-package biz.oase.js.bundle;
+package biz.oase.framework.bundle;
 
 import biz.car.config.ACS;
-import biz.oase.framework.OASE;
 
 /**
  * Bundle variables.
@@ -17,17 +16,12 @@ import biz.oase.framework.OASE;
  */
 public class VAR {
 
-	public static String EXECLIB;
 	public static String GROUP;
-	public static String INBOX;
-	public static String OUTBOX;
 
 	// -------------------------------------------------------------------------
 	// Initialize the static fields
 	// -------------------------------------------------------------------------
 	static {
 		ACS.initialize(VAR.class, "VAR.conf"); //$NON-NLS-1$
-
-		GROUP = OASE.GROUP;
 	}
 }

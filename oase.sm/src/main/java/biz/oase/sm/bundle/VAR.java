@@ -8,6 +8,7 @@
 package biz.oase.sm.bundle;
 
 import biz.car.config.ACS;
+import biz.oase.framework.OASE;
 
 /**
  * Bundle variables.
@@ -36,5 +37,7 @@ public class VAR {
 	// -------------------------------------------------------------------------
 	static {
 		ACS.initialize(VAR.class, "VAR.conf"); //$NON-NLS-1$
+
+		GROUP = OASE.GROUP;
 	}
 }

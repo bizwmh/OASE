@@ -7,8 +7,8 @@
 
 package biz.oase.sm.core;
 
-import biz.car.CAR;
 import biz.car.csv.CSVRecord;
+import biz.oase.framework.OASE;
 import biz.oase.sm.SMInput;
 import biz.oase.sm.SMOutput;
 
@@ -19,7 +19,7 @@ import biz.oase.sm.SMOutput;
  * @version 2.0.0 19.10.2025 14:12:33
  *
  */
-public interface WriteToOut extends CAR {
+public interface WriteToOut extends OASE {
 
 	static public void accept(SMInput anInput) {
 		if (anInput.hasPath(OUTPUT)) {
