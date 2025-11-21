@@ -20,6 +20,7 @@
 		<module>oase.sm</module>
 		<module>oase.sr</module>
 		<module>oase.js</module>
+		<module>oase.ds</module>
 		<module>oase.webconsole</module>
 	</modules>
 </project>
