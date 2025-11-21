@@ -19,9 +19,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import biz.car.CAR;
 import biz.car.csv.CSVHeader;
 import biz.car.csv.CSVRecord;
+import biz.oase.framework.OASE;
 import biz.oase.sm.SMClient;
 import biz.oase.sm.SMGroup;
 import biz.oase.sm.SMInput;
@@ -32,7 +32,7 @@ import biz.oase.sm.SMOutput;
  *
  * @version 2.0.0 28.10.2025 08:43:49
  */
-public class SRClient implements CAR, SMClient {
+public class SRClient implements OASE, SMClient {
 
 	private Map<String, CSVRecord> recMap;
 

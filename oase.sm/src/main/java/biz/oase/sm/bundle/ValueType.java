@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-import biz.car.CAR;
+import biz.oase.framework.OASE;
 import biz.oase.sm.core.Group;
 
 /**
@@ -27,7 +27,7 @@ public class ValueType {
 	private static Map<String, DateFormat> dfMap;
 	private static Function<Group, Comparable<?>> ToDate = g -> {
 		try {
-			String l_format = g.getString(VAR.FORMAT, CAR.DF_DATE);
+			String l_format = g.getString(VAR.FORMAT, OASE.DF_DATE);
 			DateFormat l_df = dfMap.get(l_format);
 
 			if (l_df == null) {

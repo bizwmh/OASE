@@ -9,7 +9,6 @@ package biz.oase.framework;
 
 import java.util.Properties;
 
-import biz.car.CAR;
 import biz.car.config.Configurable;
 
 /**
@@ -24,7 +23,7 @@ import biz.car.config.Configurable;
  *
  * @version 2.0.0 18.10.2025 15:48:05
  */
-public interface SEObject extends CAR, Configurable{
+public interface SEObject extends OASE, Configurable{
 
 	/**
 	 * @return the property map of this SE object.

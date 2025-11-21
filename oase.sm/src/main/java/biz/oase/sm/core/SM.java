@@ -7,7 +7,7 @@
 
 package biz.oase.sm.core;
 
-import biz.car.CAR;
+import biz.oase.framework.OASE;
 import biz.oase.sm.bundle.VAR;
 
 /**
@@ -15,7 +15,7 @@ import biz.oase.sm.bundle.VAR;
  * 
  * @version 1.0.0 08.03.2025 14:19:55
  */
-public interface SM extends CAR {
+public interface SM extends OASE {
 
 	String DESCENDING = VAR.DESCENDING;
 	String FORMAT = VAR.FORMAT;
