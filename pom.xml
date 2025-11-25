@@ -21,6 +21,7 @@
 		<module>oase.sr</module>
 		<module>oase.js</module>
 		<module>oase.ds</module>
+		<module>oase.ds.csv</module>
 		<module>oase.webconsole</module>
 	</modules>
 </project>

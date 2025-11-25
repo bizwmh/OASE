@@ -19,7 +19,6 @@ public interface SM extends OASE {
 
 	String DESCENDING = VAR.DESCENDING;
 	String FORMAT = VAR.FORMAT;
-	String GROUP = VAR.GROUP;
 	String HEADER = VAR.HEADER;
 	String HEADER_REF = VAR.HEADER_REF;
 	String HIGH_VALUE = VAR.HIGH_VALUE;

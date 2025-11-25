@@ -7,14 +7,14 @@
 
 package biz.oase.ds.csv;
 
-import biz.oase.ds.DSTable;
+import biz.oase.ds.DSAgent;
 import biz.oase.ds.Dataspace;
 import biz.oase.ds.csv.bundle.BND;
 
 /**
  * Implements the <code>Dataspace</code> interface for CSV files.
  *
- * @version 1.0.0 14.03.2025 11:49:22
+ * @version 2.0.0 21.11.2025 11:28:49
  */
 public class CSVDS implements Dataspace {
 
@@ -26,12 +26,12 @@ public class CSVDS implements Dataspace {
 	}
 
 	@Override
-	public String getName() {
-		return BND.DS_NAME;
+	public String getId() {
+		return BND.DS_ID;
 	}
 
 	@Override
-	public DSTable getTable(String aName) {
-		return new CSVTable(aName);
+	public DSAgent getAgent(String aName) {
+		return new CSVAgent(aName);
 	}
 }

@@ -8,7 +8,6 @@
 package biz.oase.sm.bundle;
 
 import biz.car.config.ACS;
-import biz.oase.framework.OASE;
 
 /**
  * Bundle variables.
@@ -19,7 +18,6 @@ public class VAR {
 
 	public static String DESCENDING;
 	public static String FORMAT;
-	public static String GROUP;
 	public static String HEADER;
 	public static String HEADER_REF;
 	public static String HIGH_VALUE;
@@ -37,7 +35,5 @@ public class VAR {
 	// -------------------------------------------------------------------------
 	static {
 		ACS.initialize(VAR.class, "VAR.conf"); //$NON-NLS-1$
-
-		GROUP = OASE.GROUP;
 	}
 }

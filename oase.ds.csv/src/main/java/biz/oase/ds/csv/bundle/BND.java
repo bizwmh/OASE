@@ -7,21 +7,21 @@
 
 package biz.oase.ds.csv.bundle;
 
-import biz.car.config.BCS;
+import biz.car.config.ACS;
 
 /**
  * Bundle Constants.
  *
- * @version 1.0.0 14.03.2025 12:29:05
+ * @version 2.0.0 21.11.2025 11:27:54
  */
 public class BND {
 
-	public static String DS_NAME;
+	public static String DS_ID;
 
 	// -------------------------------------------------------------------------
 	// Initialize the static fields
 	// -------------------------------------------------------------------------
 	static {
-		BCS.initialize(BND.class, "BND.conf"); //$NON-NLS-1$
+		ACS.initialize(BND.class, "BND.conf"); //$NON-NLS-1$
 	}
 }

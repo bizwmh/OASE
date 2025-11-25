@@ -8,22 +8,20 @@
 package biz.oase.ds.csv;
 
 import java.io.IOException;
-
-import com.typesafe.config.Config;
+import java.util.Iterator;
 
 import biz.car.config.ConfigAdapter;
 import biz.car.csv.CSVReader;
 import biz.car.csv.CSVRecord;
-import biz.car.io.DataRecord;
 import biz.oase.ds.DS;
-import biz.oase.ds.DSCursor;
 
 /**
  * Produces data records from a CSV file.
  *
  * @version 1.0.0 24.03.2025 12:54:04
  */
-public class CSVCursor extends ConfigAdapter implements DSCursor {
+public class CSVCursor extends ConfigAdapter
+		implements DS, Iterator<CSVRecord> {
 
 	private CSVReader rdr;
 	private CSVRecord rec;
@@ -38,34 +36,42 @@ public class CSVCursor extends ConfigAdapter implements DSCursor {
 	}
 
 	@Override
-	public void accept(Config aConfig) {
-		Config l_conf = aConfig.getConfig(getName());
-		super.accept(l_conf);
-
-		open();
-	}
-
-	@Override
-	public void dispose() {
-		close();
-	}
-
-	@Override
-	public DataRecord get() {
-		return rec;
-	}
-
-	@Override
-	public boolean next() {
+	public boolean hasNext() {
 		try {
 			rec = rdr.readRecord();
 
-			if (rec != null) {
-				return true;
-			} else {
+			if (rec == null) {
 				close();
+
 				return false;
 			}
+			return true;
+		} catch (IOException anEx) {
+			throw exception(anEx);
+		}
+	}
+
+	@Override
+	public CSVRecord next() {
+		if (rec != null) {
+			return rec;
+		}
+		throw new IllegalStateException();
+	}
+
+	public void open() {
+		try {
+			CSVReader l_rdr = new CSVReader();
+			String l_path = getString(PATH);
+
+			if (hasPath(DELIM)) {
+				String l_delim = getString(DELIM);
+
+				l_rdr.setDelimiter(l_delim);
+			}
+			l_rdr.open(l_path);
+
+			rdr = l_rdr;
 		} catch (IOException anEx) {
 			throw exception(anEx);
 		}
@@ -80,24 +86,6 @@ public class CSVCursor extends ConfigAdapter implements DSCursor {
 			} catch (IOException anEx) {
 				warn(anEx.getMessage());
 			}
-		}
-	}
-
-	private void open() {
-		try {
-			CSVReader l_rdr = new CSVReader();
-			String l_path = getString(PATH);
-			
-			if (hasPath(DS.DELIM)) {
-				String l_delim = getString(DS.DELIM);
-				
-				l_rdr.setDelimiter(l_delim);
-			}
-			l_rdr.open(l_path);
-			
-			rdr = l_rdr;
-		} catch (IOException anEx) {
-			throw exception(anEx);
 		}
 	}
 }

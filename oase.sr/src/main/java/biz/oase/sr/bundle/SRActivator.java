@@ -42,7 +42,6 @@ public class SRActivator implements BundleActivator {
 	private void register(String anId, Class<?> aClass) {
 		if (ClassUtil.Registry.contains(anId)) {
 			ClassUtil.Registry.unregister(anId);
-//			SYS.LOG.warn(MSG.CLASS_UNREGISTERED, aClass, anId);
 		}
 		ClassUtil.Registry.register(anId, aClass);
 	}
