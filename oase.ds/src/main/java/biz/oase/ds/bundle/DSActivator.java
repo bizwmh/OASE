@@ -32,7 +32,7 @@ public class DSActivator implements DS, BundleActivator {
 	@Override
 	public void start(BundleContext context) throws Exception {
 
-		register(DS.EXPORT, Export.class);
+		register(EXPORT, Export.class);
 	}
 
 	@Override

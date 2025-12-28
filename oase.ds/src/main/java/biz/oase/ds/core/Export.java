@@ -10,23 +10,16 @@ package biz.oase.ds.core;
 import java.io.IOException;
 import java.util.Iterator;
 
-import biz.car.XRunnable;
-import biz.car.config.ConfigAdapter;
 import biz.car.csv.CSVRecord;
 import biz.car.csv.CSVWriter;
-import biz.oase.ds.DS;
-import biz.oase.ds.DSAgent;
-import biz.oase.ds.Dataspace;
 
 /**
  * Creates an export file of data entries in a data space.
  *
  * @version 2.0.0 24.11.2025 13:45:41
  */
-public class Export extends ConfigAdapter
-		implements DS, XRunnable {
+public class Export extends DSClient {
 
-	private DSAgent myAgent;
 	private CSVWriter wrt;
 
 	/**
@@ -49,30 +42,24 @@ public class Export extends ConfigAdapter
 			}
 		}
 		// Dispose agent
-		if (myAgent != null) {
-			myAgent.dispose();
-
-			myAgent = null;
-		}
+		super.dispose();
 	}
 
 	@Override
 	public void exec() {
 		try {
-			String l_name = getString(DSID);
-			Dataspace l_ds = Dataspace.Registry.get(l_name);
-			l_name = getString(INPUT);
-			myAgent = l_ds.getAgent(l_name);
-			l_name = getString(OUTPUT);
+			String l_out = getString(OUTPUT);
 			wrt = new CSVWriter();
 
-			myAgent.accept(config());
-			wrt.open(l_name);
+			wrt.open(l_out);
 
 			Iterator<CSVRecord> l_iter = myAgent.query();
 
 			while (l_iter.hasNext()) {
-				wrt.write(l_iter.next());
+				CSVRecord l_rec = l_iter.next();
+				l_rec = myMapper.apply(l_rec);
+				
+				wrt.write(l_rec);
 			}
 		} catch (IOException anEx) {
 			throw exception(anEx);

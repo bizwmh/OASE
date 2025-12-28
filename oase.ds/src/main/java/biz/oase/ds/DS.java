@@ -7,6 +7,7 @@
 
 package biz.oase.ds;
 
+import biz.oase.ds.bundle.VAR;
 import biz.oase.framework.OASE;
 
 /**
@@ -19,30 +20,34 @@ public interface DS extends OASE {
 	/**
 	 * The property key for a CSV delimiter.
 	 */
-	String DELIM = "delimiter"; //$NON-NLS-1$
+	String DELIM = VAR.DELIM;
 	/**
 	 * The property key for a dataspace.
 	 */
-	String DSID = "ds"; //$NON-NLS-1$
+	String DSID = VAR.DSID;
 	/**
 	 * Indicates that the insert operation for an entry failed due to an already
 	 * existing entry with the same key.
 	 */
-	int DUPLICATE_KEY = 2;
+	int DUPLICATE_KEY = VAR.DUPLICATE_KEY;
 	/**
 	 * The property key for the export module.
 	 */
-	String EXPORT = "export"; //$NON-NLS-1$
+	String EXPORT = VAR.EXPORT;
 	/**
 	 * Indicates a target system operation that has failed.
 	 */
-	String KO = "KO"; //$NON-NLS-1$
+	String KO = VAR.KO;
+	/**
+	 * The property key for a CSV mapper definition.
+	 */
+	String MAPPING = VAR.MAPPING;
 	/**
 	 * Indicates that the requested entry could not be found for a given key.
 	 */
-	int NOT_FOUND = 1;
+	int NOT_FOUND = VAR.NOT_FOUND;
 	/**
 	 * Indicates a successfully completed target system operation.
 	 */
-	String OK = "OK"; //$NON-NLS-1$
+	String OK = VAR.OK;
 }

@@ -8,10 +8,10 @@
 package biz.oase.ds;
 
 import java.util.Iterator;
-import java.util.function.Consumer;
 
 import com.typesafe.config.Config;
 
+import biz.car.config.ConfigAdapter;
 import biz.car.csv.CSVRecord;
 
 /**
@@ -19,7 +19,27 @@ import biz.car.csv.CSVRecord;
  *
  * @version 2.0.0 23.11.2025 16:11:35
  */
-public interface DSAgent extends Consumer<Config> {
+public abstract class DSAgent extends ConfigAdapter {
+
+	/**
+	 * Creates a default <code>DSAgent</code> instance.
+	 * 
+	 * @param aName the name of the agent
+	 */
+	public DSAgent(String aName) {
+		super(aName);
+	}
+
+	@Override
+	public void accept(Config aConfig) {
+		Config l_conf = aConfig;
+		String l_name = getName();
+
+		if (aConfig.hasPath(l_name)) {
+			l_conf = aConfig.getConfig(l_name);
+		}
+		super.accept(l_conf);
+	}
 
 	/**
 	 * Removes an entry from the dataspace.
@@ -27,12 +47,12 @@ public interface DSAgent extends Consumer<Config> {
 	 * @param aRecord the record representing the data entry.
 	 * @return a <code>DSResult</code> object.
 	 */
-	DSResult delete(CSVRecord aRecord);
+	public abstract DSResult delete(CSVRecord aRecord);
 
 	/**
 	 * Releases all allocated resources.
 	 */
-	void dispose();
+	public abstract void dispose();
 
 	/**
 	 * Inserts an new entry into the dataspace.
@@ -40,14 +60,19 @@ public interface DSAgent extends Consumer<Config> {
 	 * @param aRecord the record representing the data entry.
 	 * @return the result containing the table entry related record.
 	 */
-	DSResult insert(CSVRecord aRecord);
+	public abstract DSResult insert(CSVRecord aRecord);
+
+	/**
+	 * Establishes a communication channel to the dataspace.
+	 */
+	public abstract void openConnection();
 
 	/**
 	 * Runs a query on the application data space.
 	 * 
 	 * @return An iterator over the result set of the query
 	 */
-	Iterator<CSVRecord> query();
+	public abstract Iterator<CSVRecord> query();
 
 	/**
 	 * Looks up a data entry.<br>
@@ -57,7 +82,7 @@ public interface DSAgent extends Consumer<Config> {
 	 * @return the result containing the user record.<br>
 	 *         The read operation must return exactly one record.
 	 */
-	DSResult read(CSVRecord aRecord);
+	public abstract DSResult read(CSVRecord aRecord);
 
 	/**
 	 * Updates an entry in the dataspace.
@@ -65,5 +90,5 @@ public interface DSAgent extends Consumer<Config> {
 	 * @param aRecord the record representing the data entry.
 	 * @return the result containing the user related record.
 	 */
-	DSResult update(CSVRecord aRecord);
+	public abstract DSResult update(CSVRecord aRecord);
 }
