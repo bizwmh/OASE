@@ -1,11 +1,11 @@
 /* --------------------------------------------------------------------------
  * Project: Open Application Service Engine
- *          OASE Framework
+ *          OASE Common Application Runtime
  * --------------------------------------------------------------------------
- * Use of this software is subject to license terms. All Rights Reserved.
+ * Use of this software is subject to license terms. All Rights Reserved. 
  * -------------------------------------------------------------------------- */
 
-package biz.oase.framework;
+package biz.wmh.oase.car;
 
 import org.osgi.framework.BundleContext;
 import org.osgi.service.component.ComponentConstants;
@@ -13,18 +13,17 @@ import org.osgi.service.component.ComponentContext;
 
 import com.typesafe.config.Config;
 
-import biz.car.XRuntimeException;
-import biz.car.config.ConfigAdapter;
-import biz.car.config.XConfig;
-import biz.oase.framework.bundle.MSG;
+import biz.wmh.car.XRuntimeException;
+import biz.wmh.car.config.ConfigAdapter;
+import biz.wmh.car.config.XConfig;
+import biz.wmh.oase.car.bundle.MSG;
 
 /**
  * Convenience class for a component managed by the Service Component Runtime.
  *
- * @version 2.0.0 18.10.2025 17:32:07
+ * @version 2.0.0 14.01.2026 10:32:30
  */
-public abstract class XComponent
-		extends ConfigAdapter {
+public abstract class XComponent extends ConfigAdapter {
 
 	private BundleContext bctx;
 
@@ -34,7 +33,7 @@ public abstract class XComponent
 	public XComponent() {
 		super();
 	}
-
+	
 	/**
 	 * Activates this component.
 	 * 
@@ -43,7 +42,7 @@ public abstract class XComponent
 	public void activate(ComponentContext aContext) {
 		bctx = aContext.getBundleContext();
 		Config l_conf = XConfig.fromDictionary(aContext.getProperties());
-		
+
 		accept(l_conf);
 
 		String l_cn = getString(ComponentConstants.COMPONENT_NAME);
@@ -60,9 +59,32 @@ public abstract class XComponent
 	}
 
 	/**
+	 * Deactivates this component.
+	 */
+	public void deactivate() {
+		String l_cn = getString(ComponentConstants.COMPONENT_NAME);
+
+		info(MSG.COMPONENT_DEACTIVATING, l_cn);
+		doDeactivate();
+		info(MSG.COMPONENT_DEACTIVATED, l_cn);
+	}
+
+	/**
 	 * @return the bundle context for this component
 	 */
 	public BundleContext getBundleContext() {
 		return bctx;
+	}
+
+	/**
+	 * Performs the actions to activate this component.
+	 */
+	protected void doActivate() {
+	}
+
+	/**
+	 * Performs the actions to deactivate this component.
+	 */
+	protected void doDeactivate() {
 	}
 }
