@@ -1,11 +1,11 @@
 /* --------------------------------------------------------------------------
  * Project: Open Application Service Engine
- *          OASE Framework
+ *          OASE Common Application Runtime
  * --------------------------------------------------------------------------
  * Use of this software is subject to license terms. All Rights Reserved.
  * -------------------------------------------------------------------------- */
 
-package biz.oase.framework.bundle.gogo;
+package biz.wmh.oase.car.gogo;
 
 import org.apache.felix.service.command.Descriptor;
 import org.apache.felix.service.command.annotations.GogoCommand;
