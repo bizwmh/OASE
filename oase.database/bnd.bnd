@@ -1,0 +1,8 @@
+Bundle-SymbolicName: biz.wmh.oase.database
+Bundle-Version: ${project.version}
+Bundle-Name: ${project.name}
+Bundle-Description: ${project.description}
+Bundle-Copyright: Wolfgang Mueller-Haas
+ 
+Export-Package: \
+ biz.wmh.oase.database
