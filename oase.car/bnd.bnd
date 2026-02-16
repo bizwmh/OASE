@@ -1,0 +1,18 @@
+Bundle-SymbolicName: biz.oase.car
+Bundle-Version: ${project.version}
+Bundle-Name: ${project.name}
+Bundle-Description: ${project.description}
+Bundle-Copyright: Wolfgang Mueller-Haas
+
+Export-Package: \
+ biz.oase.car
+ 
+Import-Package: \
+ biz.car, \
+ biz.car.config, \
+ biz.car.util, \
+ org.osgi.framework
+  
+ 
+Private-Package: \
+ biz.oase.car.bundle

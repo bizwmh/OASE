@@ -19,6 +19,15 @@
 		<target.deploy.path>C:/IDE/WORKSPACE/CAR.OSGi/bundles</target.deploy.path>
 	</properties>
 
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.webconsole</artifactId>
+			<version>4.8.8</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>

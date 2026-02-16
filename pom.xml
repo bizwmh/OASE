@@ -18,7 +18,9 @@
 	</properties>
 
 	<modules>
+		<module>oase.car</module>
 		<module>oase.webconsole</module>
+		<module>oase.service</module>
 	</modules>
 
 	<dependencies>

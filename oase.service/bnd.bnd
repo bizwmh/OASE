@@ -1,0 +1,5 @@
+Bundle-SymbolicName: biz.oase.service
+Bundle-Version: ${project.version}
+Bundle-Name: ${project.name}
+Bundle-Description: ${project.description}
+Bundle-Copyright: Wolfgang Mueller-Haas

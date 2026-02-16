@@ -9,27 +9,36 @@
 		<version>2.0.0</version>
 	</parent>
 
-	<artifactId>oase.webconsole</artifactId>
-	<packaging>bundle</packaging>
+	<artifactId>oase.car</artifactId>
 
-	<name>OASE WEB Console</name>
-	<description>OASE Branding für die Apache Felix Web Console</description>
-
-	<properties>
-		<target.deploy.path>C:/IDE/WORKSPACE/CAR.OSGi/bundles</target.deploy.path>
-	</properties>
+	<name>OASE CAR</name>
+	<description>Common Application Runtime Extension for OASE</description>
 
 	<build>
 		<plugins>
+			<!-- BND Maven Plugin -->
 			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-bundle-plugin</artifactId>
-				<version>5.1.9</version>
-				<extensions>true</extensions>
+				<groupId>biz.aQute.bnd</groupId>
+				<artifactId>bnd-maven-plugin</artifactId>
+				<version>7.0.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>bnd-process</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Maven JAR Plugin  -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.3.0</version>
 				<configuration>
-					<instructions>
-						<_include>bundle.properties</_include>
-					</instructions>
+					<archive>
+						<manifestFile>
+							${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+					</archive>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -49,13 +58,7 @@
 									<groupId>${project.groupId}</groupId>
 									<artifactId>${project.artifactId}</artifactId>
 									<version>${project.version}</version>
-									<outputDirectory>${target.deploy.path}</outputDirectory>
-								</artifactItem>
-								<artifactItem>
-									<groupId>${project.groupId}</groupId>
-									<artifactId>${project.artifactId}</artifactId>
-									<version>${project.version}</version>
-									<outputDirectory>${target.deploy.xenv}</outputDirectory>
+									<outputDirectory>${target.deploy.xenv}/01_API</outputDirectory>
 								</artifactItem>
 							</artifactItems>
 						</configuration>
