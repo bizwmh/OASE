@@ -1,140 +1,140 @@
-# OASE â€“ OSGi Application Server Environment
+# OASE – OSGi Application Server Environment
 
-## Ãœberblick
+## Overview
 
-OASE ist eine schlanke Entwicklungs- und Laufzeitplattform fÃ¼r OSGi-basierte Anwendungen. Sie stellt Anwendungsentwicklern eine vollstÃ¤ndig vorkonfigurierte Infrastruktur bereit â€“ eingebetteter Webserver, Datenbank, Identity & Access Management, HTTP-Client, Konfigurationsmanagement und Hot Deployment â€“ sodass sich Entwickler auf ihre fachliche Logik konzentrieren kÃ¶nnen.
+OASE is a lightweight development and runtime platform for OSGi-based applications. It provides application developers with a fully preconfigured infrastructure – embedded web server, database, Identity & Access Management, HTTP client, configuration management, and hot deployment – so that developers can focus on their business logic.
 
-Die Plattform basiert auf dem Eclipse Equinox OSGi-Framework und nutzt gezielt Apache Felix-Services (SCR, ConfigAdmin, EventAdmin, HTTP Jetty) als pragmatischen Mix beider Ã–kosysteme.
+The platform is based on the Eclipse Equinox OSGi framework and selectively uses Apache Felix services (SCR, ConfigAdmin, EventAdmin, HTTP Jetty) as a pragmatic mix of both ecosystems.
 
-GesamtgrÃ¶ÃŸe der Laufzeitumgebung: ca. 19 MB.
+Total size of the runtime environment: approx. 19 MB.
 
 ---
 
 ## Common Application Runtime (CAR)
 
-Das HerzstÃ¼ck von OASE ist **CAR** â€“ die Common Application Runtime. CAR bildet die Abstraktionsschicht zwischen dem OSGi-Framework und den darauf laufenden Anwendungen.
+The heart of OASE is **CAR** – the Common Application Runtime. CAR forms the abstraction layer between the OSGi framework and the applications running on top of it.
 
-CAR besteht aus drei Artefakten:
+CAR consists of three artifacts:
 
-| Artefakt | Ort | GrÃ¶ÃŸe | Aufgabe |
+| Artifact | Location | Size | Purpose |
 |---|---|---|---|
-| `car-2.0.0.jar` | `lib/` | ~65 KB | Kern-API und Utilities (`biz.car.*`) |
-| `car.osgi-2.0.0.jar` | `lib/` | ~33 KB | OSGi-Launcher und Framework-Bootstrap |
-| `oase.car-2.0.0.jar` | `bundles/01_API/` | ~4 KB | API-Bundle fÃ¼r die OSGi-Service-Registry |
+| `car-2.0.0.jar` | `lib/` | ~65 KB | Core API and utilities (`biz.car.*`) |
+| `car.osgi-2.0.0.jar` | `lib/` | ~33 KB | OSGi launcher and framework bootstrap |
+| `oase.car-2.0.0.jar` | `bundles/01_API/` | ~4 KB | API bundle for the OSGi service registry |
 
-Die CAR-Bibliotheken in `lib/` werden bewusst nicht als OSGi-Bundles installiert, sondern Ã¼ber den System-Classloader geladen und via `org.osgi.framework.system.packages.extra` dem Framework zur VerfÃ¼gung gestellt. Dadurch teilen alle Bundles garantiert dieselben CAR-Klassen â€“ ohne Classloader-Konflikte.
+The CAR libraries in `lib/` are deliberately not installed as OSGi bundles. Instead, they are loaded via the system classloader and made available to the framework through `org.osgi.framework.system.packages.extra`. This ensures that all bundles share the same CAR classes – without classloader conflicts.
 
-Die exportierten CAR-Packages sind:
+The exported CAR packages are:
 
-- `biz.car` â€“ Kernklassen (SYS, CAR, XLogger, XRuntimeException)
-- `biz.car.config` â€“ Konfigurationszugriff (ACS, XConfig)
-- `biz.car.util` â€“ Hilfsfunktionen (SFI, Delay, XTimestamp)
-- `biz.car.io` â€“ I/O-Abstraktion (DirectoryWatcher, DirectoryListener)
-- `biz.car.csv` â€“ CSV-Verarbeitung
+- `biz.car` – Core classes (SYS, CAR, XLogger, XRuntimeException)
+- `biz.car.config` – Configuration access (ACS, XConfig)
+- `biz.car.util` – Utility functions (SFI, Delay, XTimestamp)
+- `biz.car.io` – I/O abstraction (DirectoryWatcher, DirectoryListener)
+- `biz.car.csv` – CSV processing
 
-ZusÃ¤tzlich werden **SLF4J** und **Typesafe Config** als System Packages exportiert, sodass alle Bundles eine einheitliche Logging- und Konfigurationsinstanz verwenden.
+Additionally, **SLF4J** and **Typesafe Config** are exported as system packages, so that all bundles use a unified logging and configuration instance.
 
 ---
 
-## Verzeichnisstruktur
+## Directory Structure
 
 ```
 OASE/
-â”œâ”€â”€ bin/                    Startskripte und Windows-Service-Executables
-â”œâ”€â”€ bundles/                Install Area â€“ Bundle-Repository und Deployment-Ziel
-â”‚   â”œâ”€â”€ 01_API/             Startlevel 1 â€“ APIs und Interfaces
-â”‚   â”œâ”€â”€ 02_CM/              Startlevel 2 â€“ Configuration Management
-â”‚   â”œâ”€â”€ 03_SERVICE/         Startlevel 3 â€“ Service-Schicht
-â”‚   â”œâ”€â”€ 04_DB/              Startlevel 4 â€“ Datenbank
-â”‚   â”œâ”€â”€ 05_WEB/             Startlevel 5 â€“ Webserver und HTTP
-â”‚   â””â”€â”€ *.jar               Startlevel 10 (Default) â€“ Management-Tools
-â”œâ”€â”€ bundle-cache/           OSGi Storage Area â€“ interner Framework-Cache
-â”œâ”€â”€ configuration/          Konfigurationsdateien
-â”œâ”€â”€ H2/                     H2-Datenbankdateien
-â”œâ”€â”€ lib/                    Launcher-Classpath (Equinox, CAR, Logback, Config)
-â”œâ”€â”€ log/                    Log- und Diagnosedateien
-â””â”€â”€ workspace/              OSGi Data Area â€“ anwendungsspezifische Daten
+├── bin/                    Startup scripts and Windows service executables
+├── bundles/                Install area – bundle repository and deployment target
+│   ├── 01_API/             Start level 1 – APIs and interfaces
+│   ├── 02_CM/              Start level 2 – Configuration Management
+│   ├── 03_SERVICE/         Start level 3 – Service layer
+│   ├── 04_DB/              Start level 4 – Database
+│   ├── 05_WEB/             Start level 5 – Web server and HTTP
+│   └── *.jar               Start level 10 (default) – Management tools
+├── bundle-cache/           OSGi storage area – internal framework cache
+├── configuration/          Configuration files
+├── H2/                     H2 database files
+├── lib/                    Launcher classpath (Equinox, CAR, Logback, Config)
+├── log/                    Log and diagnostic files
+└── workspace/              OSGi data area – application-specific data
 ```
 
-### Trennung der Bereiche
+### Separation of Concerns
 
-Die Plattform trennt vier Dateisystembereiche sauber voneinander:
+The platform cleanly separates four filesystem areas:
 
-| Bereich | Verzeichnis | Framework-Property | Zweck |
+| Area | Directory | Framework Property | Purpose |
 |---|---|---|---|
-| Install Area | `bundles/` | `osgi.install.area` | Bundle-Repository; wird vom WatchService Ã¼berwacht |
-| Storage Area | `bundle-cache/` | `org.osgi.framework.storage` | Interner Framework-Cache fÃ¼r Bundle-ZustÃ¤nde und Classloader |
-| Data Area | `workspace/` | `framework.data.area` | Anwendungsspezifischer Datenbereich |
-| Configuration | `configuration/` | `framework.configuration.area` | Zentrale Konfigurationsdateien |
+| Install Area | `bundles/` | `osgi.install.area` | Bundle repository; monitored by the WatchService |
+| Storage Area | `bundle-cache/` | `org.osgi.framework.storage` | Internal framework cache for bundle states and classloaders |
+| Data Area | `workspace/` | `framework.data.area` | Application-specific data area |
+| Configuration | `configuration/` | `framework.configuration.area` | Central configuration files |
 
 ---
 
-## Bundle-Schichtung
+## Bundle Layering
 
-Die Plattform-Bundles sind in nummerierten Unterordnern der Install Area organisiert. Die fÃ¼hrende Zahl im Ordnernamen definiert den OSGi-Startlevel:
+The platform bundles are organized in numbered subdirectories within the install area. The leading number in the directory name defines the OSGi start level:
 
-### Startlevel 1 â€“ API
+### Start Level 1 – API
 
-Grundlegende Interfaces und AbhÃ¤ngigkeiten: OSGi Service-APIs (UserAdmin, Preferences, SCR Component), Commons FileUpload/IO und das `oase.car` API-Bundle.
+Fundamental interfaces and dependencies: OSGi service APIs (UserAdmin, Preferences, SCR Component), Commons FileUpload/IO, and the `oase.car` API bundle.
 
-### Startlevel 2 â€“ Configuration Management
+### Start Level 2 – Configuration Management
 
-Apache Felix ConfigAdmin und MetaType fÃ¼r die zentrale, deklarative Konfigurationsverwaltung aller Bundles.
+Apache Felix ConfigAdmin and MetaType for centralized, declarative configuration management of all bundles.
 
-### Startlevel 3 â€“ Services
+### Start Level 3 – Services
 
-Apache Felix SCR (Declarative Services), EventAdmin fÃ¼r asynchrones Event-Handling, Equinox UserAdmin und Preferences fÃ¼r Benutzerverwaltung und Einstellungen.
+Apache Felix SCR (Declarative Services), EventAdmin for asynchronous event handling, Equinox UserAdmin and Preferences for user management and settings.
 
-### Startlevel 4 â€“ Datenbank
+### Start Level 4 – Database
 
-H2 (Version 2.2.224) als eingebettete Datenbank. Die IAM-Datenbank (`H2/IAM.mv.db`) stellt Identity & Access Management bereit.
+H2 (version 2.2.224) as an embedded database. The IAM database (`H2/IAM.mv.db`) provides Identity & Access Management.
 
-### Startlevel 5 â€“ Web
+### Start Level 5 – Web
 
-Apache Felix HTTP Jetty als eingebetteter Webserver und `car.http-1.0.0.jar` â€“ ein abstrahiertes HTTP-Client-Interface auf Basis von OkHttp3.
+Apache Felix HTTP Jetty as an embedded web server, and `car.http-1.0.0.jar` – an abstracted HTTP client interface based on OkHttp3.
 
-### Startlevel 10 (Default) â€“ Management
+### Start Level 10 (Default) – Management
 
-JARs direkt unter `bundles/` erhalten den Default-Startlevel 10: Apache Felix WebConsole mit Plugins (DS, Memory, PackageAdmin), Gogo Shell, Equinox Console und eine eigene `oase.webconsole`. Diese Tools starten zuletzt, wenn alle Plattformdienste bereits verfÃ¼gbar sind.
+JARs located directly under `bundles/` receive the default start level 10: Apache Felix WebConsole with plugins (DS, Memory, PackageAdmin), Gogo Shell, Equinox Console, and a custom `oase.webconsole`. These tools start last, once all platform services are already available.
 
-Anwendungsentwickler integrieren eigene Bundles, indem sie einen Ordner wie `06_MYAPP` anlegen â€“ der Startlevel ergibt sich automatisch aus dem Ordnernamen.
+Application developers integrate their own bundles by creating a directory such as `06_MYAPP` – the start level is automatically derived from the directory name.
 
-Unterordner ohne fÃ¼hrende Zahl werden vom Deployment ignoriert und kÃ¶nnen fÃ¼r andere Zwecke genutzt werden.
+Subdirectories without a leading number are ignored by the deployment process and can be used for other purposes.
 
 ---
 
 ## Launcher (car.osgi)
 
-### Startsequenz
+### Startup Sequence
 
-Der Launcher in `biz.car.osgi.Launcher` implementiert die vollstÃ¤ndige Startsequenz als `Runnable`:
+The launcher in `biz.car.osgi.Launcher` implements the complete startup sequence as a `Runnable`:
 
-1. **System Properties laden** â€“ Logback-Konfiguration (`logback.configurationFile`)
-2. **Framework Properties laden** â€“ mit Fallback-Kaskade (siehe unten)
-3. **Data Area erstellen** â€“ `workspace/` via `mkdirs()`
-4. **Shutdown Hook registrieren** â€“ sauberes Herunterfahren bei VM-Exit
-5. **Framework-Konfiguration aufbauen** â€“ Key-Mapping von CAR- auf Equinox-Properties
-6. **Framework initialisieren** â€“ Equinox-Instanz via `ServiceLoader<FrameworkFactory>`
-7. **Listener registrieren** â€“ Framework-, Bundle- und Service-Listener fÃ¼r Diagnose
-8. **Install Area reconcilen** â€“ Bundles synchronisieren und starten
-9. **Hot Deployment aktivieren** â€“ WatchService auf die Install Area (falls konfiguriert)
-10. **Framework starten** â€“ blockiert bis zum Shutdown; unterstÃ¼tzt Framework-Updates via Restart-Loop
+1. **Load system properties** – Logback configuration (`logback.configurationFile`)
+2. **Load framework properties** – with fallback cascade (see below)
+3. **Create data area** – `workspace/` via `mkdirs()`
+4. **Register shutdown hook** – clean shutdown on VM exit
+5. **Build framework configuration** – key mapping from CAR to Equinox properties
+6. **Initialize framework** – Equinox instance via `ServiceLoader<FrameworkFactory>`
+7. **Register listeners** – framework, bundle, and service listeners for diagnostics
+8. **Reconcile install area** – synchronize and start bundles
+9. **Activate hot deployment** – WatchService on the install area (if configured)
+10. **Start framework** – blocks until shutdown; supports framework updates via restart loop
 
-### Properties-Loading mit Fallback
+### Properties Loading with Fallback
 
-Die Konfiguration folgt einem dreistufigen Override-Pattern auf Basis von Typesafe Config:
+The configuration follows a three-tier override pattern based on Typesafe Config:
 
-1. **Eingebettete Defaults** (`framework.default.properties` in den Ressourcen)
-2. **Anwendungs-Properties** (via `ACS.parseResource()`)
-3. **Dateisystem-Fallback** (externe `.properties`-Datei)
+1. **Embedded defaults** (`framework.default.properties` in resources)
+2. **Application properties** (via `ACS.parseResource()`)
+3. **Filesystem fallback** (external `.properties` file)
 
-Jede Stufe Ã¼berschreibt die vorherige mittels `Config.withFallback()`. Benutzer mÃ¼ssen nur die Properties angeben, die sie Ã¤ndern wollen â€“ alles andere fÃ¤llt auf die Defaults zurÃ¼ck.
+Each tier overrides the previous one using `Config.withFallback()`. Users only need to specify the properties they want to change – everything else falls back to the defaults.
 
-### Framework-Abstraktion durch Key-Mapping
+### Framework Abstraction via Key Mapping
 
-Ein zentrales Designmerkmal: OASE definiert eine eigene, saubere Property-Nomenklatur und mappt diese zur Laufzeit auf die Equinox-spezifischen Keys. Die Zuordnung ist in `Equinox.properties` hinterlegt:
+A central design feature: OASE defines its own clean property nomenclature and maps it at runtime to the Equinox-specific keys. The mapping is defined in `Equinox.properties`:
 
-| CAR-Property | Equinox-Property |
+| CAR Property | Equinox Property |
 |---|---|
 | `bundle.startLevel` | `osgi.bundles.defaultStartLevel` |
 | `framework.startLevel` | `org.osgi.framework.startlevel.beginning` |
@@ -144,36 +144,36 @@ Ein zentrales Designmerkmal: OASE definiert eine eigene, saubere Property-Nomenk
 | `framework.console` | `osgi.console` |
 | `bundle.cache.clean` | `org.osgi.framework.storage.clean` |
 
-Ein Wechsel des OSGi-Frameworks (z.B. von Equinox auf Felix) erfordert lediglich eine neue Mapping-Datei â€“ der Anwendungscode und die `framework.properties` bleiben unberÃ¼hrt.
+Switching the OSGi framework (e.g. from Equinox to Felix) only requires a new mapping file – the application code and the `framework.properties` remain untouched.
 
 ---
 
 ## Hot Deployment
 
-### Architektur
+### Architecture
 
-Der `Deployer` implementiert das `DirectoryListener`-Interface von CAR und nutzt einen `DirectoryWatcher` (basierend auf Javas `WatchService`), der die gesamte Install Area rekursiv Ã¼berwacht.
+The `Deployer` implements the `DirectoryListener` interface from CAR and uses a `DirectoryWatcher` (based on Java's `WatchService`) that recursively monitors the entire install area.
 
 ### Debouncing
 
-Bei DateiÃ¤nderungen wird nicht sofort reconciled. Stattdessen nutzt der Deployer einen `ScheduledExecutorService` mit 1 Sekunde VerzÃ¶gerung. Kommen in der Zwischenzeit weitere Events, wird der Timer zurÃ¼ckgesetzt. So werden Batch-Ã„nderungen (z.B. mehrere JARs gleichzeitig kopiert) in einem einzigen Zyklus verarbeitet.
+File changes do not trigger an immediate reconciliation. Instead, the deployer uses a `ScheduledExecutorService` with a 1-second delay. If additional events arrive in the meantime, the timer is reset. This way, batch changes (e.g. multiple JARs copied simultaneously) are processed in a single cycle.
 
-### Reconciliation-Zyklus
+### Reconciliation Cycle
 
-Der Deployment-Zyklus folgt dem OSGi-Standardverfahren:
+The deployment cycle follows the standard OSGi procedure:
 
-1. **Reconcile** â€“ `InstallArea` vergleicht die JARs im Dateisystem mit den installierten Bundles. Drei FÃ¤lle: JAR neu â†’ `installBundle()`, JAR neuer als Bundle â†’ `update()`, Bundle ohne JAR â†’ `uninstall()`.
-2. **Refresh** â€“ `FrameworkWiring.refreshBundles()` lÃ¶st die PaketabhÃ¤ngigkeiten neu auf und bereinigt veraltete Classloader.
-3. **Wait** â€“ Ein `CountDownLatch` wartet auf das `PACKAGES_REFRESHED`-Event (Timeout: 30 Sekunden).
-4. **Start** â€“ Alle neu installierten und aktualisierten Bundles werden gestartet, Fragment-Bundles werden dabei Ã¼bersprungen.
+1. **Reconcile** – `InstallArea` compares the JARs on the filesystem with the installed bundles. Three cases: new JAR → `installBundle()`, JAR newer than bundle → `update()`, bundle without JAR → `uninstall()`.
+2. **Refresh** – `FrameworkWiring.refreshBundles()` re-resolves package dependencies and cleans up stale classloaders.
+3. **Wait** – A `CountDownLatch` waits for the `PACKAGES_REFRESHED` event (timeout: 30 seconds).
+4. **Start** – All newly installed and updated bundles are started; fragment bundles are skipped.
 
-### Startlevel-Zuweisung
+### Start Level Assignment
 
-Die `InstallArea.install()`-Methode extrahiert den Startlevel aus dem Dateipfad mittels Regex (`/\d{2}`). Ein JAR unter `bundles/03_SERVICE/` erhÃ¤lt Startlevel 3, ein JAR direkt unter `bundles/` den konfigurierten Default (10).
+The `InstallArea.install()` method extracts the start level from the file path using a regex (`/\d{2}`). A JAR under `bundles/03_SERVICE/` receives start level 3; a JAR directly under `bundles/` receives the configured default (10).
 
-### Dynamische Verzeichniserkennung
+### Dynamic Directory Detection
 
-Wird ein neuer Unterordner in der Install Area erstellt, erkennt der Deployer dies Ã¼ber `ENTRY_CREATE` und registriert den Ordner automatisch beim WatchService. Neue Anwendungsordner werden so ohne Neustart in das Hot Deployment einbezogen.
+When a new subdirectory is created in the install area, the deployer detects it via `ENTRY_CREATE` and automatically registers the directory with the WatchService. New application directories are thus included in hot deployment without a restart.
 
 ---
 
@@ -181,86 +181,86 @@ Wird ein neuer Unterordner in der Install Area erstellt, erkennt der Deployer di
 
 ### Logging
 
-OASE nutzt Logback Ã¼ber SLF4J mit zwei separaten Log-KanÃ¤len:
+OASE uses Logback via SLF4J with two separate log channels:
 
-- **Anwendungs-Logger** (`SYS.LOG`) â€“ fÃ¼r Framework-Lifecycle-Meldungen (Start, Stop, Fehler)
-- **Diagnose-Logger** (`DIAG.LOG`) â€“ fÃ¼r detaillierte Framework-, Bundle- und Service-Events
+- **Application logger** (`SYS.LOG`) – for framework lifecycle messages (start, stop, errors)
+- **Diagnostic logger** (`DIAG.LOG`) – for detailed framework, bundle, and service events
 
-Der Name des Diagnose-Loggers ist Ã¼ber `reference.conf` konfigurierbar (Default: `car.osgi.diagnose`).
+The name of the diagnostic logger is configurable via `reference.conf` (default: `car.osgi.diagnose`).
 
-### Framework-Diagnose
+### Framework Diagnostics
 
-Beim Start schreibt `FrameworkDiagnose.accept()` einen vollstÃ¤ndigen Snapshot in die Diagnosedatei: alle Framework-Properties sowie fÃ¼r jedes installierte Bundle die ID, den State, die Version, den Startlevel, den Zeitstempel der letzten Ã„nderung und die Location.
+At startup, `FrameworkDiagnose.accept()` writes a complete snapshot to the diagnostic file: all framework properties, and for each installed bundle the ID, state, version, start level, timestamp of the last modification, and location.
 
-### Event-Listener
+### Event Listeners
 
-Drei Listener protokollieren alle Laufzeitereignisse Ã¼ber den Diagnose-Logger:
+Three listeners log all runtime events via the diagnostic logger:
 
-- **XFrameworkListener** â€“ Framework-Events (STARTED, ERROR, PACKAGES REFRESHED, etc.)
-- **XBundleListener** â€“ Bundle-Events (installed, started, stopped, updated, etc.) mit Ausnahme des System-Bundles
-- **XServiceListener** â€“ Service-Events (REGISTERED, CHANGED, REMOVING)
+- **XFrameworkListener** – Framework events (STARTED, ERROR, PACKAGES REFRESHED, etc.)
+- **XBundleListener** – Bundle events (installed, started, stopped, updated, etc.), excluding the system bundle
+- **XServiceListener** – Service events (REGISTERED, CHANGED, REMOVING)
 
-Die Event-Typen werden Ã¼ber `BND.conf` von Integer-Werten in lesbare Strings gemappt.
+The event types are mapped from integer values to readable strings via `BND.conf`.
 
 ---
 
-## Konfiguration
+## Configuration
 
 ### framework.properties
 
-Die zentrale Konfigurationsdatei. Alle Properties sind optional â€“ nicht gesetzte Werte fallen auf die Defaults in `framework.default.properties` zurÃ¼ck.
+The central configuration file. All properties are optional – unset values fall back to the defaults in `framework.default.properties`.
 
-Wichtige konfigurierbare Parameter:
+Key configurable parameters:
 
-| Property | Default | Beschreibung |
+| Property | Default | Description |
 |---|---|---|
-| `bundle.startLevel` | 10 | Default-Startlevel fÃ¼r neue Bundles |
-| `framework.startLevel` | 10 | Framework-Startlevel (Obergrenze) |
-| `framework.install.area` | `bundles` | Pfad zur Install Area |
-| `framework.storage.area` | `bundle-cache` | Pfad zum Framework-Cache |
-| `framework.data.area` | `workspace` | Pfad zur Data Area |
-| `framework.hotdeploy.enabled` | `true` | Hot Deployment ein/aus |
-| `framework.console` | (aktiviert) | Gogo Console (optional mit Port fÃ¼r Telnet) |
-| `org.osgi.service.http.port` | 8282 | Port des eingebetteten Webservers |
+| `bundle.startLevel` | 10 | Default start level for new bundles |
+| `framework.startLevel` | 10 | Framework start level (upper bound) |
+| `framework.install.area` | `bundles` | Path to the install area |
+| `framework.storage.area` | `bundle-cache` | Path to the framework cache |
+| `framework.data.area` | `workspace` | Path to the data area |
+| `framework.hotdeploy.enabled` | `true` | Hot deployment on/off |
+| `framework.console` | (enabled) | Gogo Console (optionally with port for Telnet) |
+| `org.osgi.service.http.port` | 8282 | Port of the embedded web server |
 
 ### system.properties
 
-System-Properties fÃ¼r die JVM, insbesondere der Pfad zur Logback-Konfiguration.
+System properties for the JVM, in particular the path to the Logback configuration.
 
-### Classloader-Konfiguration
+### Classloader Configuration
 
-`org.osgi.framework.bundle.parent = ext` setzt den Extension-Classloader als Parent fÃ¼r Bundles. Damit sind die JARs aus `lib/` (die Ã¼ber den Classpath geladen werden) fÃ¼r alle Bundles sichtbar.
+`org.osgi.framework.bundle.parent = ext` sets the extension classloader as the parent for bundles. This makes the JARs from `lib/` (loaded via the classpath) visible to all bundles.
 
 ---
 
-## Windows-Service-Integration
+## Windows Service Integration
 
-OASE wird Ã¼ber Apache Commons Daemon (Procrun) als Windows-Service betrieben:
+OASE is operated as a Windows service via Apache Commons Daemon (Procrun):
 
-| Datei | Funktion |
+| File | Function |
 |---|---|
-| `OASE.exe` | Service-Runner (Procrun) |
-| `OASEw.exe` | GUI-Monitor fÃ¼r den Service |
-| `Service.bat` | Service-Installation und -Verwaltung |
-| `winsvc.bat` | Konfiguration der Service-Parameter |
-| `Console.bat` | Konsolenstart fÃ¼r Entwicklung |
+| `OASE.exe` | Service runner (Procrun) |
+| `OASEw.exe` | GUI monitor for the service |
+| `Service.bat` | Service installation and management |
+| `winsvc.bat` | Configuration of service parameters |
+| `Console.bat` | Console startup for development |
 
-Die Entry-Points `Main.main()` und `Main.stop()` werden von Procrun aufgerufen. Der Launcher lÃ¤uft in einem eigenen Thread, ein Shutdown Hook stellt sicher, dass Framework und WatchService bei VM-Exit sauber heruntergefahren werden.
+The entry points `Main.main()` and `Main.stop()` are called by Procrun. The launcher runs in its own thread; a shutdown hook ensures that the framework and WatchService are shut down cleanly on VM exit.
 
 ---
 
-## Plattformdienste fÃ¼r Anwendungsentwickler
+## Platform Services for Application Developers
 
-Zusammengefasst stellt OASE folgende Dienste bereit:
+In summary, OASE provides the following services:
 
-- **CAR-API** â€“ Einheitliche Abstraktionsschicht fÃ¼r Konfiguration, Logging, I/O und Utilities
-- **Identity & Access Management** â€“ UserAdmin-Service mit H2-persistierter IAM-Datenbank
-- **Konfigurationsmanagement** â€“ Felix ConfigAdmin und MetaType fÃ¼r deklarative Bundle-Konfiguration
-- **Event-System** â€“ Felix EventAdmin fÃ¼r asynchrone Kommunikation zwischen Bundles
-- **HTTP-Client** â€“ Abstrahiertes Interface Ã¼ber OkHttp3, bereitgestellt als OSGi-Service
-- **Webserver** â€“ Eingebetteter Jetty Ã¼ber Felix HTTP Service
-- **Datenbank** â€“ Eingebettete H2-Datenbank
-- **Hot Deployment** â€“ Dateibasiertes Deployment mit automatischer Reconciliation
-- **Management-Console** â€“ Felix WebConsole und Gogo Shell zur Laufzeitinspektion
+- **CAR API** – Unified abstraction layer for configuration, logging, I/O, and utilities
+- **Identity & Access Management** – UserAdmin service with H2-persisted IAM database
+- **Configuration Management** – Felix ConfigAdmin and MetaType for declarative bundle configuration
+- **Event System** – Felix EventAdmin for asynchronous communication between bundles
+- **HTTP Client** – Abstracted interface via OkHttp3, provided as an OSGi service
+- **Web Server** – Embedded Jetty via Felix HTTP Service
+- **Database** – Embedded H2 database
+- **Hot Deployment** – File-based deployment with automatic reconciliation
+- **Management Console** – Felix WebConsole and Gogo Shell for runtime inspection
 
-Entwickler programmieren gegen die CAR-APIs und die OSGi-Service-Registry. Die Infrastruktur wird vollstÃ¤ndig von der Plattform bereitgestellt und verwaltet.
+Developers program against the CAR APIs and the OSGi service registry. The infrastructure is fully provided and managed by the platform.
