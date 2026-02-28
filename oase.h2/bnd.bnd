@@ -1,0 +1,16 @@
+Bundle-SymbolicName: biz.oase.h2
+Bundle-Version: ${project.version}
+Bundle-Name: ${project.name}
+Bundle-Description: ${project.description}
+Bundle-Copyright: Wolfgang Mueller-Haas
+
+Import-Package: \
+ biz.car, \
+ biz.car.config, \
+ org.h2.tools
+
+Export-Package: \
+ biz.oase.h2
+  
+Private-Package: \
+ biz.oase.h2.bundle
