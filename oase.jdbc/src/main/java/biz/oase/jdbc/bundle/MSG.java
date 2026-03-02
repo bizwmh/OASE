@@ -1,27 +1,23 @@
 /* --------------------------------------------------------------------------
- * Project: Open Application Service Engine
- *          OASE Common Application Runtime
+ * Project: OASE JDBC
  * --------------------------------------------------------------------------
- * Use of this software is subject to license terms. All Rights Reserved.
+ * Use of this software is subject to license terms. All Rights Reserved. 
  * -------------------------------------------------------------------------- */
 
-package biz.oase.car.bundle;
+package biz.oase.jdbc.bundle;
 
 import biz.car.config.ACS;
 
 /**
- * Framework messages.
+ * Bundle messages.
  *
- * @version 2.0.0 17.10.2025 16:01:47
+ * @version 2.0.0 01.03.2026 08:25:51
  */
 public class MSG {
 
-	public static String CLASS_NOT_FROM_BUNDLE;
-	public static String COMPONENT_ACTIVATED;
-	public static String COMPONENT_ACTIVATING;
-	public static String COMPONENT_ACTIVATION_FAILED;
-	public static String COMPONENT_DEACTIVATED;
-	public static String COMPONENT_DEACTIVATING;
+
+	public static String DSFACTORY_NOT_FOUND;
+	public static String SQL_FILE_EMPTY;
 
 	// -------------------------------------------------------------------------
 	// Initialize the static fields
@@ -31,7 +27,7 @@ public class MSG {
 	}
 
 	/**
-	 * Creates a default <code>MSG</code> instance.
+	 * Creates a default <code>VAR</code> instance.
 	 */
 	private MSG() {
 		super();

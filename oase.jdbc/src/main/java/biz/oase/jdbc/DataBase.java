@@ -1,10 +1,10 @@
 /* --------------------------------------------------------------------------
- * Project: OASE Service API
+ * Project: OASE JDBC
  * --------------------------------------------------------------------------
  * Use of this software is subject to license terms. All Rights Reserved. 
  * -------------------------------------------------------------------------- */
 
-package biz.oase.service.jdbc;
+package biz.oase.jdbc;
 
 import java.util.List;
 
@@ -41,6 +41,11 @@ public interface DataBase {
 	 * @return <code>true</code> if a table with the given name is defined
 	 */
 	boolean hasTable(String aTable);
+
+	/**
+	 * @return a new {@link SQLStatement} backed by this database.
+	 */
+	SQLStatement sqlStatement();
 
 	/**
 	 * @return the list of names for the tables defined in this database

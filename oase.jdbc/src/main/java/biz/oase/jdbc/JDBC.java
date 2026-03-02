@@ -1,10 +1,10 @@
 /* --------------------------------------------------------------------------
- * Project: OASE Service API
+ * Project: OASE JDBC
  * --------------------------------------------------------------------------
  * Use of this software is subject to license terms. All Rights Reserved. 
  * -------------------------------------------------------------------------- */
 
-package biz.oase.service.jdbc;
+package biz.oase.jdbc;
 
 /**
  * JDBC constants.
