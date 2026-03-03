@@ -32,12 +32,4 @@ public interface Table {
 	 * @return the name of the table.
 	 */
 	String getName();
-
-	/**
-	 * Checks if a column exists for a given name.
-	 * 
-	 * @param aColumn the name of the column
-	 * @return <code>true</code> if a columns with the given name is defined
-	 */
-	boolean hasColumn(String aColumn);
 }

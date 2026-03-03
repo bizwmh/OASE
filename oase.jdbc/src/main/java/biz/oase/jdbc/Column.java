@@ -16,7 +16,7 @@ public interface Column {
 	/**
 	 * @return the data type of this column
 	 */
-	String getDataType();
+	String dataType();
 
 	/**
 	 * @return the name of the column.
@@ -26,5 +26,5 @@ public interface Column {
 	/**
 	 * @return the size of this column
 	 */
-	int getSize();
+	int size();
 }

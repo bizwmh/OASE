@@ -35,21 +35,17 @@ public interface DataBase {
 	Table getTable(String aTable);
 
 	/**
-	 * Checks if a table exists for a given name.
-	 * 
-	 * @param aTable the unique name of the table
-	 * @return <code>true</code> if a table with the given name is defined
+	 * @return a new {@link SQLModify} backed by this database.
 	 */
-	boolean hasTable(String aTable);
+	SQLModify newModify();
 
 	/**
-	 * @return a new {@link SQLStatement} backed by this database.
+	 * @return a new {@link SQLQuery} backed by this database.
 	 */
-	SQLStatement sqlStatement();
+	SQLQuery newQuery();
 
 	/**
 	 * @return the list of names for the tables defined in this database
 	 */
 	List<String> tableNames();
-
 }

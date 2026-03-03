@@ -7,14 +7,20 @@
 package biz.oase.jdbc;
 
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
- * Represents the result of a <code>SQLModify</code> statement execution.
+ * Represents the result set of a SQLQuery statement execution.
  *
- * @version 2.0.0 03.03.2026 08:18:43
+ * @version 2.0.0 03.03.2026 08:16:16
  */
-public interface SQLResult {
+public interface SQLCursor extends Supplier<SQLResultData> {
 
+	/**
+	 * Releases all allocated resources.
+	 */
+	void dispose();
+	
 	/**
 	 * @return the execution time in milliseconds
 	 */
@@ -31,7 +37,9 @@ public interface SQLResult {
 	boolean isOK();
 
 	/**
-	 * @return the number of affected rows for DML statements, -1 otherwise
+	 * Moves to the next row in the result set.
+	 * 
+	 * @return <code>true</code> if end of result set not reached
 	 */
-	int updateCount();
+	 boolean next();
 }

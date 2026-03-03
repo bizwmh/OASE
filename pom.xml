@@ -14,21 +14,22 @@
 	<properties>
 		<maven.compiler.release>17</maven.compiler.release>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<target.deploy.xenv>C:/IDE/XENV/OASE/bundles</target.deploy.xenv>
+		<osgi.version>8.0.0</osgi.version>
+		<target.xenv.path>C:/IDE/XENV/OASE/bundles</target.xenv.path>
 	</properties>
-
+	
 	<modules>
-		<module>oase.car</module>
+		<module>oase.h2</module>
+		<module>oase.jdbc</module>
 		<module>oase.webconsole</module>
-		<module>oase.service</module>
 	</modules>
-
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.osgi</groupId>
 			<artifactId>osgi.core</artifactId>
-			<version>8.0.0</version>
-			<scope>provided</scope>
+            <version>${osgi.version}</version>
+            <scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>biz.car</groupId>

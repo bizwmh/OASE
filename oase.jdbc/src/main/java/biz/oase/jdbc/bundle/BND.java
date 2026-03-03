@@ -13,7 +13,7 @@ import biz.car.util.XField;
 import biz.oase.jdbc.core.DB;
 
 /**
- * Provides acces to a reference of the bundle context.
+ * Provides access to a reference of the bundle context.
  *
  * @version 2.0.0 01.03.2026 07:16:33
  */

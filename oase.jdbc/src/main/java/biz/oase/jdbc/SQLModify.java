@@ -11,11 +11,18 @@ import java.nio.file.Path;
 import biz.car.XRuntimeException;
 
 /**
- * Represents a SQL statement.
- *
+ * Represents a SQL statement for modifying the database tables.<br>
+ * The SQL should be one of the following
+ * <ul>
+ * <li>a SQL DDL statement (like CREATE TABLE)
+ * <li>a SQL DML statement (like INSERT)
+ * <li>a SQL DCL statement (like GRANT)
+ * </ul>
+ * For executing a SQL SELECT use <code>SQLQuery</code>.
+ * 
  * @version 2.0.0 02.03.2026 10:45:30
  */
-public interface SQLStatement {
+public interface SQLModify {
 
 	/**
 	 * Reads the SQL statement from the given file and executes it against the
