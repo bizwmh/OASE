@@ -6,6 +6,8 @@
 
 package biz.oase.jdbc.core;
 
+import java.sql.JDBCType;
+
 import biz.oase.jdbc.Column;
 
 /**
@@ -19,7 +21,7 @@ public class TableColumn implements Column {
 	public final DBTable table;
 
 	private int size;
-	private String type;
+	private JDBCType type;
 
 	/**
 	 * Creates a default <code>TableColumn</code> instance.
@@ -34,10 +36,8 @@ public class TableColumn implements Column {
 		table = aTable;
 	}
 
-	/**
-	 * @return the data type of this column
-	 */
-	public String dataType() {
+	@Override
+	public JDBCType dataType() {
 		return type;
 	}
 
@@ -56,7 +56,7 @@ public class TableColumn implements Column {
 	 * 
 	 * @param aType the string value for the data type
 	 */
-	void setDataType(String aType) {
+	void setDataType(JDBCType aType) {
 		type = aType;
 	}
 

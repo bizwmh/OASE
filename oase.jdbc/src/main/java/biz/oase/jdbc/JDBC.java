@@ -16,6 +16,7 @@ public interface JDBC {
 
 	String COLUMN_NAME = "COLUMN_NAME"; //$NON-NLS-1$
 	String COLUMN_SIZE = "COLUMN_SIZE"; //$NON-NLS-1$
+	String DATA_TYPE = "DATA_TYPE"; //$NON-NLS-1$
 	String TABLE = "TABLE"; //$NON-NLS-1$
 	String TABLE_NAME = "TABLE_NAME"; //$NON-NLS-1$
 	String TYPE_NAME = "TYPE_NAME"; //$NON-NLS-1$

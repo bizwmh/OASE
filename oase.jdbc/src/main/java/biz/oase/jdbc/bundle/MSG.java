@@ -16,8 +16,9 @@ import biz.car.config.ACS;
 public class MSG {
 
 
+	public static String CONNECTION_NOT_CLOSED;
 	public static String DSFACTORY_NOT_FOUND;
-	public static String SQL_FILE_EMPTY;
+	public static String SQL_STATEMENT_EMPTY;
 
 	// -------------------------------------------------------------------------
 	// Initialize the static fields

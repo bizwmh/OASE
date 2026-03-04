@@ -8,6 +8,7 @@ Bundle-Activator: biz.oase.jdbc.bundle.BND
 Import-Package: \
  biz.car, \
  biz.car.config, \
+ biz.car.util, \
  org.osgi.framework, \
  org.osgi.service.jdbc, \
  javax.sql, \

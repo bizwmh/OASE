@@ -6,6 +6,8 @@
 
 package biz.oase.jdbc;
 
+import java.sql.JDBCType;
+
 /**
  * Represents a column witnin a table.
  *
@@ -16,7 +18,7 @@ public interface Column {
 	/**
 	 * @return the data type of this column
 	 */
-	String dataType();
+	JDBCType dataType();
 
 	/**
 	 * @return the name of the column.

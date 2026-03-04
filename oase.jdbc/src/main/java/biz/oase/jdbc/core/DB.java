@@ -6,7 +6,6 @@
 
 package biz.oase.jdbc.core;
 
-import java.io.File;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -34,7 +33,8 @@ import biz.car.config.ACS;
 import biz.car.config.ConfigAdapter;
 import biz.oase.jdbc.DataBase;
 import biz.oase.jdbc.JDBC;
-import biz.oase.jdbc.SQLStatement;
+import biz.oase.jdbc.SQLModify;
+import biz.oase.jdbc.SQLQuery;
 import biz.oase.jdbc.Table;
 import biz.oase.jdbc.bundle.MSG;
 
@@ -113,13 +113,13 @@ public class DB extends ConfigAdapter implements DataBase, JDBC {
 	}
 
 	@Override
-	public boolean hasTable(String aTable) {
-		return getTableMap().containsKey(aTable);
+	public SQLModify newModify() {
+		return new Modify(this);
 	}
 
 	@Override
-	public SQLStatement sqlStatement() {
-		return new SQLExecutor(this);
+	public SQLQuery newQuery() {
+		return new Query(this);
 	}
 
 	@Override
