@@ -1,0 +1,32 @@
+# Basis-Informationen
+Bundle-SymbolicName: biz.oase.http
+Bundle-Version: ${project.version}
+Bundle-Name: ${project.name}
+Bundle-Description: ${project.description}
+Bundle-Copyright: Wolfgang Mueller-Haas
+
+# Embed OkHttp-Dependencies
+-includeresource: \
+    @okhttp-*.jar!/okhttp3/**, \
+    @okio-jvm-*.jar!/okio/**, \
+    @kotlin-stdlib-*.jar!/kotlin/**
+
+# Import-Regeln: Kotlin intern ignorieren (da eingebettet), Rest automatisch
+Import-Package: \
+    !kotlin.*, \
+    !org.jetbrains.annotations.*, \
+    android.*;resolution:=optional, \
+    dalvik.*;resolution:=optional, \
+ 	org.bouncycastle.*;resolution:=optional, \
+    org.conscrypt;resolution:=optional, \
+    org.openjsse.*;resolution:=optional, \
+    sun.*;resolution:=optional, \
+    *
+# Definiere, was dein Bundle nach außen anbietet
+Export-Package: \
+ biz.oase.http
+
+# meine privaten Packages
+Private-Package: \
+ biz.oase.http.core, \
+ okhttp3;-split-package:=first 
