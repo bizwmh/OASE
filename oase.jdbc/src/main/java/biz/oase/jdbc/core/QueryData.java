@@ -81,12 +81,6 @@ public class QueryData implements SQLQueryData {
 	}
 
 	@Override
-	public String getString(int aIndex) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public String getString(String aLabel) {
 		// TODO Auto-generated method stub
 		return null;

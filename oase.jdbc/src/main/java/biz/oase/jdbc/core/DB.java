@@ -36,6 +36,7 @@ import biz.oase.jdbc.JDBC;
 import biz.oase.jdbc.SQLModify;
 import biz.oase.jdbc.SQLQuery;
 import biz.oase.jdbc.Table;
+import biz.oase.jdbc.bundle.BND;
 import biz.oase.jdbc.bundle.MSG;
 
 /**
@@ -47,6 +48,10 @@ public class DB extends ConfigAdapter implements DataBase, JDBC {
 
 	private static BundleContext ctx; // injected by BND
 	private static String DRV_CLS = DataSourceFactory.OSGI_JDBC_DRIVER_CLASS;
+	
+	static {
+		ctx = BND.context;
+	}
 
 	private boolean autoCommit;
 	private long connectionTimeoutMs;

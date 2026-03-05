@@ -22,6 +22,8 @@
 		<module>oase.h2</module>
 		<module>oase.jdbc</module>
 		<module>oase.webconsole</module>
+		<module>oase.car</module>
+		<module>oase.http</module>
 	</modules>
 	
 	<dependencies>
