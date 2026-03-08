@@ -17,6 +17,7 @@ import biz.car.util.SFI;
 public class VAL {
 
 	public static String Bearer;
+	public static String body;
 	public static String DELETE;
 	public static String formParameter;
 	public static String GET;

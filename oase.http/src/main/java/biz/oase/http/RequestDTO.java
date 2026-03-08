@@ -21,6 +21,7 @@ import biz.oase.http.core.VAL;
  */
 public class RequestDTO {
 
+	public final String body;
 	public final Map<String, String> formParameter;
 	public final Map<String, String> header;
 	public final String method;
@@ -53,5 +54,6 @@ public class RequestDTO {
 		header = ToMap.apply(VAL.header);
 		queryParameter = ToMap.apply(VAL.queryParameter);
 		formParameter = ToMap.apply(VAL.formParameter);
+		body = conf.getString(VAL.body, null);
 	}
 }

@@ -55,6 +55,9 @@ public interface DTO2HTTP extends Supplier<RequestDTO> {
 				l_ret.formParameter(l_key, l_value);
 			});
 		}
+		if (l_dto.body != null) {
+			l_ret.body(l_dto.body);
+		}
 		return l_ret;
 	}
 }

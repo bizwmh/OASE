@@ -34,7 +34,7 @@ public interface HTTP_Response {
 	/**
 	 * @return true<code>true</code> if the HTTP request completed successfully
 	 * */ 
-	default boolean isSuccessful() {
+	default boolean isOK() {
       return httpCode() >= 200 && httpCode() < 300;
   }
 }
