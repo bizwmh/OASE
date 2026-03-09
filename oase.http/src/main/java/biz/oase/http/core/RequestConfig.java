@@ -4,7 +4,7 @@
  * Use of this software is subject to license terms. All Rights Reserved. 
  * -------------------------------------------------------------------------- */
 
-package biz.oase.http;
+package biz.oase.http.core;
 
 import java.util.Map;
 import java.util.function.Function;
@@ -12,14 +12,14 @@ import java.util.function.Function;
 import com.typesafe.config.Config;
 
 import biz.car.config.XConfig;
-import biz.oase.http.core.VAL;
+import biz.oase.http.HTTP_Request;
 
 /**
  * Defines the parameters for a HTTP request.
  *
  * @version 1.0.0 05.03.2026 07:43:12
  */
-public class RequestDTO {
+public class RequestConfig {
 
 	public final String body;
 	public final Map<String, String> formParameter;
@@ -40,11 +40,11 @@ public class RequestDTO {
 	};
 
 	/**
-	 * Creates a default <code>RequestDTO</code> instance.
+	 * Creates a <code>RequestConfig</code> instance.
 	 * 
 	 * @param aConfig the configuration to use for building the DTO.
 	 */
-	public RequestDTO(XConfig aConfig) {
+	public RequestConfig(XConfig aConfig) {
 		super();
 
 		conf = aConfig;
@@ -55,5 +55,49 @@ public class RequestDTO {
 		queryParameter = ToMap.apply(VAL.queryParameter);
 		formParameter = ToMap.apply(VAL.formParameter);
 		body = conf.getString(VAL.body, null);
+	}
+
+	/**
+	 * TODO newRequest
+	 * 
+	 * @return
+	 */
+	public HTTP_Request newRequest() {
+		RequestAdapter l_ret = new RequestAdapter();
+
+		l_ret.method(method);
+		String l_url = url;
+
+		if (resource != null) {
+			l_url = l_url + "/" + resource; //$NON-NLS-1$
+		}
+		l_ret.url(l_url);
+
+		if (header != null) {
+			header.entrySet().forEach(entry -> {
+				String l_key = entry.getKey();
+				String l_value = entry.getValue();
+
+				l_ret.header(l_key, l_value);
+			});
+		}
+		if (queryParameter != null) {
+			queryParameter.entrySet().forEach(entry -> {
+				String l_key = entry.getKey();
+				String l_value = entry.getValue();
+
+				l_ret.queryParameter(l_key, l_value);
+			});
+		}
+		if (formParameter != null) {
+			formParameter.entrySet().forEach(entry -> {
+				String l_key = entry.getKey();
+				String l_value = entry.getValue();
+
+				l_ret.formParameter(l_key, l_value);
+			});
+		}
+		// TODO body
+		return l_ret;
 	}
 }

@@ -7,8 +7,9 @@
 package biz.oase.http;
 
 import biz.car.CAR;
-import biz.oase.http.core.DTO2HTTP;
+import biz.car.config.XConfig;
 import biz.oase.http.core.RequestAdapter;
+import biz.oase.http.core.RequestConfig;
 
 /**
  * HTTP Bundle Constants
@@ -64,10 +65,10 @@ public interface HTTP {
 	/**
 	 * Request built based on the request DTO.
 	 */
-	static HTTP_Request REQUEST(RequestDTO aDTO) {
-		DTO2HTTP l_builder = () -> aDTO;
-		HTTP_Request l_ret = l_builder.newRequest();
-		
+	static HTTP_Request REQUEST(XConfig aConfig) {
+		RequestConfig l_rc = new RequestConfig(aConfig);
+		HTTP_Request l_ret = l_rc.newRequest();
+
 		return l_ret;
 	}
 }
