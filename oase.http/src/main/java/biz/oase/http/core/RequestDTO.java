@@ -6,12 +6,6 @@
 
 package biz.oase.http.core;
 
-import java.util.Map;
-import java.util.function.Function;
-
-import com.typesafe.config.Config;
-
-import biz.car.config.XConfig;
 import biz.oase.http.HTTP_Request;
 import biz.oase.http.HTTP_RequestDTO;
 
