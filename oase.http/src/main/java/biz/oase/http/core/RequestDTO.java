@@ -17,9 +17,9 @@ import biz.oase.http.HTTP_Request;
 /**
  * Defines the parameters for a HTTP request.
  *
- * @version 1.0.0 05.03.2026 07:43:12
+ * @version 2.0.0 05.03.2026 07:43:12
  */
-public class RequestConfig {
+public class RequestDTO {
 
 	public final String body;
 	public final Map<String, String> formParameter;
@@ -40,11 +40,11 @@ public class RequestConfig {
 	};
 
 	/**
-	 * Creates a <code>RequestConfig</code> instance.
+	 * Creates a <code>RequestDTO</code> instance.
 	 * 
 	 * @param aConfig the configuration to use for building the DTO.
 	 */
-	public RequestConfig(XConfig aConfig) {
+	public RequestDTO(XConfig aConfig) {
 		super();
 
 		conf = aConfig;
@@ -58,9 +58,8 @@ public class RequestConfig {
 	}
 
 	/**
-	 * TODO newRequest
-	 * 
-	 * @return
+	 * @return the new HTTP_Request based on the underlying request runtime
+	 *         parameters
 	 */
 	public HTTP_Request newRequest() {
 		RequestAdapter l_ret = new RequestAdapter();

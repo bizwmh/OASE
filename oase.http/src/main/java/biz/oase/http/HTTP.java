@@ -7,14 +7,13 @@
 package biz.oase.http;
 
 import biz.car.CAR;
-import biz.car.config.XConfig;
 import biz.oase.http.core.RequestAdapter;
-import biz.oase.http.core.RequestConfig;
+import biz.oase.http.core.RequestDTO;
 
 /**
  * HTTP Bundle Constants
  *
- * @version 1.0.0 12.02.2026 14:14:57
+ * @version 2.0.0 12.02.2026 14:14:57
  */
 public interface HTTP {
 	/**
@@ -65,8 +64,8 @@ public interface HTTP {
 	/**
 	 * Request built based on the request DTO.
 	 */
-	static HTTP_Request REQUEST(XConfig aConfig) {
-		RequestConfig l_rc = new RequestConfig(aConfig);
+	static HTTP_Request REQUEST(HTTP_RequestDTO aDTO) {
+		RequestDTO l_rc = new RequestDTO(aDTO);
 		HTTP_Request l_ret = l_rc.newRequest();
 
 		return l_ret;
