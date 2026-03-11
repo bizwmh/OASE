@@ -65,8 +65,7 @@ public interface HTTP {
 	 * Request built based on the request DTO.
 	 */
 	static HTTP_Request REQUEST(HTTP_RequestDTO aDTO) {
-		RequestDTO l_rc = new RequestDTO(aDTO);
-		HTTP_Request l_ret = l_rc.newRequest();
+		HTTP_Request l_ret = RequestDTO.newRequest(aDTO);
 
 		return l_ret;
 	}
