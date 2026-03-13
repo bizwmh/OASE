@@ -55,8 +55,9 @@ public interface RequestDTO {
 				l_ret.formParameter(l_key, l_value);
 			});
 		}
-		l_ret.body(aDTO.body);
-		
+		if (aDTO.body != null) {
+			l_ret.body(aDTO.body);
+		}
 		return l_ret;
 	}
 }

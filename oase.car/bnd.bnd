@@ -3,6 +3,7 @@ Bundle-Version: ${project.version}
 Bundle-Name: ${project.name}
 Bundle-Description: ${project.description}
 Bundle-Copyright: Wolfgang Mueller-Haas
+Bundle-Activator: biz.oase.car.bundle.Activator
 
 Export-Package: \
  biz.oase.car
