@@ -14,16 +14,16 @@ import org.osgi.service.component.ComponentContext;
 import com.typesafe.config.Config;
 
 import biz.car.XRuntimeException;
-import biz.car.config.ConfigAdapter;
+import biz.car.config.CConfig;
 import biz.car.config.XConfig;
 import biz.oase.car.bundle.MSG;
 
 /**
  * Convenience class for a component managed by the Service Component Runtime.
  *
- * @version 2.0.0 14.01.2026 10:32:30
+ * @version 2.0.0 18.03.2026 16:04:34
  */
-public abstract class XComponent extends ConfigAdapter {
+public abstract class XComponent extends CConfig {
 
 	private BundleContext bctx;
 
@@ -33,7 +33,7 @@ public abstract class XComponent extends ConfigAdapter {
 	public XComponent() {
 		super();
 	}
-	
+
 	/**
 	 * Activates this component.
 	 * 

@@ -53,8 +53,16 @@ public class HTTP_RequestDTO {
 
 		if (aConfig.hasConfig(aKey)) {
 			Config l_conf = aConfig.config().getConfig(aKey);
-
 			l_ret = XConfig.toStringMap(l_conf);
+			
+			for (String l_key : l_ret.keySet()) {
+				if (l_key.startsWith("\"")) { //$NON-NLS-1$
+					String l_value = l_ret.remove(l_key);
+					l_key = l_key.replaceAll("^\"|\"$", ""); //$NON-NLS-1$ //$NON-NLS-2$
+					
+					l_ret.put(l_key, l_value);
+				}
+			}
 		}
 		return l_ret;
 	}

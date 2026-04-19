@@ -12,16 +12,16 @@ import java.util.Dictionary;
 import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
 
-import biz.car.config.ConfigAdapter;
+import biz.car.config.CConfig;
 import biz.car.config.XConfig;
 
 /**
  * Base class for implementing an OSGi <code>ManagedService</code>.
  * 
- * @version 2.0.0 14.01.2026 19:35:51
+ * @version 2.0.0 18.03.2026 16:05:18
  */
 public abstract class XManagedService
-	extends ConfigAdapter
+	extends CConfig
 	implements ManagedService {
 
 	/**

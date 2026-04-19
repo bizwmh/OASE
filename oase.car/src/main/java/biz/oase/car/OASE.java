@@ -9,6 +9,7 @@ package biz.oase.car;
 
 import biz.car.CAR;
 import biz.oase.car.bundle.Activator;
+import biz.oase.car.bundle.VAR;
 
 /**
  * OASE Framework Constants.
@@ -19,4 +20,5 @@ public interface OASE extends CAR {
 	
 	String CONFIG_AREA = Activator.CONFIG_AREA;
 	String DATA_AREA = Activator.DATA_AREA;
+	String GROUP = VAR.GROUP;
 }

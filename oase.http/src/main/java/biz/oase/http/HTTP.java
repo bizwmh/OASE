@@ -6,7 +6,7 @@
 
 package biz.oase.http;
 
-import biz.car.CAR;
+import biz.oase.car.OASE;
 import biz.oase.http.core.RequestAdapter;
 import biz.oase.http.core.RequestDTO;
 
@@ -19,12 +19,12 @@ public interface HTTP {
 	/**
 	 * Indicates a failed execution of a HTTP request.
 	 */
-	String KO = CAR.KO;
+	String KO = OASE.KO;
 
 	/**
 	 * Indicates a successful execution of a HTTP request.
 	 */
-	String OK = CAR.OK;
+	String OK = OASE.OK;
 
 	/**
 	 * Request using the HTTP DELETE method.

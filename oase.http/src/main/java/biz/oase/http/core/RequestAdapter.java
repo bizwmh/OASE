@@ -1,5 +1,6 @@
 /* --------------------------------------------------------------------------
- * Project: CAR HTTP Client
+ * Project: Open Application Service Engine
+ * 			CAR HTTP Client
  * --------------------------------------------------------------------------
  * Use of this software is subject to license terms. All Rights Reserved. 
  * -------------------------------------------------------------------------- */

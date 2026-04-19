@@ -4,6 +4,7 @@ Bundle-Version: ${project.version}
 Bundle-Name: ${project.name}
 Bundle-Description: ${project.description}
 Bundle-Copyright: Wolfgang Mueller-Haas
+Bundle-Activator: biz.oase.http.bundle.HttpActivator
 
 # Embed OkHttp-Dependencies
 -includeresource: \
@@ -28,5 +29,6 @@ Export-Package: \
 
 # meine privaten Packages
 Private-Package: \
+ biz.oase.http.bundle, \
  biz.oase.http.core, \
  okhttp3;-split-package:=first 
