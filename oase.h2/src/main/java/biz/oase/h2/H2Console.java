@@ -139,6 +139,9 @@ public class H2Console {
         if (!config.openBrowser()) {
             args.add("-webDaemon"); //$NON-NLS-1$
         }      
+        args.add("-baseDir"); //$NON-NLS-1$
+        args.add(System.getProperty("user.dir")); //$NON-NLS-1$
+        
         return args.toArray(new String[0]);
     }
     
