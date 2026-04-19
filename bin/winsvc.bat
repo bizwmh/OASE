@@ -39,7 +39,6 @@ setlocal
 
 set "SELF=%~dp0%winsvc.bat"
 set SERVICE_NAME=%DEFAULT_SERVICE_NAME%
-
 set "CURRENT_DIR=%cd%"
 
 rem Parse the arguments
@@ -69,7 +68,6 @@ exit /b 0
 
 rem Check the environment
 :checkEnv
-
 rem Guess OASE_HOME if not defined
 if not "%OASE_HOME%" == "" goto gotHome
 set "OASE_HOME=%cd%"
@@ -78,6 +76,7 @@ if exist "%OASE_HOME%\bin\%SERVICE_NAME%.exe" goto gotHome
 rem CD to the upper dir
 cd ..
 set "OASE_HOME=%cd%"
+
 :gotHome
 if exist "%OASE_HOME%\bin\%DEFAULT_SERVICE_NAME%.exe" (
     set "EXECUTABLE=%OASE_HOME%\bin\%DEFAULT_SERVICE_NAME%.exe"
@@ -97,6 +96,7 @@ echo the incorrect service name has been used.
 echo Both the OASE_HOME environment variable and the correct service name
 echo are required to run this program.
 exit /b 1
+
 :okHome
 cd "%CURRENT_DIR%"
 
@@ -106,9 +106,11 @@ if not "%JRE_HOME%" == "" goto gotJreHome
 echo Neither the JAVA_HOME nor the JRE_HOME environment variable is defined
 echo Service will try to guess them from the registry.
 goto okJavaHome
+
 :gotJreHome
 if not exist "%JRE_HOME%\bin\java.exe" goto noJavaHome
 goto okJavaHome
+
 :gotJdkHome
 if not exist "%JAVA_HOME%\bin\javac.exe" goto noJavaHome
 rem Java 9 has a different directory structure
@@ -117,20 +119,23 @@ if not exist "%JAVA_HOME%\bin\java.exe" goto noJavaHome
 if not "%JRE_HOME%" == "" goto okJavaHome
 set "JRE_HOME=%JAVA_HOME%"
 goto okJavaHome
+
 :preJava9Layout
 if not "%JRE_HOME%" == "" goto okJavaHome
 set "JRE_HOME=%JAVA_HOME%\jre"
 goto okJavaHome
+
 :noJavaHome
 echo The JAVA_HOME environment variable is not defined correctly
 echo This environment variable is needed to run this program
 echo NB: JAVA_HOME should point to a JDK not a JRE
 exit /b 1
+
 :okJavaHome
 if not "%OASE_BASE%" == "" goto gotBase
 set "OASE_BASE=%OASE_HOME%"
-:gotBase
 
+:gotBase
 rem Java 9 no longer supports the java.endorsed.dirs
 rem system property. Only try to use it if
 rem JAVA_ENDORSED_DIRS was explicitly set
@@ -139,16 +144,18 @@ set ENDORSED_PROP=ignore.endorsed.dirs
 if "%JAVA_ENDORSED_DIRS%" == "" goto noEndorsedVar
 set ENDORSED_PROP=java.endorsed.dirs
 goto doneEndorsed
+
 :noEndorsedVar
 if not exist "%OASE_HOME%\endorsed" goto doneEndorsed
 set ENDORSED_PROP=java.endorsed.dirs
-:doneEndorsed
 
+:doneEndorsed
 rem Process the requested command
 if /i %SERVICE_CMD% == install goto doInstall
 if /i %SERVICE_CMD% == remove goto doRemove
 if /i %SERVICE_CMD% == uninstall goto doRemove
 echo Unknown parameter "%SERVICE_CMD%"
+
 :displayUsage
 echo.
 echo Usage: service.bat install/remove [service_name [--rename]] [--user username]
@@ -164,11 +171,12 @@ echo Using OASE_BASE:      "%OASE_BASE%"
 if not errorlevel 1 goto removed
 echo Failed removing '%SERVICE_NAME%' service
 exit /b 1
+
 :removed
 echo The service '%SERVICE_NAME%' has been removed
 if exist "%OASE_HOME%\bin\%SERVICE_NAME%.exe" (
-    rename "%SERVICE_NAME%.exe" "%DEFAULT_SERVICE_NAME%.exe"
-    rename "%SERVICE_NAME%w.exe" "%DEFAULT_SERVICE_NAME%w.exe"
+    rename "%OASE_HOME%\bin\%SERVICE_NAME%.exe" "%DEFAULT_SERVICE_NAME%.exe"
+    rename "%OASE_HOME%\bin\%SERVICE_NAME%w.exe" "%DEFAULT_SERVICE_NAME%w.exe"
 )
 exit /b 0
 
@@ -188,6 +196,7 @@ set "JVM=%JRE_HOME%\bin\client\jvm.dll"
 if exist "%JVM%" goto foundJvm
 echo Warning: Neither 'server' nor 'client' jvm.dll was found at JRE_HOME.
 set JVM=auto
+
 :foundJvm
 echo Using JVM:             "%JVM%"
 
@@ -204,8 +213,8 @@ if exist "%OASE_HOME%\bin\%DEFAULT_SERVICE_NAME%.exe" (
 )
 
 "%EXECUTABLE%" //IS//%SERVICE_NAME% ^
-    --Description "Open Application Service Engine" ^
-    --DisplayName "OASE" ^
+    --Description "%SERVICE_DESCRIPTION%" ^
+    --DisplayName "%SERVICE_NAME%" ^
     --Install "%EXECUTABLE%" ^
     --LogPath "%OASE_HOME%\log" ^
     --StdOutput auto ^
@@ -220,13 +229,15 @@ if exist "%OASE_HOME%\bin\%DEFAULT_SERVICE_NAME%.exe" (
     --StopClass biz.car.osgi.Main ^
     --StartMethod main ^
     --StopMethod stop ^
-    --JvmOptions "%JvmArgs%" ^
+    --JvmOptions "%JAVA_OPTS%" ^
     --Startup "%SERVICE_STARTUP_MODE%" ^
     --JvmMs "%JvmMs%" ^
     --JvmMx "%JvmMx%"
+
 if not errorlevel 1 goto installed
 echo Failed installing '%SERVICE_NAME%' service
 exit /b 1
+
 :installed
 echo The service '%SERVICE_NAME%' has been installed.
 exit /b 0
