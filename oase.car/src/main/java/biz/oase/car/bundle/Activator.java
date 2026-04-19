@@ -36,7 +36,7 @@ public class Activator implements BundleActivator {
 	public void start(BundleContext aContext) throws Exception {
 
 		CONFIG_AREA = aContext.getProperty(VAL.framework_configuration_area);
-		DATA_AREA = aContext.getProperty(VAL.framework_data_area);
+		DATA_AREA = aContext.getProperty(VAL.osgi_instance_area);
 
 		ClassUtil.Registry.register(OASE.DUMMY, Dummy.class);
 	}
