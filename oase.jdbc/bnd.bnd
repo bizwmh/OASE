@@ -19,7 +19,7 @@ Export-Package: \
 Private-Package: \
  biz.oase.jdbc.bundle, \
  biz.oase.jdbc.core, \
- com.zaxxer.hikari
+ com.zaxxer.hikari;-split-package:=first
   
 DynamicImport-Package: *
 

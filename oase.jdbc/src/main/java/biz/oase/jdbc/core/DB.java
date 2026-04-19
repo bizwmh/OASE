@@ -30,7 +30,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import biz.car.SYS;
 import biz.car.XRuntimeException;
 import biz.car.config.ACS;
-import biz.car.config.ConfigAdapter;
+import biz.car.config.CConfig;
 import biz.oase.jdbc.DataBase;
 import biz.oase.jdbc.JDBC;
 import biz.oase.jdbc.SQLModify;
@@ -44,11 +44,11 @@ import biz.oase.jdbc.bundle.MSG;
  *
  * @version 2.0.0 27.02.2026 16:07:01
  */
-public class DB extends ConfigAdapter implements DataBase, JDBC {
+public class DB extends CConfig implements DataBase, JDBC {
 
 	private static BundleContext ctx; // injected by BND
 	private static String DRV_CLS = DataSourceFactory.OSGI_JDBC_DRIVER_CLASS;
-	
+
 	static {
 		ctx = BND.context;
 	}
@@ -130,8 +130,8 @@ public class DB extends ConfigAdapter implements DataBase, JDBC {
 	@Override
 	public List<String> tableNames() {
 		return getTableMap().keySet()
-				.stream()
-				.toList();
+			.stream()
+			.toList();
 	}
 
 	@SuppressWarnings("nls")
@@ -153,10 +153,10 @@ public class DB extends ConfigAdapter implements DataBase, JDBC {
 			try (Connection l_conn = getDataSource().getConnection()) {
 				DatabaseMetaData l_meta = l_conn.getMetaData();
 				ResultSet l_rs = l_meta.getTables(
-						null, // catalog (null = all)
-						schema, // schema (null = all, z.B. "PUBLIC" für H2)
-						"%", // tablename-pattern (% = all) //$NON-NLS-1$
-						new String[] { TABLE } // no VIEW, SYSTEM TABLE etc.
+					null, // catalog (null = all)
+					schema, // schema (null = all, z.B. "PUBLIC" für H2)
+					"%", // tablename-pattern (% = all) //$NON-NLS-1$
+					new String[] { TABLE } // no VIEW, SYSTEM TABLE etc.
 				);
 				while (l_rs.next()) {
 					String l_tableName = l_rs.getString(TABLE_NAME);
