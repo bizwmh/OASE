@@ -1,0 +1,22 @@
+Bundle-SymbolicName: biz.oase.js
+Bundle-Version: ${project.version}
+Bundle-Name: ${project.name}
+Bundle-Description: ${project.description}
+Bundle-Copyright: Wolfgang Mueller-Haas
+
+Import-Package: \
+ biz.car, \
+ biz.car.io, \
+ biz.car.config, \
+ biz.car.util, \
+ biz.oase.car, \
+ com.typesafe.config
+
+Export-Package: \
+ biz.oase.js
+ 
+Private-Package: \
+ biz.oase.js.bundle, \
+ biz.oase.js.bundle.gogo, \
+ biz.oase.js.core, \
+ biz.oase.js.inbox
