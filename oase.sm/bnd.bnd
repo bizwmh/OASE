@@ -1,0 +1,26 @@
+Bundle-SymbolicName: biz.oase.sm
+Bundle-Version: ${project.version}
+Bundle-Name: ${project.name}
+Bundle-Description: ${project.description}
+Bundle-Copyright: Wolfgang Mueller-Haas
+Bundle-Activator: biz.oase.sm.bundle.SMActivator
+
+Export-Package: \
+ biz.oase.sm
+ 
+Import-Package: \
+ biz.car, \
+ biz.car.config, \
+ biz.car.csv, \
+ biz.car.io, \
+ biz.car.util, \
+ biz.oase.car, \
+ com.typesafe.config, \
+ org.osgi.framework
+ 
+Private-Package: \
+ biz.oase.sm.bundle, \
+ biz.oase.sm.core, \
+ biz.oase.sm.core.context, \
+ biz.oase.sm.merge, \
+ biz.oase.sm.sort
