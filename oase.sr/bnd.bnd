@@ -1,0 +1,20 @@
+Bundle-SymbolicName: biz.oase.sr
+Bundle-Version: ${project.version}
+Bundle-Name: ${project.name}
+Bundle-Description: ${project.description}
+Bundle-Copyright: Wolfgang Mueller-Haas
+Bundle-Activator: biz.oase.sr.bundle.SRActivator
+
+Export-Package: \
+ biz.oase.sr
+ 
+Import-Package: \
+ biz.car.config, \
+ biz.car.csv, \
+ biz.car.util, \
+ biz.oase.car, \
+ biz.oase.sm, \
+ org.osgi.framework
+ 
+Private-Package: \
+ biz.oase.sr.bundle
