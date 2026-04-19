@@ -17,7 +17,7 @@ import biz.car.util.SFI;
 public class VAL {
 
 	public static String framework_configuration_area;
-	public static String framework_data_area;
+	public static String osgi_instance_area;
 
 	// -------------------------------------------------------------------------
 	// Initialize the static fields
