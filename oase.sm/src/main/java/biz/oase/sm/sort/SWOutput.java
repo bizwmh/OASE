@@ -9,6 +9,7 @@ package biz.oase.sm.sort;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.util.function.Consumer;
 
 import biz.car.csv.CSVRecord;
@@ -72,7 +73,8 @@ public class SWOutput
 		try {
 			String l_prefix = ctx.getName() + "_"; //$NON-NLS-1$
 			String l_suffix = OASE._csv;
-			File l_outdir = new File(OASE.DATA_AREA);
+			URI l_uri = new URI(OASE.DATA_AREA);
+			File l_outdir = new File(l_uri);
 			File l_ret = File.createTempFile(l_prefix, l_suffix, l_outdir);
 
 			return l_ret;

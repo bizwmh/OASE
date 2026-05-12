@@ -5,12 +5,9 @@
  * Use of this software is subject to license terms. All Rights Reserved. 
  * -------------------------------------------------------------------------- */
 
-package biz.oase.sm.core;
+package biz.oase.sm;
 
 import biz.car.csv.CSVRecord;
-import biz.oase.sm.SM;
-import biz.oase.sm.SMInput;
-import biz.oase.sm.SMOutput;
 
 /**
  * This consumer writes the current CSV record from the input channel to the

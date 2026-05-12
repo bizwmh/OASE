@@ -124,6 +124,8 @@ public class Merger extends Procedure {
 			l_ret.setProcedureGroup(procedureGroup, clMgr);
 			l_ret.setInputGroup(aGroup);
 			l_ret.setNextController(l_next);
+			
+			l_next = l_ret;
 		}
 		return l_ret;
 	}

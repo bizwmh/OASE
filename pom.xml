@@ -19,20 +19,17 @@
 	</properties>
 	
 	<modules>
-		<module>oase.h2</module>
-		<module>oase.jdbc</module>
-		<module>oase.webconsole</module>
 		<module>oase.car</module>
+		<module>oase.h2</module>
 		<module>oase.http</module>
+		<module>oase.jdbc</module>
+		<module>oase.js</module>
+		<module>oase.sm</module>
+		<module>oase.sr</module>
+		<module>oase.webconsole</module>
 	</modules>
 	
 	<dependencies>
-		<dependency>
-			<groupId>org.osgi</groupId>
-			<artifactId>osgi.core</artifactId>
-            <version>${osgi.version}</version>
-            <scope>provided</scope>
-		</dependency>
 		<dependency>
 			<groupId>biz.car</groupId>
 			<artifactId>car</artifactId>
@@ -44,6 +41,12 @@
 			<artifactId>config</artifactId>
 			<version>1.4.3</version>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>osgi.core</artifactId>
+            <version>${osgi.version}</version>
+            <scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>

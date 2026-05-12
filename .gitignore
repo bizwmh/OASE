@@ -11,3 +11,4 @@ exec/inbox
 exec/lib/job
 exec/lib/step
 exec/outbox
+/.claude/

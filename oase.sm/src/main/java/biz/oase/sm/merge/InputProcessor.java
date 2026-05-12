@@ -17,10 +17,10 @@ import biz.car.csv.CSVRecord;
 import biz.oase.sm.SM;
 import biz.oase.sm.SMClient;
 import biz.oase.sm.SMInput;
+import biz.oase.sm.WriteToOut;
 import biz.oase.sm.bundle.MSG;
 import biz.oase.sm.core.Group;
 import biz.oase.sm.core.Input;
-import biz.oase.sm.core.WriteToOut;
 import biz.oase.sm.core.context.ProcedureContext;
 
 /**
