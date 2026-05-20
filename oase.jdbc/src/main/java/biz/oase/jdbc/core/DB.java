@@ -27,7 +27,6 @@ import com.typesafe.config.Config;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
-import biz.car.SYS;
 import biz.car.XRuntimeException;
 import biz.car.config.ACS;
 import biz.car.config.CConfig;
@@ -102,7 +101,7 @@ public class DB extends CConfig implements DataBase, JDBC {
 		} catch (XRuntimeException anEx) {
 			throw anEx;
 		} catch (Exception anEx) {
-			throw SYS.LOG.exception(anEx);
+			throw exception(anEx);
 		}
 
 	}
@@ -140,7 +139,7 @@ public class DB extends CConfig implements DataBase, JDBC {
 		String l_filter = "(" + DRV_CLS + "=" + driverClass + ")";
 		l_refs = ctx.getServiceReferences(DataSourceFactory.class, l_filter);
 		if (l_refs == null || l_refs.isEmpty()) {
-			throw SYS.LOG.exception(MSG.DSFACTORY_NOT_FOUND, driverClass);
+			throw exception(MSG.DSFACTORY_NOT_FOUND, driverClass);
 		}
 		DataSourceFactory l_ret = ctx.getService(l_refs.iterator().next());
 
@@ -165,7 +164,7 @@ public class DB extends CConfig implements DataBase, JDBC {
 					tableMap.put(l_tableName, l_table);
 				}
 			} catch (SQLException anEx) {
-				throw SYS.LOG.exception(anEx);
+				throw exception(anEx);
 			}
 		}
 		return tableMap;
